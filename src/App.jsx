@@ -318,13 +318,16 @@ export default function App() {
             </div>
           </div>
 
-          {/* 오른쪽: 테라코타 인용 카드 */}
-          <div className="bg-accent rounded-2xl p-10 flex items-center">
-            <p className="text-white text-2xl leading-[1.45]" style={{ fontFamily: "'Nanum Myeongjo', serif" }}>
-              {t.quote_card.map((line, i) => (
-                <React.Fragment key={i}>{line}{i < t.quote_card.length - 1 && <br />}</React.Fragment>
-              ))}
-            </p>
+          {/* 오른쪽: 영상 */}
+          <div className="rounded-2xl overflow-hidden">
+            <video
+              src={`${import.meta.env.BASE_URL}0522.mp4`}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover min-h-[300px]"
+            />
           </div>
         </div>
       </section>
