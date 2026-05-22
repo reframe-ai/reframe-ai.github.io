@@ -379,23 +379,22 @@ export default function App() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
 
           {/* 왼쪽: 학력 및 자격 카드 */}
-          <div className="bg-white rounded-2xl p-8 border border-main/8 shadow-sm">
+          <div className="bg-[#2A2825] rounded-2xl p-10">
             <h3 className="text-accent font-bold text-sm mb-6 flex items-center gap-2">
               {t.about_title}
             </h3>
             <div className="mb-5">
-              <p className="font-bold text-main text-lg leading-tight">{t.univ}</p>
-              <p className="text-sub text-sm mt-0.5">{t.univ_sub}</p>
-              <p className="text-sub text-sm mt-1">{t.thesis}</p>
+              <p className="font-bold text-white text-lg leading-tight">{t.univ}</p>
+              <p className="text-white/50 text-sm mt-0.5">{t.univ_sub}</p>
+              <p className="text-white/40 text-sm mt-1">{t.thesis}</p>
             </div>
-            <div className="mb-5">
-              <p className="text-sub text-sm leading-relaxed">{t.bg1}</p>
+            <div className="mb-6">
+              <p className="text-white/50 text-sm leading-relaxed">{t.bg1}</p>
             </div>
-            <div className="flex flex-wrap gap-4 mb-6 text-sm text-sub">
+            <div className="flex flex-wrap gap-4 mb-6 text-sm text-white/60">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
             </div>
             <div>
-              <p className="text-xs font-semibold text-sub/70 mb-3 uppercase tracking-wider">Activity Tags</p>
               <div className="flex flex-wrap gap-2">
                 {t.tags.map(tag => (
                   <span key={tag} className="border border-accent/40 text-accent text-xs px-3 py-1 rounded-full">
