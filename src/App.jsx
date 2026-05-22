@@ -495,12 +495,12 @@ export default function App() {
             <div>
               <h2 className="text-3xl font-bold text-white mb-3 leading-snug">
                 {lang === 'ko' ? (
-                  <>함께 Re:<span className="text-accent">Frame</span><br />합니다.</>
+                  <>함께 Re:<span className="text-accent">Frame</span></>
                 ) : (
-                  <>Let's Re:<span className="text-accent">Frame</span><br />together.</>
+                  <>Let's Re:<span className="text-accent">Frame</span></>
                 )}
               </h2>
-              <p className="text-[#888] text-sm mt-2">{t.footer_sub}</p>
+              <p className="text-[#888] text-lg mt-3">{t.footer_sub}</p>
             </div>
             <div className="space-y-4">
               <a
