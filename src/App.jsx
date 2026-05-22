@@ -14,13 +14,12 @@ const T = {
     cta2: '프로필 보기',
     cta3: '오늘의 AI',
     about_title: '🎓 학력 및 자격',
-    bg1: '음악학 학사 · 필름스코어링 전공',
-    bg2: '라디오·영상 분야 기획·촬영·제작 15년',
+    bg1: '음악학 학사 · 필름스코어링 전공 · 라디오·영상 기획·촬영·제작 실무 15년',
     univ: '전북대학교 교육대학원',
     univ_sub: '평생교육 및 HRD 전공 (석사)',
     thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
     certs: ['📜 AICE Basic (KT)', '📜 평생교육사 2급', '📜 NCS 강사', '📜 디지털 튜터'],
-    tags: ['AI활용 입문', 'AI활용 심화', 'AI크리에이터', '바이브 코딩'],
+    tags: ['AI 입문', 'AI 심화', '바이브 코딩', 'AI 리터러시', 'AI 크리에이터'],
     quote_card: ['도구를 익히고,', 'AI와 함께 생각하는 힘을', '키웁니다.', '사용하는 것이 시작이라면,', '협업은 완성입니다.'],
     edu_title: '맞춤형 AI 활용 교육 과정',
     edu_sub: '대상과 목적에 맞는 단계별 AI 교육',
@@ -61,13 +60,12 @@ const T = {
     cta2: 'View Profile',
     cta3: 'AI Today',
     about_title: '🎓 Education & Credentials',
-    bg1: 'B.A. in Music · Film Scoring',
-    bg2: '15 years in radio & video — planning, filming, production',
+    bg1: 'B.A. in Music · Film Scoring · 15 years in radio & video production',
     univ: 'Jeonbuk National University Graduate School of Education',
     univ_sub: 'Lifelong Education & HRD (M.Ed.)',
     thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
     certs: ['📜 AICE Basic (KT)', '📜 Lifelong Educator Lv.2', '📜 NCS Instructor', '📜 Digital Tutor'],
-    tags: ['AI Basics', 'AI Advanced', 'AI Creator', 'Vibe Coding'],
+    tags: ['AI Basics', 'AI Advanced', 'Vibe Coding', 'AI Literacy', 'AI Creator'],
     quote_card: ['Learn the tools,', 'build the thinking', 'to collaborate with AI.', 'If using it is the start,', 'collaboration is the finish.'],
     edu_title: 'Tailored AI Education Programs',
     edu_sub: 'Step-by-step AI education for every goal and audience',
@@ -390,9 +388,8 @@ export default function App() {
               <p className="text-sub text-sm mt-0.5">{t.univ_sub}</p>
               <p className="text-sub text-sm mt-1">{t.thesis}</p>
             </div>
-            <div className="bg-bg_cream rounded-xl p-4 mb-6">
-              <p className="text-xs font-bold text-accent mb-2 tracking-wider">{lang === 'ko' ? '크리에이터 경력' : 'CREATOR CAREER'}</p>
-              <p className="text-sm text-main leading-relaxed">{t.bg1} / {t.bg2}</p>
+            <div className="mb-5">
+              <p className="text-sub text-sm leading-relaxed">{t.bg1}</p>
             </div>
             <div className="flex flex-wrap gap-4 mb-6 text-sm text-sub">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
