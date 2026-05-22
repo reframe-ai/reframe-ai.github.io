@@ -562,23 +562,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── 인용 (QUOTE) ─────────────────────────────────────── */}
-      <section className="py-20 px-6 bg-bg_cream">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl p-10 text-center border border-main/5 shadow-sm">
-            <div className="text-4xl mb-6">💭</div>
-            <h3 className="text-2xl font-bold text-main mb-6">{t.q_title}</h3>
-            <p className="text-sub leading-relaxed mb-6">
-              {t.q_body.split('\n').map((line, i) => (
-                <React.Fragment key={i}>{line}{i < 2 && <br />}</React.Fragment>
-              ))}
-            </p>
-            <p className="text-accent italic font-medium mb-3">{t.q_quote}</p>
-            <p className="text-main font-bold">{t.q_name}</p>
-          </div>
-        </div>
-      </section>
-
       {/* ── CONTACT / FOOTER ─────────────────────────────────── */}
       <footer id="contact" className="bg-bg_dark py-20 px-6">
         <div className="max-w-6xl mx-auto">
