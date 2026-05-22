@@ -384,14 +384,14 @@ export default function App() {
               {t.about_title}
             </span>
             <div className="mb-5">
-              <p className="font-bold text-white text-lg leading-tight">{t.univ}</p>
-              <p className="text-white/60 text-sm mt-0.5">{t.univ_sub}</p>
-              <p className="text-white/40 text-sm mt-1 italic">{t.thesis}</p>
+              <p className="font-bold text-white text-xl leading-tight">{t.univ}</p>
+              <p className="text-white/80 text-base mt-1">{t.univ_sub}</p>
+              <p className="text-[#AAA] text-sm mt-1.5">{t.thesis}</p>
             </div>
             <div className="mb-6">
-              <p className="text-white/60 text-sm leading-relaxed">{t.bg1}</p>
+              <p className="text-white/80 text-base leading-relaxed">{t.bg1}</p>
             </div>
-            <div className="flex flex-wrap gap-4 mb-6 text-sm text-white/70">
+            <div className="flex flex-wrap gap-4 mb-6 text-base text-white/80">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
             </div>
             <div>
