@@ -174,7 +174,7 @@ function NetworkCanvas() {
 }
 
 // ── 히어로 애니메이션 태그 ─────────────────────────────────────
-const WORDS = ['AI 교육', 'Creative', '실습 중심', '콘텐츠 제작', 'Vibe Coding', '리터러시', 'NCS', '협업'];
+const WORDS = ['AI 교육', 'Creative', '실습 중심', '맞춤교육', '콘텐츠 제작', 'Vibe Coding', '리터러시', 'NCS'];
 
 // ── 강의 신청 폼 ──────────────────────────────────────────────
 function ContactForm({ lang }) {
