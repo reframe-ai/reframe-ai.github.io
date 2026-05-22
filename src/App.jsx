@@ -380,24 +380,24 @@ export default function App() {
 
           {/* 왼쪽: 학력 및 자격 카드 */}
           <div className="bg-[#2A2825] rounded-2xl p-10">
-            <h3 className="text-accent font-bold text-sm mb-6 flex items-center gap-2">
+            <span className="bg-accent text-white text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-6">
               {t.about_title}
-            </h3>
+            </span>
             <div className="mb-5">
               <p className="font-bold text-white text-lg leading-tight">{t.univ}</p>
-              <p className="text-white/50 text-sm mt-0.5">{t.univ_sub}</p>
-              <p className="text-white/40 text-sm mt-1">{t.thesis}</p>
+              <p className="text-white text-sm mt-0.5">{t.univ_sub}</p>
+              <p className="text-white text-sm mt-1">{t.thesis}</p>
             </div>
             <div className="mb-6">
-              <p className="text-white/50 text-sm leading-relaxed">{t.bg1}</p>
+              <p className="text-white text-sm leading-relaxed">{t.bg1}</p>
             </div>
-            <div className="flex flex-wrap gap-4 mb-6 text-sm text-white/60">
+            <div className="flex flex-wrap gap-4 mb-6 text-sm text-white">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
             </div>
             <div>
               <div className="flex flex-wrap gap-2">
                 {t.tags.map(tag => (
-                  <span key={tag} className="border border-accent/40 text-accent text-xs px-3 py-1 rounded-full">
+                  <span key={tag} className="border border-white/40 text-white text-xs px-3 py-1 rounded-full">
                     {tag}
                   </span>
                 ))}
