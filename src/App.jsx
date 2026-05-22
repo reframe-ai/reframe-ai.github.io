@@ -385,19 +385,19 @@ export default function App() {
             </span>
             <div className="mb-5">
               <p className="font-bold text-white text-lg leading-tight">{t.univ}</p>
-              <p className="text-white text-sm mt-0.5">{t.univ_sub}</p>
-              <p className="text-white text-sm mt-1">{t.thesis}</p>
+              <p className="text-white/60 text-sm mt-0.5">{t.univ_sub}</p>
+              <p className="text-white/40 text-sm mt-1 italic">{t.thesis}</p>
             </div>
             <div className="mb-6">
-              <p className="text-white text-sm leading-relaxed">{t.bg1}</p>
+              <p className="text-white/60 text-sm leading-relaxed">{t.bg1}</p>
             </div>
-            <div className="flex flex-wrap gap-4 mb-6 text-sm text-white">
+            <div className="flex flex-wrap gap-4 mb-6 text-sm text-white/70">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
             </div>
             <div>
               <div className="flex flex-wrap gap-2">
                 {t.tags.map(tag => (
-                  <span key={tag} className="border border-white/40 text-white text-xs px-3 py-1 rounded-full">
+                  <span key={tag} className="border border-accent/40 text-accent text-xs px-3 py-1 rounded-full">
                     {tag}
                   </span>
                 ))}
