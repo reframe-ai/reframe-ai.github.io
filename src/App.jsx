@@ -16,7 +16,7 @@ const T = {
     univ: '전북대학교 교육대학원',
     univ_sub: '평생교육 및 HRD 전공 (석사)',
     thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
-    certs: ['🏆 AICE Basic (KT)', '📖 평생교육사 2급', '🎓 디지털 튜터'],
+    certs: ['🏆 AICE Basic (KT)', '📖 평생교육사 2급', '📋 NCS 강사', '🎓 디지털 튜터'],
     tags: ['AI활용 입문', 'AI활용 심화', 'AI크리에이터', '바이브 코딩'],
     quote_card: ['도구를 익히고,', 'AI와 함께 생각하는 힘을', '키웁니다.', '사용하는 것이 시작이라면,', '협업은 완성입니다.'],
     edu_title: '맞춤형 AI 활용 교육 과정',
@@ -58,7 +58,7 @@ const T = {
     univ: 'Jeonbuk National University Graduate School of Education',
     univ_sub: 'Lifelong Education & HRD (M.Ed.)',
     thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
-    certs: ['🏆 AICE Basic (KT)', '📖 Lifelong Educator Lv.2', '🎓 Digital Tutor'],
+    certs: ['🏆 AICE Basic (KT)', '📖 Lifelong Educator Lv.2', '📋 NCS Instructor', '🎓 Digital Tutor'],
     tags: ['AI Basics', 'AI Advanced', 'AI Creator', 'Vibe Coding'],
     quote_card: ['Learn the tools,', 'build the thinking', 'to collaborate with AI.', 'If using it is the start,', 'collaboration is the finish.'],
     edu_title: 'Tailored AI Education Programs',
@@ -493,6 +493,18 @@ export default function App() {
                 <div>
                   <p className="text-xs text-[#888] mb-0.5">Threads</p>
                   <p className="text-white font-medium">@slowsoyang</p>
+                </div>
+              </a>
+              <a
+                href="https://blog.naver.com/frameview-"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-4 bg-[#3A3733] rounded-xl px-6 py-4 hover:bg-[#443F3B] transition"
+              >
+                <span className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white font-bold text-lg">B</span>
+                <div>
+                  <p className="text-xs text-[#888] mb-0.5">Blog</p>
+                  <p className="text-white font-medium">네이버 블로그</p>
                 </div>
               </a>
             </div>
