@@ -228,7 +228,8 @@ function ContactForm({ lang }) {
         <select name="course" required className={inputClass}>
           <option value="">{lang === 'ko' ? '선택해주세요' : 'Select'}</option>
           <option value="AI 입문">{lang === 'ko' ? 'AI 입문 (생성형 AI 이해)' : 'AI Basics'}</option>
-          <option value="AI 활용">{lang === 'ko' ? 'AI 활용 (실습)' : 'AI Hands-on'}</option>
+          <option value="AI 활용 (전문가)">{lang === 'ko' ? 'AI 활용 (전문가 과정)' : 'AI Hands-on (Professional)'}</option>
+          <option value="AI 활용 (크리에이터)">{lang === 'ko' ? 'AI 활용 (크리에이터 과정)' : 'AI Hands-on (Creator)'}</option>
           <option value="AI 리터러시">{lang === 'ko' ? 'AI 리터러시 (윤리)' : 'AI Literacy'}</option>
           <option value="바이브코딩 입문">{lang === 'ko' ? '바이브코딩 입문' : 'Vibe Coding Intro'}</option>
           <option value="바이브코딩 심화">{lang === 'ko' ? '바이브코딩 심화' : 'Vibe Coding Advanced'}</option>
