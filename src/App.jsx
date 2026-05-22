@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 
 // ── 번역 텍스트 ────────────────────────────────────────────────
 const T = {
@@ -176,6 +177,88 @@ function NetworkCanvas() {
 
 // ── 히어로 애니메이션 태그 ─────────────────────────────────────
 const WORDS = ['Claude', 'Prompt', 'AI', 'Creative', 'Vibe Coding', '협업', '교육'];
+
+// ── 강의 신청 폼 ──────────────────────────────────────────────
+function ContactForm({ lang }) {
+  const [state, handleSubmit] = useForm('maqkjojj');
+
+  if (state.succeeded) {
+    return (
+      <div className="bg-[#3A3733] rounded-2xl p-8 text-center">
+        <div className="text-4xl mb-4">✅</div>
+        <p className="text-white font-bold text-lg mb-2">
+          {lang === 'ko' ? '신청이 완료되었습니다!' : 'Application submitted!'}
+        </p>
+        <p className="text-[#888] text-sm">
+          {lang === 'ko' ? '빠른 시일 내에 연락드리겠습니다.' : 'We will contact you soon.'}
+        </p>
+      </div>
+    );
+  }
+
+  const inputClass = "w-full bg-[#3A3733] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:outline-none focus:border-accent/50 transition";
+  const labelClass = "text-white/60 text-xs font-medium mb-1.5 block";
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <p className="text-white font-bold text-lg mb-2">
+        {lang === 'ko' ? '강의 신청하기' : 'Request a Lecture'}
+      </p>
+      <div>
+        <label className={labelClass}>{lang === 'ko' ? '기관/단체명' : 'Organization'}</label>
+        <input type="text" name="organization" required className={inputClass}
+          placeholder={lang === 'ko' ? '예: ○○평생학습관' : 'e.g. Learning Center'} />
+        <ValidationError field="organization" errors={state.errors} />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className={labelClass}>{lang === 'ko' ? '담당자 이름' : 'Contact Name'}</label>
+          <input type="text" name="name" required className={inputClass} />
+          <ValidationError field="name" errors={state.errors} />
+        </div>
+        <div>
+          <label className={labelClass}>{lang === 'ko' ? '연락처' : 'Phone'}</label>
+          <input type="tel" name="phone" required className={inputClass}
+            placeholder="010-0000-0000" />
+          <ValidationError field="phone" errors={state.errors} />
+        </div>
+      </div>
+      <div>
+        <label className={labelClass}>{lang === 'ko' ? '희망 교육 과정' : 'Preferred Course'}</label>
+        <select name="course" required className={inputClass}>
+          <option value="">{lang === 'ko' ? '선택해주세요' : 'Select'}</option>
+          <option value="AI 입문">{lang === 'ko' ? 'AI 입문 (생성형 AI 이해)' : 'AI Basics'}</option>
+          <option value="AI 활용">{lang === 'ko' ? 'AI 활용 (실습)' : 'AI Hands-on'}</option>
+          <option value="AI 리터러시">{lang === 'ko' ? 'AI 리터러시 (윤리)' : 'AI Literacy'}</option>
+          <option value="바이브코딩 입문">{lang === 'ko' ? '바이브코딩 입문' : 'Vibe Coding Intro'}</option>
+          <option value="바이브코딩 심화">{lang === 'ko' ? '바이브코딩 심화' : 'Vibe Coding Advanced'}</option>
+          <option value="맞춤 커리큘럼">{lang === 'ko' ? '맞춤 커리큘럼' : 'Custom Curriculum'}</option>
+        </select>
+        <ValidationError field="course" errors={state.errors} />
+      </div>
+      <div>
+        <label className={labelClass}>{lang === 'ko' ? '희망 일정' : 'Preferred Schedule'}</label>
+        <input type="text" name="schedule" className={inputClass}
+          placeholder={lang === 'ko' ? '예: 2026년 7월 중, 주 2회' : 'e.g. July 2026, twice a week'} />
+      </div>
+      <div>
+        <label className={labelClass}>{lang === 'ko' ? '기타 요청사항' : 'Additional Notes'}</label>
+        <textarea name="message" rows="3" className={inputClass}
+          placeholder={lang === 'ko' ? '인원수, 환경, 특별 요청 등' : 'Group size, environment, etc.'} />
+        <ValidationError field="message" errors={state.errors} />
+      </div>
+      <button
+        type="submit"
+        disabled={state.submitting}
+        className="w-full bg-accent text-white py-3 rounded-full font-semibold hover:bg-[#a84030] transition disabled:opacity-50"
+      >
+        {state.submitting
+          ? (lang === 'ko' ? '전송 중...' : 'Sending...')
+          : (lang === 'ko' ? '강의 신청하기' : 'Submit Request')}
+      </button>
+    </form>
+  );
+}
 
 export default function App() {
   const [wordIdx, setWordIdx] = useState(0);
@@ -506,43 +589,13 @@ export default function App() {
                 )}
               </h2>
               <p className="text-[#888] text-lg mt-3">{t.footer_sub}</p>
+              <div className="flex gap-4 mt-6">
+                <a href="mailto:pianossun@naver.com" className="text-white/40 hover:text-accent transition text-sm">Email</a>
+                <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer" className="text-white/40 hover:text-accent transition text-sm">Threads</a>
+                <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer" className="text-white/40 hover:text-accent transition text-sm">Blog</a>
+              </div>
             </div>
-            <div className="space-y-4">
-              <a
-                href="mailto:pianossun@naver.com"
-                className="flex items-center gap-4 bg-[#3A3733] rounded-xl px-6 py-4 hover:bg-[#443F3B] transition"
-              >
-                <span className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white text-lg">✉</span>
-                <div>
-                  <p className="text-xs text-[#888] mb-0.5">Email</p>
-                  <p className="text-white font-medium">pianossun@naver.com</p>
-                </div>
-              </a>
-              <a
-                href="https://www.threads.net/@slowsoyang"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-4 bg-[#3A3733] rounded-xl px-6 py-4 hover:bg-[#443F3B] transition"
-              >
-                <span className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white font-bold text-lg">@</span>
-                <div>
-                  <p className="text-xs text-[#888] mb-0.5">Threads</p>
-                  <p className="text-white font-medium">@slowsoyang</p>
-                </div>
-              </a>
-              <a
-                href="https://blog.naver.com/frameview-"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-4 bg-[#3A3733] rounded-xl px-6 py-4 hover:bg-[#443F3B] transition"
-              >
-                <span className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white font-bold text-lg">B</span>
-                <div>
-                  <p className="text-xs text-[#888] mb-0.5">Blog</p>
-                  <p className="text-white font-medium">네이버 블로그</p>
-                </div>
-              </a>
-            </div>
+            <ContactForm lang={lang} />
           </div>
           <div className="border-t border-white/10 pt-8 text-center text-[#555] text-sm">
             {t.copy}
