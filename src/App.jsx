@@ -504,13 +504,13 @@ export default function App() {
             </div>
             <div className="space-y-4">
               <a
-                href="mailto:sunryepark12@gmail.com"
+                href="mailto:pianossun@naver.com"
                 className="flex items-center gap-4 bg-[#3A3733] rounded-xl px-6 py-4 hover:bg-[#443F3B] transition"
               >
                 <span className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white text-lg">✉</span>
                 <div>
                   <p className="text-xs text-[#888] mb-0.5">Email</p>
-                  <p className="text-white font-medium">sunryepark12@gmail.com</p>
+                  <p className="text-white font-medium">pianossun@naver.com</p>
                 </div>
               </a>
               <a
