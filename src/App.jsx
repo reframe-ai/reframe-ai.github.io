@@ -234,6 +234,7 @@ function ContactForm({ lang }) {
           <option value="AI 리터러시">{lang === 'ko' ? 'AI 리터러시 (저작권, 안전사용 등)' : 'AI Literacy (Copyright, Safety)'}</option>
           <option value="바이브코딩 입문">{lang === 'ko' ? '바이브코딩 입문' : 'Vibe Coding Intro'}</option>
           <option value="바이브코딩 심화">{lang === 'ko' ? '바이브코딩 심화' : 'Vibe Coding Advanced'}</option>
+          <option value="시그니처 (AI영상제작)">{lang === 'ko' ? '시그니처 과정 (AI 영상제작의 모든 것)' : 'Signature (AI Video Production)'}</option>
           <option value="맞춤 커리큘럼">{lang === 'ko' ? '맞춤 커리큘럼' : 'Custom Curriculum'}</option>
         </select>
         <ValidationError field="course" errors={state.errors} />
