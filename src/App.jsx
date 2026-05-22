@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const T = {
   ko: {
     nav: { about: '소개', education: '교육 과정', vibe: '바이브 코딩', contact: '문의' },
-    badge: 'AI 활용 강사',
+    badge: 'AI 활용 강사 · NCS 강사',
     h1: 'AI, 어렵지 않아요.',
     h2_accent: '천천히, 제대로 배우는',
     h2_rest: ' AI 교육.',
@@ -46,7 +46,7 @@ const T = {
   },
   en: {
     nav: { about: 'About', education: 'Curriculum', vibe: 'Vibe Coding', contact: 'Contact' },
-    badge: 'AI Utilization Instructor',
+    badge: 'AI Utilization · NCS Instructor',
     h1: "AI doesn't have to be hard.",
     h2_accent: 'Slow, steady, and',
     h2_rest: ' real AI education.',
