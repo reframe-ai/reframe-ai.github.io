@@ -13,6 +13,8 @@ const T = {
     cta2: '프로필 보기',
     cta3: '오늘의 AI',
     about_title: '🎓 학력 및 자격',
+    bg1: '경제학 · 음악학 학사 / 서울재즈아카데미 필름스코어링 전공',
+    bg2: '라디오·영상 분야 기획·촬영·제작 15년',
     univ: '전북대학교 교육대학원',
     univ_sub: '평생교육 및 HRD 전공 (석사)',
     thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
@@ -58,6 +60,8 @@ const T = {
     cta2: 'View Profile',
     cta3: 'AI Today',
     about_title: '🎓 Education & Credentials',
+    bg1: 'B.A. in Economics & Music / Seoul Jazz Academy Film Scoring',
+    bg2: '15 years in radio & video — planning, filming, production',
     univ: 'Jeonbuk National University Graduate School of Education',
     univ_sub: 'Lifelong Education & HRD (M.Ed.)',
     thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
@@ -295,6 +299,10 @@ export default function App() {
             <h3 className="text-accent font-bold text-sm mb-6 flex items-center gap-2">
               {t.about_title}
             </h3>
+            <div className="mb-4">
+              <p className="text-main text-sm leading-relaxed">{t.bg1}</p>
+              <p className="text-sub text-sm mt-0.5">{t.bg2}</p>
+            </div>
             <div className="mb-5">
               <p className="font-bold text-main text-lg leading-tight">{t.univ}</p>
               <p className="text-sub text-sm mt-0.5">{t.univ_sub}</p>
