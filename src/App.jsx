@@ -318,14 +318,11 @@ export default function App() {
             </div>
           </div>
 
-          {/* 오른쪽: 영상 */}
+          {/* 오른쪽: 경력 이미지 */}
           <div className="rounded-2xl overflow-hidden">
-            <video
-              src={`${import.meta.env.BASE_URL}0522.mp4`}
-              autoPlay
-              loop
-              muted
-              playsInline
+            <img
+              src={`${import.meta.env.BASE_URL}Image.png`}
+              alt="창작과 현장을 거쳐, 교육과 AI로"
               className="w-full h-full object-cover min-h-[300px]"
             />
           </div>
