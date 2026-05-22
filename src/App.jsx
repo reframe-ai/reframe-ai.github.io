@@ -397,7 +397,7 @@ export default function App() {
             <div>
               <div className="flex flex-wrap gap-2">
                 {t.tags.map(tag => (
-                  <span key={tag} className="border border-accent/40 text-accent text-xs px-3 py-1 rounded-full">
+                  <span key={tag} className="border border-accent/40 text-accent text-sm px-4 py-1.5 rounded-full">
                     {tag}
                   </span>
                 ))}
