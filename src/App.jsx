@@ -427,8 +427,8 @@ export default function App() {
 
           {/* 과정 3개 */}
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-accent rounded-2xl p-8">
-              <span className="text-white text-xs font-bold bg-white/20 px-2 py-1 rounded mb-4 inline-block">FEATURED</span>
+            <div className="bg-accent rounded-2xl p-8 relative">
+              <span className="absolute top-4 right-4 bg-white text-accent text-xs font-bold px-2.5 py-1 rounded-full">FEATURED</span>
               <div className="text-white text-2xl mb-3 font-mono">&lt;&gt;</div>
               <h3 className="text-xl font-bold text-white mb-2">{t.v1_title}</h3>
               <p className="text-white/60 text-sm mb-3">{t.v1_desc}</p>
