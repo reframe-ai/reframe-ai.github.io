@@ -47,7 +47,7 @@ const T = {
     q_name: '— 박선례',
     footer_title: '함께 기술을',
     footer_title2: ' 하세요.',
-    footer_sub: 'AI 교육과 협업 제안은 이메일로 연락해주세요.',
+    footer_sub: '강의 문의는 신청 폼 또는 이메일로 연락해주세요.',
     copy: '© 2026 Re:Frame. All rights reserved.',
   },
   en: {
@@ -94,7 +94,7 @@ const T = {
     q_name: '— Seonrye Park',
     footer_title: "Let's Re:",
     footer_title2: 'Frame technology together.',
-    footer_sub: 'For AI education and collaboration proposals, please reach out by email.',
+    footer_sub: 'For inquiries, please use the form or email.',
     copy: '© 2026 Re:Frame. All rights reserved.',
   },
 };
