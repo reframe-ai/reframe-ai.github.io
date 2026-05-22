@@ -11,6 +11,7 @@ const T = {
     sub: '도구를 익히고, AI와 함께 생각하는 힘을 키웁니다.',
     cta1: '커리큘럼 보기',
     cta2: '프로필 보기',
+    cta3: '오늘의 AI',
     about_title: '🎓 학력 및 자격',
     univ: '전북대학교 교육대학원',
     univ_sub: '평생교육 및 HRD 전공 (석사)',
@@ -52,6 +53,7 @@ const T = {
     sub: 'Learn the tools. Build the thinking to collaborate with AI.',
     cta1: 'View Curriculum',
     cta2: 'View Profile',
+    cta3: 'AI Today',
     about_title: '🎓 Education & Credentials',
     univ: 'Jeonbuk National University Graduate School of Education',
     univ_sub: 'Lifelong Education & HRD (M.Ed.)',
@@ -260,6 +262,14 @@ export default function App() {
               className="bg-main text-white px-7 py-3 rounded-full font-semibold hover:bg-[#444] transition shadow-sm"
             >
               {t.cta2}
+            </a>
+            <a
+              href="https://reframe-daily.vercel.app"
+              target="_blank"
+              rel="noreferrer"
+              className="border-2 border-accent text-accent px-7 py-3 rounded-full font-semibold hover:bg-accent hover:text-white transition shadow-sm"
+            >
+              {t.cta3}
             </a>
           </div>
 
