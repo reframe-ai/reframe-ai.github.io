@@ -598,7 +598,7 @@ export default function App() {
                 </a>
                 <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
                   <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">@</span>
-                  <span className="text-white font-medium text-sm">@slowsoyang</span>
+                  <span className="text-white font-medium text-sm">스레드 @slowsoyang</span>
                 </a>
                 <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
                   <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">B</span>
