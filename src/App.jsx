@@ -44,7 +44,7 @@ const T = {
     q_name: '— 박선례',
     footer_title: '함께 기술을',
     footer_title2: ' 하세요.',
-    footer_sub: '강의 또는 협업 관련 문의는 이메일로 연락해주세요.',
+    footer_sub: 'AI 교육과 협업 제안은 이메일로 연락해주세요.',
     copy: '© 2026 Re:Frame. All rights reserved.',
   },
   en: {
@@ -89,7 +89,7 @@ const T = {
     q_name: '— Seonrye Park',
     footer_title: "Let's Re:",
     footer_title2: 'Frame technology together.',
-    footer_sub: 'For lectures or collaboration inquiries, please reach out by email.',
+    footer_sub: 'For AI education and collaboration proposals, please reach out by email.',
     copy: '© 2026 Re:Frame. All rights reserved.',
   },
 };
@@ -495,9 +495,9 @@ export default function App() {
             <div>
               <h2 className="text-3xl font-bold text-white mb-3 leading-snug">
                 {lang === 'ko' ? (
-                  <>함께 기술을<br />Re:<span className="text-accent">Frame</span> 하세요.</>
+                  <>함께 Re:<span className="text-accent">Frame</span><br />합니다.</>
                 ) : (
-                  <>Let's Re:<span className="text-accent">Frame</span><br />technology together.</>
+                  <>Let's Re:<span className="text-accent">Frame</span><br />together.</>
                 )}
               </h2>
               <p className="text-[#888] text-sm mt-2">{t.footer_sub}</p>
