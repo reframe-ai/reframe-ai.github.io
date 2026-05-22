@@ -305,9 +305,8 @@ export default function App() {
               <p className="text-sub text-sm mt-1">{t.thesis}</p>
             </div>
             <div className="bg-bg_cream rounded-xl p-4 mb-6">
-              <p className="text-xs font-bold text-accent mb-2 tracking-wider">{lang === 'ko' ? '크리에이터' : 'CREATOR'}</p>
-              <p className="text-sm text-main leading-relaxed">{t.bg1}</p>
-              <p className="text-sm text-main mt-0.5">{t.bg2}</p>
+              <p className="text-xs font-bold text-accent mb-2 tracking-wider">{lang === 'ko' ? '크리에이터 경력' : 'CREATOR CAREER'}</p>
+              <p className="text-sm text-main leading-relaxed">{t.bg1} / {t.bg2}</p>
             </div>
             <div className="flex flex-wrap gap-4 mb-6 text-sm text-sub">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
