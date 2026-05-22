@@ -230,7 +230,7 @@ function ContactForm({ lang }) {
           <option value="AI 입문">{lang === 'ko' ? 'AI 입문 (생성형 AI 이해)' : 'AI Basics'}</option>
           <option value="AI 활용 (전문가)">{lang === 'ko' ? 'AI 활용 (전문가 과정)' : 'AI Hands-on (Professional)'}</option>
           <option value="AI 활용 (크리에이터)">{lang === 'ko' ? 'AI 활용 (크리에이터 과정)' : 'AI Hands-on (Creator)'}</option>
-          <option value="AI 리터러시">{lang === 'ko' ? 'AI 리터러시 (윤리)' : 'AI Literacy'}</option>
+          <option value="AI 리터러시">{lang === 'ko' ? 'AI 리터러시 (저작권, 안전사용 등)' : 'AI Literacy (Copyright, Safety)'}</option>
           <option value="바이브코딩 입문">{lang === 'ko' ? '바이브코딩 입문' : 'Vibe Coding Intro'}</option>
           <option value="바이브코딩 심화">{lang === 'ko' ? '바이브코딩 심화' : 'Vibe Coding Advanced'}</option>
           <option value="맞춤 커리큘럼">{lang === 'ko' ? '맞춤 커리큘럼' : 'Custom Curriculum'}</option>
@@ -590,10 +590,19 @@ export default function App() {
                 )}
               </h2>
               <p className="text-[#888] text-lg mt-3">{t.footer_sub}</p>
-              <div className="flex gap-4 mt-6">
-                <a href="mailto:pianossun@naver.com" className="text-white/40 hover:text-accent transition text-sm">Email</a>
-                <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer" className="text-white/40 hover:text-accent transition text-sm">Threads</a>
-                <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer" className="text-white/40 hover:text-accent transition text-sm">Blog</a>
+              <div className="space-y-3 mt-8">
+                <a href="mailto:pianossun@naver.com" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
+                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white text-base">✉</span>
+                  <span className="text-white font-medium text-sm">pianossun@naver.com</span>
+                </a>
+                <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
+                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">@</span>
+                  <span className="text-white font-medium text-sm">@slowsoyang</span>
+                </a>
+                <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
+                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">B</span>
+                  <span className="text-white font-medium text-sm">네이버 블로그</span>
+                </a>
               </div>
             </div>
             <ContactForm lang={lang} />
