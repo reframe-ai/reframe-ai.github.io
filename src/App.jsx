@@ -227,7 +227,8 @@ function ContactForm({ lang }) {
         <label className={labelClass}>{lang === 'ko' ? '희망 교육 과정' : 'Preferred Course'}</label>
         <select name="course" required className={inputClass}>
           <option value="">{lang === 'ko' ? '선택해주세요' : 'Select'}</option>
-          <option value="AI 입문">{lang === 'ko' ? 'AI 입문 (생성형 AI 이해)' : 'AI Basics'}</option>
+          <option value="AI 입문 (스마트폰)">{lang === 'ko' ? 'AI 입문 (스마트폰 활용)' : 'AI Basics (Smartphone)'}</option>
+          <option value="AI 입문 (노트북)">{lang === 'ko' ? 'AI 입문 (노트북 활용)' : 'AI Basics (Laptop)'}</option>
           <option value="AI 활용 (전문가)">{lang === 'ko' ? 'AI 활용 (전문가 과정)' : 'AI Hands-on (Professional)'}</option>
           <option value="AI 활용 (크리에이터)">{lang === 'ko' ? 'AI 활용 (크리에이터 과정)' : 'AI Hands-on (Creator)'}</option>
           <option value="AI 리터러시">{lang === 'ko' ? 'AI 리터러시 (저작권, 안전사용 등)' : 'AI Literacy (Copyright, Safety)'}</option>
