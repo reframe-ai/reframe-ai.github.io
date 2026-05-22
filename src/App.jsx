@@ -32,9 +32,12 @@ const T = {
     vibe_title: '바이브 코딩',
     vibe_sub: '코딩 몰라도 OK. AI와 함께 웹/앱 만들기.',
     vibe_new: '신규',
-    v1_title: '입문 과정', v1_desc: 'Google AI Studio · Codex · Claude Code로 나만의 웹사이트 만들기',
-    v2_title: '심화 과정', v2_desc: '업무 자동화, AI 에이전트 구축, MCP 서버 연동',
-    v3_title: '핵심인력 과정', v3_desc: 'AI 수업 설계, 교안 제작, 수준별 강의법, 수업 시연',
+    v1_title: '입문 과정', v1_desc: '코딩 몰라도 만들 수 있는 것들',
+    v1_items: ['Google AI Studio로 나만의 챗봇 만들기', 'Codex로 간단한 웹페이지 만들기', 'Claude Code로 포트폴리오 사이트 제작'],
+    v2_title: '심화 과정', v2_desc: '실전 업무에 AI를 연결하기',
+    v2_items: ['반복 업무 자동화 (데이터 수집, 보고서 자동 생성)', '나만의 AI 에이전트 만들기', 'MCP 서버 연결로 외부 서비스 연동'],
+    v3_title: '핵심인력 과정', v3_desc: 'AI 강사 양성',
+    v3_items: ['AI 활용 수업 커리큘럼 설계', '교안 제작 및 실습 운영 노하우', '수강생 수준별 맞춤 강의법', '최종: 나만의 AI 수업 시연'],
     q_title: '처음엔 저도 부담스러웠어요',
     q_body: 'AI라는 단어 자체가 낯설고 어색했던 때가 있었어요.\n하지만 하나씩 시도하면서,\n이건 사람과 AI의 진짜 협업이라는 걸 깨달았습니다.',
     q_quote: '"이 길을 직접 걸어왔기에, 제가 경험한 그대로를 가르칩니다."',
@@ -74,9 +77,12 @@ const T = {
     vibe_title: 'Vibe Coding',
     vibe_sub: "No coding skills needed. Build web/apps with AI.",
     vibe_new: 'New',
-    v1_title: 'Intro Course', v1_desc: 'Build your own website with Google AI Studio · Codex · Claude Code',
-    v2_title: 'Advanced Course', v2_desc: 'Workflow automation, AI agents, MCP server integration',
-    v3_title: 'Key Instructor Course', v3_desc: 'AI curriculum design, lesson planning, adaptive teaching, class demo',
+    v1_title: 'Intro Course', v1_desc: 'Build with zero coding experience',
+    v1_items: ['Build a chatbot with Google AI Studio', 'Create a webpage with Codex', 'Build a portfolio site with Claude Code'],
+    v2_title: 'Advanced Course', v2_desc: 'Connect AI to real work',
+    v2_items: ['Automate repetitive tasks (data collection, report generation)', 'Build your own AI agent', 'Connect external services via MCP server'],
+    v3_title: 'Key Instructor Course', v3_desc: 'AI instructor training',
+    v3_items: ['Design AI-powered curriculum', 'Lesson planning & hands-on workshop design', 'Adaptive teaching for different skill levels', 'Final: Deliver your own AI class demo'],
     q_title: 'I was once overwhelmed too',
     q_body: 'There was a time when even the word "AI" felt foreign and strange.\nBut as I tried things one by one,\nI realized — this is what true human-AI collaboration looks like.',
     q_quote: '"Because I walked this path myself, I teach exactly what I experienced."',
@@ -425,17 +431,41 @@ export default function App() {
               <span className="text-white text-xs font-bold bg-white/20 px-2 py-1 rounded mb-4 inline-block">FEATURED</span>
               <div className="text-white text-2xl mb-3 font-mono">&lt;&gt;</div>
               <h3 className="text-xl font-bold text-white mb-2">{t.v1_title}</h3>
-              <p className="text-white/80 text-sm">{t.v1_desc}</p>
+              <p className="text-white/60 text-sm mb-3">{t.v1_desc}</p>
+              <ul className="space-y-1.5">
+                {t.v1_items.map(item => (
+                  <li key={item} className="text-white/80 text-sm flex items-start gap-2">
+                    <span className="mt-1.5 w-1 h-1 rounded-full bg-white/50 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-sm">
               <div className="text-accent text-2xl mb-3">🚀</div>
               <h3 className="text-xl font-bold text-main mb-2">{t.v2_title}</h3>
-              <p className="text-sub text-sm">{t.v2_desc}</p>
+              <p className="text-sub/60 text-sm mb-3">{t.v2_desc}</p>
+              <ul className="space-y-1.5">
+                {t.v2_items.map(item => (
+                  <li key={item} className="text-sub text-sm flex items-start gap-2">
+                    <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/50 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-sm">
               <div className="text-accent text-2xl mb-3">👥</div>
               <h3 className="text-xl font-bold text-main mb-2">{t.v3_title}</h3>
-              <p className="text-sub text-sm">{t.v3_desc}</p>
+              <p className="text-sub/60 text-sm mb-3">{t.v3_desc}</p>
+              <ul className="space-y-1.5">
+                {t.v3_items.map(item => (
+                  <li key={item} className="text-sub text-sm flex items-start gap-2">
+                    <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/50 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
