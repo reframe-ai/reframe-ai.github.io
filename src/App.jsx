@@ -13,12 +13,13 @@ const T = {
     cta1: '커리큘럼 보기',
     cta2: '프로필 보기',
     cta3: '오늘의 AI',
-    about_title: '🎓 학력 및 자격',
-    bg1: '음악학 학사 · 필름스코어링 전공 · 라디오·영상 기획·촬영·제작 실무 15년',
+    about_title: '학력 및 자격',
+    bg1_1: '음악학 학사 · 필름스코어링 전공',
+    bg1_2: '라디오·영상 기획·촬영·제작 실무 15년',
     univ: '전북대학교 교육대학원',
     univ_sub: '평생교육 및 HRD 전공 (석사)',
     thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
-    certs: ['📜 AICE Basic (KT)', '📜 평생교육사 2급', '📜 NCS 강사', '📜 디지털 튜터'],
+    certs: ['📜 AICE Basic (KT)', '📜 NCS 강사', '📜 평생교육사 2급', '📜 디지털 튜터'],
     tags: ['AI 입문', 'AI 심화', '바이브 코딩', 'AI 크리에이터'],
     quote_card: ['도구를 익히고,', 'AI와 함께 생각하는 힘을', '키웁니다.', '사용하는 것이 시작이라면,', '협업은 완성입니다.'],
     edu_title: '맞춤형 AI 활용 교육 과정',
@@ -59,12 +60,13 @@ const T = {
     cta1: 'View Curriculum',
     cta2: 'View Profile',
     cta3: 'AI Today',
-    about_title: '🎓 Education & Credentials',
-    bg1: 'B.A. in Music · Film Scoring · 15 years in radio & video production',
+    about_title: 'Education & Credentials',
+    bg1_1: 'B.A. in Music · Film Scoring',
+    bg1_2: '15 years in radio & video production',
     univ: 'Jeonbuk National University Graduate School of Education',
     univ_sub: 'Lifelong Education & HRD (M.Ed.)',
     thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
-    certs: ['📜 AICE Basic (KT)', '📜 Lifelong Educator Lv.2', '📜 NCS Instructor', '📜 Digital Tutor'],
+    certs: ['📜 AICE Basic (KT)', '📜 NCS Instructor', '📜 Lifelong Educator Lv.2', '📜 Digital Tutor'],
     tags: ['AI Basics', 'AI Advanced', 'Vibe Coding', 'AI Creator'],
     quote_card: ['Learn the tools,', 'build the thinking', 'to collaborate with AI.', 'If using it is the start,', 'collaboration is the finish.'],
     edu_title: 'Tailored AI Education Programs',
@@ -389,7 +391,9 @@ export default function App() {
               <p className="text-[#AAA] text-sm mt-1.5">{t.thesis}</p>
             </div>
             <div className="mb-6">
-              <p className="text-white/80 text-base leading-relaxed">{t.bg1}</p>
+              <p className="text-white/80 text-base leading-relaxed">
+                {t.bg1_1}<br className="md:hidden" /><span className="hidden md:inline"> · </span>{t.bg1_2}
+              </p>
             </div>
             <div className="flex flex-wrap gap-4 mb-6 text-base text-white/80">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
