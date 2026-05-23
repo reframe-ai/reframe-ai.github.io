@@ -116,12 +116,20 @@ function NetworkCanvas() {
     resize();
     window.addEventListener('resize', resize);
 
-    const dots = Array.from({ length: 55 }, () => ({
+    const isMobile = window.innerWidth < 768;
+    const dotCount = isMobile ? 20 : 55;
+    const dotSpeed = isMobile ? 0.2 : 0.4;
+    const dotSize = isMobile ? 2 : 2.5;
+    const dotSizeRange = isMobile ? 2 : 4;
+    const linkDist = isMobile ? 140 : 220;
+    const lineAlpha = isMobile ? 0.1 : 0.18;
+
+    const dots = Array.from({ length: dotCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 4 + 2.5,
+      vx: (Math.random() - 0.5) * dotSpeed,
+      vy: (Math.random() - 0.5) * dotSpeed,
+      r: Math.random() * dotSizeRange + dotSize,
     }));
 
     const draw = () => {
@@ -139,12 +147,12 @@ function NetworkCanvas() {
           const dx = dots[i].x - dots[j].x;
           const dy = dots[i].y - dots[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 220) {
+          if (dist < linkDist) {
             ctx.beginPath();
             ctx.moveTo(dots[i].x, dots[i].y);
             ctx.lineTo(dots[j].x, dots[j].y);
-            ctx.strokeStyle = `rgba(192, 84, 64, ${0.18 * (1 - dist / 220)})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(192, 84, 64, ${lineAlpha * (1 - dist / linkDist)})`;
+            ctx.lineWidth = isMobile ? 0.5 : 0.8;
             ctx.stroke();
           }
         }
@@ -310,7 +318,7 @@ export default function App() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-bg_cream overflow-hidden">
-        <div className="hidden md:block"><NetworkCanvas /></div>
+        <NetworkCanvas />
         <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 animate-fade-in-up">
 
           {/* 애니메이션 태그 목록 */}
