@@ -308,7 +308,7 @@ export default function App() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-bg_cream overflow-hidden">
-        <NetworkCanvas />
+        <div className="hidden md:block"><NetworkCanvas /></div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 animate-fade-in-up">
 
           {/* 애니메이션 태그 목록 */}
@@ -406,11 +406,11 @@ export default function App() {
           </div>
 
           {/* 오른쪽: 경력 이미지 */}
-          <div className="rounded-2xl overflow-hidden">
+          <div className="rounded-2xl overflow-hidden bg-[#F5F0EA]">
             <img
               src={`${import.meta.env.BASE_URL}Image.png`}
               alt="창작과 현장을 거쳐, 교육과 AI로"
-              className="w-full h-full object-cover min-h-[300px]"
+              className="w-full object-contain md:object-cover md:h-full md:min-h-[300px] aspect-[3/2] md:aspect-auto"
             />
           </div>
         </div>
