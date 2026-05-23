@@ -335,13 +335,13 @@ export default function App() {
           </div>
 
           {/* 헤드라인 */}
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-3 text-main">
+          <h1 className="text-4xl md:text-7xl font-bold leading-tight mb-3 text-main">
             {t.h1}
           </h1>
-          <h2 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+          <h2 className="text-3xl md:text-6xl font-bold leading-tight mb-6">
             <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
           </h2>
-          <p className="text-sub text-xl mb-10">
+          <p className="text-sub text-lg md:text-xl mb-10">
             {t.sub}
           </p>
 
