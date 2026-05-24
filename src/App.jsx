@@ -389,21 +389,21 @@ export default function App() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
 
           {/* 왼쪽: 학력 및 자격 카드 */}
-          <div className="bg-[#2A2825] rounded-2xl p-10">
+          <div className="bg-white rounded-2xl p-10 border border-main/8 shadow-sm">
             <span className="bg-accent text-white text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-6">
               {t.about_title}
             </span>
             <div className="mb-5">
-              <p className="font-bold text-white text-xl leading-tight">{t.univ}</p>
-              <p className="text-white/80 text-base mt-1">{t.univ_sub}</p>
-              <p className="text-[#AAA] text-sm mt-1.5">{t.thesis}</p>
+              <p className="font-bold text-main text-xl leading-tight">{t.univ}</p>
+              <p className="text-sub text-base mt-1">{t.univ_sub}</p>
+              <p className="text-sub/60 text-sm mt-1.5 italic">{t.thesis}</p>
             </div>
             <div className="mb-6">
-              <p className="text-white/80 text-base leading-relaxed">
+              <p className="text-sub text-base leading-relaxed">
                 {t.bg1_1}<br className="md:hidden" /><span className="hidden md:inline"> · </span>{t.bg1_2}
               </p>
             </div>
-            <div className="flex flex-wrap gap-4 mb-6 text-base text-white/80">
+            <div className="flex flex-wrap gap-4 mb-6 text-base text-main/70">
               {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
             </div>
             <div>
