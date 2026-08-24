@@ -4,7 +4,7 @@ import { useForm, ValidationError } from '@formspree/react';
 // ── 번역 텍스트 ────────────────────────────────────────────────
 const T = {
   ko: {
-    nav: { about: '소개', areas: '강의 분야', education: '교육 과정', instructors: '강사진', contact: '문의' },
+    nav: { about: '소개', areas: '강의 분야', education: '교육 과정', instructors: '강사 소개', contact: '문의하기' },
     badge: 'AI 교육 전문 Re:Frame',
     h1: 'AI와 함께,',
     h2_accent: '가능성을',
@@ -16,11 +16,12 @@ const T = {
     about_title: 'Re:Frame 소개',
     company_p: '(주)리프레임은 생성형 AI 활용 교육 전문 기업입니다. 공공기관 직무교육부터 기업 재직자 역량강화, 학교·평생교육까지 — 학습자의 눈높이에 맞춘 실습 중심의 AI 교육을 설계하고 운영합니다.',
     stats: [
-      { n: '2023', l: 'AI 교육 시작' },
-      { n: '400+', l: '누적 강의 시간' },
+      { n: '10년+', l: '강의 경력' },
+      { n: '400+', l: 'AI 교육 시간 (2023~)' },
       { n: '25+', l: '출강 기관' },
-      { n: '11', l: '강의 분야' },
+      { n: '11개', l: '강의 분야' },
     ],
+    stats_note: '대표 강사 박선례 기준',
     bg1_1: '음악학 학사 · 필름스코어링 전공',
     bg1_2: '라디오·영상 기획·촬영·제작 실무 15년',
     univ: '전북대학교 교육대학원',
@@ -76,8 +77,8 @@ const T = {
     q_body: 'AI라는 단어 자체가 낯설고 어색했던 때가 있었어요.\n하지만 하나씩 시도하면서,\n이건 사람과 AI의 진짜 협업이라는 걸 깨달았습니다.',
     q_quote: '"이 길을 직접 걸어왔기에, 제가 경험한 그대로를 가르칩니다."',
     q_name: '',
-    inst_title: '강사진',
-    inst_sub: '현장에서 검증된 전문 강사진이 함께합니다',
+    inst_title: '대표 강사',
+    inst_sub: '현장에서 검증된 대표 강사가 직접 강의합니다',
     inst1_name: '박선례', inst1_role: '대표 · 생성형 AI 활용 교육 전문 강사',
     inst2_name: '박선미', inst2_role: '전문 강사 · 미디어 리터러시 & 영상 교육',
     inst2_desc: '2008년부터 17년간 미디어센터와 학교 현장에서 다양한 계층을 만나온 베테랑 강사입니다. 전라북도교육청 미디어 리터러시 강사로 청소년 미디어 교육을 이끌고 있으며, 단편영화 연출 경험을 살린 생생한 영상 교육을 진행합니다.',
@@ -105,7 +106,7 @@ const T = {
     copy: '© 2026 (주)리프레임 Re:Frame. All rights reserved.',
   },
   en: {
-    nav: { about: 'About', areas: 'Lecture Areas', education: 'Curriculum', instructors: 'Instructors', contact: 'Contact' },
+    nav: { about: 'About', areas: 'Lecture Areas', education: 'Curriculum', instructors: 'Instructor', contact: 'Contact' },
     badge: 'AI Education Experts · Re:Frame',
     h1: 'Opening possibilities,',
     h2_accent: 'together',
@@ -117,11 +118,12 @@ const T = {
     about_title: 'About Re:Frame',
     company_p: 'Re:Frame Inc. is a company specializing in generative AI education — from public-sector job training and corporate upskilling to schools and lifelong learning, we design and run hands-on AI programs tailored to every learner.',
     stats: [
-      { n: '2023', l: 'Teaching AI since' },
-      { n: '400+', l: 'Lecture hours' },
-      { n: '25+', l: 'Organizations' },
+      { n: '10+ yrs', l: 'Teaching experience' },
+      { n: '400+', l: 'AI lecture hours (2023~)' },
+      { n: '25+', l: 'Organizations served' },
       { n: '11', l: 'Lecture areas' },
     ],
+    stats_note: 'Based on lead instructor Park Sun-rye',
     bg1_1: 'B.A. in Music · Film Scoring',
     bg1_2: '15 years in radio & video production',
     univ: 'Jeonbuk National University Graduate School of Education',
@@ -177,8 +179,8 @@ const T = {
     q_body: 'There was a time when even the word "AI" felt foreign and strange.\nBut as I tried things one by one,\nI realized — this is what true human-AI collaboration looks like.',
     q_quote: '"Because I walked this path myself, I teach exactly what I experienced."',
     q_name: '',
-    inst_title: 'Instructors',
-    inst_sub: 'Field-proven professional instructors',
+    inst_title: 'Lead Instructor',
+    inst_sub: 'Field-proven, taught directly by our lead instructor',
     inst1_name: 'Park Sun-rye', inst1_role: 'CEO · Generative AI Education Specialist',
     inst2_name: 'Park Seon-mi', inst2_role: 'Instructor · Media Literacy & Video Education',
     inst2_desc: 'A veteran educator with 17 years of experience (since 2008) at media centers and schools. Currently a media literacy instructor for the Jeonbuk Office of Education, she brings her background in short-film directing to vivid, hands-on video education.',
@@ -259,7 +261,7 @@ function NetworkCanvas() {
             ctx.beginPath();
             ctx.moveTo(dots[i].x, dots[i].y);
             ctx.lineTo(dots[j].x, dots[j].y);
-            ctx.strokeStyle = `rgba(192, 84, 64, ${lineAlpha * (1 - dist / linkDist)})`;
+            ctx.strokeStyle = `rgba(244, 88, 28, ${lineAlpha * (1 - dist / linkDist)})`;
             ctx.lineWidth = isMobile ? 0.5 : 0.8;
             ctx.stroke();
           }
@@ -269,7 +271,7 @@ function NetworkCanvas() {
       dots.forEach(d => {
         ctx.beginPath();
         ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(192, 84, 64, 0.30)';
+        ctx.fillStyle = 'rgba(244, 88, 28, 0.30)';
         ctx.fill();
       });
 
@@ -373,7 +375,7 @@ function ContactForm({ lang }) {
       <button
         type="submit"
         disabled={state.submitting}
-        className="w-full bg-accent text-white py-3 rounded-full font-semibold hover:bg-[#a84030] transition disabled:opacity-50"
+        className="w-full bg-accent text-white py-3 rounded-full font-semibold hover:bg-accent_deep transition disabled:opacity-50"
       >
         {state.submitting
           ? (lang === 'ko' ? '전송 중...' : 'Sending...')
@@ -402,33 +404,38 @@ export default function App() {
     >
 
       {/* ── NAV ─────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_cream/90 backdrop-blur-sm border-b border-main/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="#" className="font-heading flex items-center gap-2.5 text-xl font-bold tracking-tight">
+          <a href="#" className="font-heading flex items-center gap-2.5 text-xl font-bold tracking-tight text-white">
             <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
               <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
               <path d="M60 22 H75 V78 H60" fill="none" stroke="currentColor" strokeWidth="10" />
-              <circle cx="50" cy="40" r="7.5" fill="#C05440" />
-              <circle cx="50" cy="60" r="7.5" fill="#C05440" />
+              <circle cx="50" cy="40" r="7.5" fill="#F4581C" />
+              <circle cx="50" cy="60" r="7.5" fill="#F4581C" />
             </svg>
             Re:<span className="text-accent">Frame</span>
           </a>
-          <div className="flex items-center gap-6">
-            <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-main/75">
+          <div className="flex items-center gap-5">
+            <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-white/70">
               <li><a href="#about"       className="hover:text-accent transition">{t.nav.about}</a></li>
               <li><a href="#areas"       className="hover:text-accent transition">{t.nav.areas}</a></li>
               <li><a href="#education"   className="hover:text-accent transition">{t.nav.education}</a></li>
               <li><a href="#instructors" className="hover:text-accent transition">{t.nav.instructors}</a></li>
-              <li><a href="#contact"     className="hover:text-accent transition">{t.nav.contact}</a></li>
             </ul>
-            <div className="flex items-center gap-1 border-l border-main/10 pl-5">
+            <a
+              href="#contact"
+              className="hidden sm:inline-block bg-accent text-white text-sm font-semibold px-5 py-2 rounded-full hover:bg-accent_deep transition"
+            >
+              {t.nav.contact}
+            </a>
+            <div className="flex items-center gap-1 border-l border-white/15 pl-4">
               <button
                 onClick={() => setLang('ko')}
-                className={`text-xs font-bold px-3 py-1.5 rounded-full transition ${lang === 'ko' ? 'bg-main text-white' : 'text-main/50 hover:bg-main/5'}`}
+                className={`text-xs font-bold px-3 py-1.5 rounded-full transition ${lang === 'ko' ? 'bg-white text-main' : 'text-white/50 hover:bg-white/10'}`}
               >KR</button>
               <button
                 onClick={() => setLang('en')}
-                className={`text-xs font-bold px-3 py-1.5 rounded-full transition ${lang === 'en' ? 'bg-main text-white' : 'text-main/50 hover:bg-main/5'}`}
+                className={`text-xs font-bold px-3 py-1.5 rounded-full transition ${lang === 'en' ? 'bg-white text-main' : 'text-white/50 hover:bg-white/10'}`}
               >EN</button>
             </div>
           </div>
@@ -436,7 +443,16 @@ export default function App() {
       </nav>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center bg-bg_cream overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-bg_dark overflow-hidden">
+        {/* 격자 패턴 */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-60"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+          }}
+        />
         <NetworkCanvas />
         <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 animate-fade-in-up">
 
@@ -448,7 +464,7 @@ export default function App() {
                 className={`text-xs font-medium px-3 py-1 rounded-full transition-all duration-500 ${
                   i === wordIdx
                     ? 'bg-accent text-white scale-105'
-                    : 'bg-main/8 text-main/40'
+                    : 'bg-white/10 text-white/40'
                 }`}
               >
                 {word}
@@ -457,18 +473,18 @@ export default function App() {
           </div>
 
           {/* 배지 */}
-          <div className="inline-block bg-accent text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            {t.badge}
+          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+            ✦ {t.badge}
           </div>
 
           {/* 헤드라인 */}
-          <h1 className="text-4xl md:text-7xl font-bold leading-tight mb-3 text-main">
+          <h1 className="text-4xl md:text-7xl font-black leading-[1.14] mb-3 text-white">
             {t.h1}
           </h1>
-          <h2 className="text-3xl md:text-6xl font-bold leading-tight mb-6">
+          <h2 className="text-3xl md:text-6xl font-black leading-[1.14] mb-6 text-white">
             <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
           </h2>
-          <p className="text-sub text-lg md:text-xl mb-10">
+          <p className="text-[#B8B2AC] text-lg md:text-xl mb-10 max-w-2xl">
             {t.sub}
           </p>
 
@@ -476,27 +492,29 @@ export default function App() {
           <div className="flex flex-wrap gap-4">
             <a
               href="#areas"
-              className="bg-accent text-white px-7 py-3 rounded-full font-semibold hover:bg-[#a84030] transition shadow-sm"
+              className="bg-accent text-white px-7 py-3 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
             >
-              {t.cta1}
-            </a>
-            <a
-              href="#instructors"
-              className="bg-main text-white px-7 py-3 rounded-full font-semibold hover:bg-[#444] transition shadow-sm"
-            >
-              {t.cta2}
+              {t.cta1} →
             </a>
             <a
               href="#contact"
-              className="border-2 border-accent text-accent px-7 py-3 rounded-full font-semibold hover:bg-accent hover:text-white transition shadow-sm"
+              className="border-2 border-white/40 text-white px-7 py-3 rounded-full font-semibold hover:bg-white hover:text-main transition"
             >
               {t.cta3}
             </a>
           </div>
 
-          {/* 아래 화살표 */}
-          <div className="mt-14">
-            <span className="text-accent text-2xl animate-bounce inline-block">↓</span>
+          {/* 지표 바 */}
+          <div className="mt-14 max-w-3xl">
+            <p className="text-white/40 text-xs mb-2">{t.stats_note}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 bg-white/5 backdrop-blur-sm rounded-2xl px-4 py-6">
+              {t.stats.map((s, i) => (
+                <div key={s.l} className={`text-center px-3 ${i > 0 ? 'sm:border-l sm:border-white/10' : ''}`}>
+                  <p className="font-heading font-black text-accent text-3xl leading-none mb-1.5 whitespace-nowrap">{s.n}</p>
+                  <p className="text-white/60 text-xs">{s.l}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -510,17 +528,9 @@ export default function App() {
             <span className="bg-accent text-white text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-6 w-fit">
               {t.about_title}
             </span>
-            <p className="text-main text-lg leading-relaxed mb-8">
+            <p className="text-main text-lg leading-relaxed">
               {t.company_p}
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {t.stats.map(s => (
-                <div key={s.l} className="bg-bg_cream rounded-xl px-3 py-4 text-center">
-                  <p className="text-accent text-2xl font-bold leading-none mb-1.5">{s.n}</p>
-                  <p className="text-sub text-xs">{s.l}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* 오른쪽: 경력 이미지 */}
@@ -552,7 +562,7 @@ export default function App() {
                 <div className={`grid gap-4 ${g.items.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
                   {g.items.map(item => (
                     <div key={item.n} className="bg-white rounded-2xl p-6 shadow-sm border border-main/5 flex flex-col gap-2">
-                      <span className="text-accent text-xs font-bold tracking-wider">{item.n}</span>
+                      <span className="text-accent_deep text-xs font-bold tracking-wider">{item.n}</span>
                       <h4 className="text-base font-bold text-main leading-snug">{item.title}</h4>
                       <p className="text-sm text-sub leading-relaxed">{item.desc}</p>
                     </div>
@@ -587,12 +597,12 @@ export default function App() {
               <p className="font-bold text-main text-lg mb-1">B-1</p>
               <h3 className="text-xl font-bold text-main mb-1">{t.b1_title}</h3>
               <p className="text-xs text-sub mb-4">{t.b1_target}</p>
-              <p className="text-accent font-medium italic mb-2">{t.b1_tag}</p>
+              <p className="text-accent_deep font-medium italic mb-2">{t.b1_tag}</p>
               <p className="text-sm text-sub">{t.b1_desc}</p>
             </div>
 
             <div className="bg-accent rounded-2xl p-8 shadow-md relative">
-              <span className="absolute top-4 right-4 bg-white text-accent text-xs font-bold px-2.5 py-1 rounded-full">
+              <span className="absolute top-4 right-4 bg-white text-accent_deep text-xs font-bold px-2.5 py-1 rounded-full">
                 {t.b2_badge}
               </span>
               <p className="font-bold text-white text-lg mb-1">B-2</p>
@@ -606,7 +616,7 @@ export default function App() {
               <p className="font-bold text-main text-lg mb-1">B-3</p>
               <h3 className="text-xl font-bold text-main mb-1">{t.b3_title}</h3>
               <p className="text-xs text-sub mb-4">{t.b3_target}</p>
-              <p className="text-accent font-medium italic mb-2">{t.b3_tag}</p>
+              <p className="text-accent_deep font-medium italic mb-2">{t.b3_tag}</p>
               <p className="text-sm text-sub">{t.b3_desc}</p>
             </div>
           </div>
@@ -630,7 +640,7 @@ export default function App() {
               </p>
               <a
                 href="#contact"
-                className="bg-accent text-white px-6 py-3 rounded-full text-sm font-semibold w-fit hover:bg-[#a84030] transition"
+                className="bg-accent text-white px-6 py-3 rounded-full text-sm font-semibold w-fit hover:bg-accent_deep transition"
               >
                 {t.sig_cta}
               </a>
@@ -672,7 +682,7 @@ export default function App() {
           {/* 과정 3개 */}
           <div className="grid md:grid-cols-3 gap-4">
             <div className="bg-accent rounded-2xl p-8 relative">
-              <span className="absolute top-4 right-4 bg-white text-accent text-xs font-bold px-2.5 py-1 rounded-full">FEATURED</span>
+              <span className="absolute top-4 right-4 bg-white text-accent_deep text-xs font-bold px-2.5 py-1 rounded-full">FEATURED</span>
               <div className="text-white text-2xl mb-3 font-mono">&lt;&gt;</div>
               <h3 className="text-xl font-bold text-white mb-2">{t.v1_title}</h3>
               <p className="text-white/60 text-sm mb-3">{t.v1_desc}</p>
@@ -723,7 +733,7 @@ export default function App() {
             <p className="text-sub">{t.inst_sub}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 items-start">
+          <div className="max-w-3xl mx-auto">
             {/* 박선례 대표 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
               <div className="grid grid-cols-3">
@@ -734,7 +744,7 @@ export default function App() {
                 />
                 <div className="col-span-2 p-6">
                   <h3 className="text-xl font-bold text-main">{t.inst1_name}</h3>
-                  <p className="text-accent text-sm font-medium mb-3">{t.inst1_role}</p>
+                  <p className="text-accent_deep text-sm font-medium mb-3">{t.inst1_role}</p>
                   <p className="font-bold text-main text-sm leading-snug">{t.univ}</p>
                   <p className="text-sub text-sm">{t.univ_sub}</p>
                   <p className="text-sub/60 text-xs mt-1 italic">{t.thesis}</p>
@@ -746,10 +756,10 @@ export default function App() {
                   {t.certs.map(c => <span key={c}>{c}</span>)}
                 </div>
                 <div className="bg-bg_cream rounded-xl px-4 py-2.5 mb-2 text-xs text-main/80">
-                  <span className="text-accent font-bold mr-2">저서</span>{t.book}
+                  <span className="text-accent_deep font-bold mr-2">저서</span>{t.book}
                 </div>
                 <div className="bg-bg_cream rounded-xl px-4 py-2.5 mb-4 text-xs text-main/80">
-                  <span className="text-accent font-bold mr-2">현 소속</span>{t.role_now}
+                  <span className="text-accent_deep font-bold mr-2">현 소속</span>{t.role_now}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer"
@@ -764,31 +774,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* 박선미 강사 */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
-              <div className="grid grid-cols-3">
-                <img
-                  src={`${import.meta.env.BASE_URL}instructor_park_seonmi_v2.jpg`}
-                  alt={t.inst2_name}
-                  className="w-full h-full object-cover col-span-1 min-h-[200px]"
-                />
-                <div className="col-span-2 p-6">
-                  <h3 className="text-xl font-bold text-main">{t.inst2_name}</h3>
-                  <p className="text-accent text-sm font-medium mb-3">{t.inst2_role}</p>
-                  <p className="text-sub text-sm leading-relaxed">{t.inst2_desc}</p>
-                </div>
-              </div>
-              <div className="px-6 pb-6">
-                <ul className="space-y-1.5">
-                  {t.inst2_certs.map(c => (
-                    <li key={c} className="text-main/70 text-xs flex items-start gap-2">
-                      <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/60 shrink-0" />
-                      {c}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -813,7 +798,7 @@ export default function App() {
                 <a key={c.u} href={c.u} target="_blank" rel="noreferrer"
                   className="group bg-white rounded-2xl p-6 shadow-sm border border-main/5 flex flex-col justify-between gap-4 hover:border-accent/40 hover:shadow-md transition">
                   <p className="text-main font-bold leading-snug group-hover:text-accent transition">{c.t}</p>
-                  <span className="text-accent text-sm font-medium">{t.col_read} →</span>
+                  <span className="text-accent_deep text-sm font-medium">{t.col_read} →</span>
                 </a>
               ))}
             </div>

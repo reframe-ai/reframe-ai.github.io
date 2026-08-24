@@ -3,7 +3,7 @@
 
 :root {
     --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --font-heading: "SUITE Variable", SUITE, "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", sans-serif;
+    --font-heading: "Paperlogy", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", sans-serif;
 }
 
 body {
@@ -33,10 +33,10 @@ details>summary::-webkit-details-marker {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #2F5D50;
+    background: #C93E0C;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #A24B33;
+    background: #F4581C;
 }

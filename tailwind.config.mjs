@@ -9,8 +9,10 @@ export default {
       colors: {
         main: '#2D2B27',
         bg_cream: '#FAFAFA',
-        bg_dark: '#2A2825',
-        accent: '#C05440',
+        bg_dark: '#171412',
+        accent: '#F4581C',
+        accent_deep: '#C93E0C',
+        accent_tint: '#FDEBE0',
         sub: '#6B6560',
         card_bg: '#F2F2F2',
       },
