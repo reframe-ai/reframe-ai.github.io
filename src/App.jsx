@@ -466,7 +466,7 @@ export default function App() {
   useEffect(() => {
     const timer = setInterval(() => {
       setWordIdx(i => (i + 1) % WORDS.length);
-    }, 1800);
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
