@@ -18,8 +18,8 @@ const T = {
     about_head2: 'AI 교육 전문기업',
     company_p: '(주)리프레임은 생성형 AI 활용 교육 전문 기업입니다. 공공기관 직무교육부터 기업 재직자 역량강화, 학교·평생교육까지 — 학습자의 눈높이에 맞춘 실습 중심의 AI 교육을 설계하고 운영합니다.',
     about_facts: [
-      { k: '핵심 가치', v: '천천히, 제대로' },
-      { k: '전문 영역', v: 'AI 교육 · 바이브코딩' },
+      { k: '핵심 가치', v: '천천히, 제대로, 누구나 가능한' },
+      { k: '전문 영역', v: 'AI 프롬프트 · 콘텐츠 제작 · 바이브코딩 · 업무 활용' },
     ],
     about_values: [
       { icon: 'field', title: '현장에서 검증된 교육', desc: '공공기관·기업·대학 특강·평생학습 기관에서 400시간 이상의 실습 중심 교육으로 검증받았습니다.' },
@@ -131,8 +131,8 @@ const T = {
     about_head2: 'an AI education company',
     company_p: 'Re:Frame Inc. is a company specializing in generative AI education — from public-sector job training and corporate upskilling to schools and lifelong learning, we design and run hands-on AI programs tailored to every learner.',
     about_facts: [
-      { k: 'Core value', v: 'Slow & steady, done right' },
-      { k: 'Focus', v: 'AI education · Vibe coding' },
+      { k: 'Core value', v: 'Slow, steady — and possible for anyone' },
+      { k: 'Focus', v: 'AI prompting · Content creation · Vibe coding · AI at work' },
     ],
     about_values: [
       { icon: 'field', title: 'Field-proven education', desc: 'Over 400 hours of hands-on training validated at public institutions, companies, university lectures and lifelong-learning centers.' },
