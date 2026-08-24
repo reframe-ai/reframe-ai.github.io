@@ -322,7 +322,7 @@ function HeroSlideshow() {
         />
       ))}
       {/* 다크 오버레이 — 텍스트 가독성 확보 */}
-      <div className="absolute inset-0 bg-gradient-to-r from-bg_dark/95 via-bg_dark/85 to-bg_dark/65" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg_dark/75 via-bg_dark/65 to-bg_dark/45" />
     </div>
   );
 }
@@ -486,7 +486,6 @@ export default function App() {
             backgroundSize: '56px 56px',
           }}
         />
-        <NetworkCanvas />
         <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 animate-fade-in-up">
 
           {/* 애니메이션 태그 목록 */}
