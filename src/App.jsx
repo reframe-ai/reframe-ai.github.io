@@ -13,8 +13,19 @@ const T = {
     cta1: '강의 분야 보기',
     cta2: '강사진 보기',
     cta3: '강의 문의하기',
-    about_title: 'Re:Frame 소개',
+    about_title: 'About Re:Frame',
+    about_head1: '배움의 프레임을 다시 짜는',
+    about_head2: 'AI 교육 전문기업',
     company_p: '(주)리프레임은 생성형 AI 활용 교육 전문 기업입니다. 공공기관 직무교육부터 기업 재직자 역량강화, 학교·평생교육까지 — 학습자의 눈높이에 맞춘 실습 중심의 AI 교육을 설계하고 운영합니다.',
+    about_facts: [
+      { k: '핵심 가치', v: '천천히, 제대로' },
+      { k: '전문 영역', v: 'AI 교육 · 바이브코딩' },
+    ],
+    about_values: [
+      { icon: 'field', title: '현장에서 검증된 교육', desc: '국민연금공단, 한국남동발전 등 공공기관·기업 현장에서 400시간 이상의 실습 중심 교육으로 검증받았습니다.' },
+      { icon: 'design', title: '학습자 눈높이 설계', desc: '평생교육·HRD 석사의 설계 전문성으로 초등학생부터 중장년까지, 대상과 목적에 맞는 커리큘럼을 만듭니다.' },
+      { icon: 'insight', title: '글과 현장을 잇는 통찰', desc: '로컬M 칼럼 연재와 AI 교재 집필로 배움을 기록하고, 그 통찰을 다시 강의 현장에 담아냅니다.' },
+    ],
     stats: [
       { n: '10년+', l: '강의 경력' },
       { n: '400+', l: 'AI 교육 시간 (2023~)' },
@@ -116,7 +127,18 @@ const T = {
     cta2: 'Meet the Instructors',
     cta3: 'Request a Lecture',
     about_title: 'About Re:Frame',
+    about_head1: 'Reframing how we learn —',
+    about_head2: 'an AI education company',
     company_p: 'Re:Frame Inc. is a company specializing in generative AI education — from public-sector job training and corporate upskilling to schools and lifelong learning, we design and run hands-on AI programs tailored to every learner.',
+    about_facts: [
+      { k: 'Core value', v: 'Slow & steady, done right' },
+      { k: 'Focus', v: 'AI education · Vibe coding' },
+    ],
+    about_values: [
+      { icon: 'field', title: 'Field-proven education', desc: 'Over 400 hours of hands-on training validated at public institutions and companies including the National Pension Service and Korea South-East Power.' },
+      { icon: 'design', title: 'Learner-centered design', desc: "With a master's in lifelong education & HRD, we build curricula that fit every audience — from elementary students to seniors." },
+      { icon: 'insight', title: 'Insight from writing to field', desc: 'A weekly LocalM column and an AI textbook keep our thinking sharp — and feed it back into every classroom.' },
+    ],
     stats: [
       { n: '10+ yrs', l: 'Teaching experience' },
       { n: '400+', l: 'AI lecture hours (2023~)' },
@@ -296,6 +318,26 @@ function NetworkCanvas() {
 // ── 히어로 애니메이션 태그 ─────────────────────────────────────
 const WORDS = ['실습 중심', '맞춤교육', '리터러시', '바이브 코딩'];
 
+// ── 소개 섹션 가치 카드 아이콘 ─────────────────────────────────
+const VALUE_ICONS = {
+  field: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <path d="M3 4h18" /><path d="M5 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4" />
+      <path d="M12 15v3" /><path d="M8 21l4-3 4 3" />
+    </svg>
+  ),
+  design: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.2" fill="currentColor" />
+    </svg>
+  ),
+  insight: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </svg>
+  ),
+};
+
 // ── 히어로 배경 슬라이드쇼 (디졸브 전환 + Ken Burns) ────────────
 const HERO_IMAGES = ['hero/hero-1.jpg', 'hero/hero-2.jpg', 'hero/hero-3.jpg', 'hero/hero-4.jpg', 'hero/hero-5.jpg', 'hero/hero-6.jpg'];
 
@@ -322,7 +364,7 @@ function HeroSlideshow() {
         />
       ))}
       {/* 다크 오버레이 — 텍스트 가독성 확보 */}
-      <div className="absolute inset-0 bg-gradient-to-r from-bg_dark/75 via-bg_dark/65 to-bg_dark/45" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg_dark/95 via-bg_dark/85 to-bg_dark/65" />
     </div>
   );
 }
@@ -552,26 +594,43 @@ export default function App() {
       </section>
 
       {/* ── 소개 (ABOUT) ──────────────────────────────────────── */}
-      <section id="about" className="py-20 px-6 bg-bg_cream">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
+      <section id="about" className="py-24 px-6 bg-bg_cream">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
 
-          {/* 왼쪽: 법인 소개 카드 */}
-          <div className="bg-white rounded-2xl p-10 border border-main/8 shadow-sm flex flex-col justify-center">
-            <span className="bg-accent text-white text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-6 w-fit">
+          {/* 왼쪽: 배지 + 헤드라인 + 소개문 + 팩트 카드 */}
+          <div>
+            <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-6">
               {t.about_title}
             </span>
-            <p className="text-main text-lg leading-relaxed">
+            <h2 className="text-3xl md:text-[2.5rem] font-black text-main leading-[1.28] mb-6">
+              {t.about_head1}<br />{t.about_head2}
+            </h2>
+            <p className="text-sub text-base md:text-lg leading-relaxed mb-10">
               {t.company_p}
             </p>
+            <div className="grid grid-cols-2 gap-4">
+              {t.about_facts.map(f => (
+                <div key={f.k} className="bg-white border border-main/8 rounded-2xl px-5 py-5">
+                  <p className="text-sub text-sm mb-1.5">{f.k}</p>
+                  <p className="text-main text-lg font-bold leading-snug">{f.v}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* 오른쪽: 경력 이미지 */}
-          <div className="rounded-2xl overflow-hidden bg-[#F5F0EA]">
-            <img
-              src={`${import.meta.env.BASE_URL}Image.png`}
-              alt="창작과 현장을 거쳐, 교육과 AI로"
-              className="w-full object-contain md:object-cover md:h-full md:min-h-[300px] aspect-[3/2] md:aspect-auto"
-            />
+          {/* 오른쪽: 가치 카드 3개 */}
+          <div className="space-y-5">
+            {t.about_values.map(v => (
+              <div key={v.title} className="bg-white border border-main/8 rounded-2xl p-7 flex gap-5 items-start shadow-sm">
+                <span className="w-12 h-12 rounded-xl bg-accent_tint text-accent_deep flex items-center justify-center shrink-0">
+                  {VALUE_ICONS[v.icon]}
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-main mb-1.5">{v.title}</h3>
+                  <p className="text-sub text-sm leading-relaxed">{v.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
