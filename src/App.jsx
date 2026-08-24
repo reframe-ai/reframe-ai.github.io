@@ -18,13 +18,22 @@ const T = {
     about_head2: 'AI 교육 전문기업',
     company_p: '(주)리프레임은 생성형 AI 활용 교육 전문 기업입니다. 공공기관 직무교육부터 기업 재직자 역량강화, 학교·평생교육까지 — 학습자의 눈높이에 맞춘 실습 중심의 AI 교육을 설계하고 운영합니다.',
     about_facts: [
-      { k: '핵심 가치', v: '천천히, 제대로, 누구나 가능한' },
+      { k: '핵심 가치', v: '천천히, 누구나, 가능한' },
       { k: '전문 영역', v: 'AI 프롬프트 · 콘텐츠 제작 · 바이브코딩 · 업무 활용' },
     ],
     about_values: [
-      { icon: 'field', title: '현장에서 검증된 교육', desc: '공공기관·기업·대학 특강·평생학습 기관에서 400시간 이상의 실습 중심 교육으로 검증받았습니다.' },
-      { icon: 'design', title: '학습자 눈높이 설계', desc: '평생교육·HRD 석사 & 직업능력훈련교사의 설계 전문성으로 초등학생부터 중장년까지, 대상과 목적에 맞는 커리큘럼을 만듭니다.' },
-      { icon: 'insight', title: '글과 현장을 잇는 통찰', desc: '로컬M - AI 칼럼 연재와 AI 교재 집필로 배움을 기록하고, 그 통찰을 다시 강의 현장에 담아냅니다.' },
+      { icon: 'region', title: '지역과 함께 성장합니다', desc: '전북에 뿌리를 두고 활동합니다. AI 시대에 지역이 소외되지 않도록, 배움의 기회를 지역 곳곳으로 넓힙니다.' },
+      { icon: 'adult', title: '성인의 배움을 믿습니다', desc: '늦은 배움은 없습니다. 중장년·시니어도 자기 속도로 익힐 수 있도록, 성인 학습의 원리로 교육을 설계합니다.' },
+      { icon: 'literacy', title: '문해력과 소통을 중심에 둡니다', desc: '도구 사용법을 넘어 기술을 읽고, 판단하고, 소통하는 힘 — AI 리터러시가 모든 수업의 바탕입니다.' },
+    ],
+    exp_badge: "Re:Frame's expertise",
+    exp_head1: '배움과 AI를 잇는',
+    exp_head2: '세 가지 전문 역량',
+    exp_sub: '설계부터 콘텐츠, 현장까지 — 교육 전 과정을 아우르는 전문성으로 학습자와 현장에 꼭 맞는 교육을 만듭니다.',
+    exp_items: [
+      { n: '01', label: 'EDUCATION', icon: 'grad', title: '맞춤형 교육 설계', desc: '평생교육·HRD 석사와 직업능력훈련교사의 전문성으로, 대상·목적·환경에 맞는 교육과정을 정교하게 설계합니다.' },
+      { n: '02', label: 'AI·CONTENT', icon: 'content', title: 'AI 콘텐츠 개발', desc: '빠르게 변화하는 AI 환경을 반영해 교재와 실습 자료, 커리큘럼을 직접 기획하고 개발합니다.' },
+      { n: '03', label: 'EXPERIENCE', icon: 'field', title: 'AI 교육 현장경험', desc: '2023년부터 공공기관·기업·평생교육 현장에서 400시간 이상 — 강의실에서 검증된 방법으로 가르칩니다.' },
     ],
     stats: [
       { n: '10년+', l: '강의 경력' },
@@ -131,13 +140,22 @@ const T = {
     about_head2: 'an AI education company',
     company_p: 'Re:Frame Inc. is a company specializing in generative AI education — from public-sector job training and corporate upskilling to schools and lifelong learning, we design and run hands-on AI programs tailored to every learner.',
     about_facts: [
-      { k: 'Core value', v: 'Slow, steady — and possible for anyone' },
+      { k: 'Core value', v: 'Slow · For anyone · Possible' },
       { k: 'Focus', v: 'AI prompting · Content creation · Vibe coding · AI at work' },
     ],
     about_values: [
-      { icon: 'field', title: 'Field-proven education', desc: 'Over 400 hours of hands-on training validated at public institutions, companies, university lectures and lifelong-learning centers.' },
-      { icon: 'design', title: 'Learner-centered design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we build curricula that fit every audience — from elementary students to seniors." },
-      { icon: 'insight', title: 'Insight from writing to field', desc: 'A weekly LocalM column and an AI textbook keep our thinking sharp — and feed it back into every classroom.' },
+      { icon: 'region', title: 'Growing with our region', desc: 'Rooted in Jeonbuk, we bring learning opportunities to every corner of the region — so no community is left behind in the AI era.' },
+      { icon: 'adult', title: 'We believe in adult learning', desc: 'It is never too late to learn. We design education on adult-learning principles so mid-lifers and seniors can learn at their own pace.' },
+      { icon: 'literacy', title: 'Literacy and communication first', desc: 'Beyond tool skills — the power to read, judge and communicate with technology. AI literacy grounds every class.' },
+    ],
+    exp_badge: "Re:Frame's expertise",
+    exp_head1: 'Three core competencies',
+    exp_head2: 'connecting learning and AI',
+    exp_sub: 'From design to content to the classroom — expertise across the whole journey of education.',
+    exp_items: [
+      { n: '01', label: 'EDUCATION', icon: 'grad', title: 'Tailored curriculum design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we design programs that fit each audience, goal and environment." },
+      { n: '02', label: 'AI·CONTENT', icon: 'content', title: 'AI content development', desc: 'We plan and develop textbooks, hands-on materials and curricula that keep pace with the fast-changing AI landscape.' },
+      { n: '03', label: 'EXPERIENCE', icon: 'field', title: 'Proven classroom experience', desc: 'Over 400 hours since 2023 at public institutions, companies and lifelong-learning centers — we teach only what we have verified in real classrooms.' },
     ],
     stats: [
       { n: '10+ yrs', l: 'Teaching experience' },
@@ -318,22 +336,38 @@ function NetworkCanvas() {
 // ── 히어로 애니메이션 태그 ─────────────────────────────────────
 const WORDS = ['실습 중심', '맞춤교육', '리터러시', '바이브 코딩'];
 
-// ── 소개 섹션 가치 카드 아이콘 ─────────────────────────────────
+// ── 가치·역량 카드 아이콘 ──────────────────────────────────────
 const VALUE_ICONS = {
+  region: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+    </svg>
+  ),
+  adult: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <circle cx="9" cy="7" r="4" /><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2" />
+      <circle cx="17.5" cy="8" r="3" /><path d="M22 21v-1.5a4 4 0 0 0-3-3.9" />
+    </svg>
+  ),
+  literacy: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2Z" /><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z" />
+    </svg>
+  ),
+  grad: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <path d="M22 9 12 4 2 9l10 5Z" /><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5" /><path d="M22 9v5" />
+    </svg>
+  ),
+  content: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <path d="m12 2 9 5-9 5-9-5Z" /><path d="m3 12 9 5 9-5" /><path d="m3 17 9 5 9-5" />
+    </svg>
+  ),
   field: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
       <path d="M3 4h18" /><path d="M5 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4" />
       <path d="M12 15v3" /><path d="M8 21l4-3 4 3" />
-    </svg>
-  ),
-  design: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.2" fill="currentColor" />
-    </svg>
-  ),
-  insight: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
     </svg>
   ),
 };
@@ -629,6 +663,37 @@ export default function App() {
                   <h3 className="text-lg font-bold text-main mb-1.5">{v.title}</h3>
                   <p className="text-sub text-sm leading-relaxed">{v.desc}</p>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 전문 역량 (EXPERTISE) ─────────────────────────────── */}
+      <section className="py-24 px-6 bg-card_bg">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-5">
+              {t.exp_badge}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black text-main leading-[1.3] mb-4">
+              {t.exp_head1}<br />{t.exp_head2}
+            </h2>
+            <p className="text-sub max-w-2xl mx-auto">{t.exp_sub}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {t.exp_items.map(item => (
+              <div key={item.n} className="bg-white rounded-2xl p-8 shadow-sm">
+                <div className="flex items-start justify-between mb-10">
+                  <span className="w-12 h-12 rounded-xl bg-accent_tint text-accent_deep flex items-center justify-center">
+                    {VALUE_ICONS[item.icon]}
+                  </span>
+                  <span className="font-heading font-black text-5xl text-accent/20 leading-none select-none">{item.n}</span>
+                </div>
+                <p className="text-accent_deep text-xs font-bold tracking-[0.15em] mb-2">{item.label}</p>
+                <h3 className="text-xl font-bold text-main mb-3">{item.title}</h3>
+                <p className="text-sub text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
