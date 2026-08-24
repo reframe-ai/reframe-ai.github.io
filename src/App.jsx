@@ -18,7 +18,7 @@ const T = {
     about_head2: 'AI 교육 전문기업',
     company_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 그리고 기술을 읽고 소통하는 문해력을 바탕으로 누구나 자기 속도로 익힐 수 있는 AI 교육을 기획·개발합니다. 또한 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대 배움의 새로운 프레임을 제시합니다.',
     about_facts: [
-      { k: '교육 철학', v: '천천히, 누구나, 가능한' },
+      { k: '교육 철학', v: '누구나, 자기 속도로, 제대로' },
       { k: '주요 활동 지역', v: '전북 · 전남' },
     ],
     about_values: [
@@ -140,7 +140,7 @@ const T = {
     about_head2: 'an AI education company',
     company_p: 'Re:Frame Inc. builds AI education anyone can learn at their own pace — grounded in our commitment to the region, our belief in adult learning, and literacy that helps people read and communicate with technology. Working with public institutions, companies and lifelong-learning centers, we run hands-on programs and propose a new frame for learning in the AI era.',
     about_facts: [
-      { k: 'Teaching philosophy', v: 'Slow · For anyone · Possible' },
+      { k: 'Teaching philosophy', v: 'Anyone, at their own pace, done right' },
       { k: 'Main service area', v: 'Jeonbuk · Jeonnam' },
     ],
     about_values: [
