@@ -642,11 +642,11 @@ export default function App() {
             <p className="text-sub text-base md:text-lg leading-relaxed mb-10">
               {t.company_p}
             </p>
-            <div className="grid grid-cols-2 gap-4">
-              {t.about_facts.map(f => (
-                <div key={f.k} className="bg-white border border-main/8 rounded-2xl px-5 py-5">
-                  <p className="text-sub text-sm mb-1.5">{f.k}</p>
-                  <p className="text-main text-lg font-bold leading-snug">{f.v}</p>
+            <div className="grid grid-cols-5 gap-4">
+              {t.about_facts.map((f, i) => (
+                <div key={f.k} className={`bg-white border border-main/8 rounded-2xl px-6 py-6 ${i === 0 ? 'col-span-3' : 'col-span-2'}`}>
+                  <p className="text-sub text-sm mb-2">{f.k}</p>
+                  <p className="text-main text-xl md:text-2xl font-bold leading-snug break-keep">{f.v}</p>
                 </div>
               ))}
             </div>
