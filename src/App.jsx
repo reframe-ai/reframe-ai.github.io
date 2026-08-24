@@ -19,7 +19,7 @@ const T = {
     company_p: '(주)리프레임은 생성형 AI 활용 교육 전문 기업입니다. 공공기관 직무교육부터 기업 재직자 역량강화, 학교·평생교육까지 — 학습자의 눈높이에 맞춘 실습 중심의 AI 교육을 설계하고 운영합니다.',
     about_facts: [
       { k: '핵심 가치', v: '천천히, 누구나, 가능한' },
-      { k: '활동 지역', v: '전북 · 전남 · 충청 (전국 협의 가능)' },
+      { k: '주요 활동 지역', v: '전북 · 전남' },
     ],
     about_values: [
       { icon: 'region', title: '지역과 함께 성장합니다', desc: '전북에 뿌리를 두고 활동합니다. AI 시대에 지역이 소외되지 않도록, 배움의 기회를 지역 곳곳으로 넓힙니다.' },
@@ -141,7 +141,7 @@ const T = {
     company_p: 'Re:Frame Inc. is a company specializing in generative AI education — from public-sector job training and corporate upskilling to schools and lifelong learning, we design and run hands-on AI programs tailored to every learner.',
     about_facts: [
       { k: 'Core value', v: 'Slow · For anyone · Possible' },
-      { k: 'Service area', v: 'Jeonbuk · Jeonnam · Chungcheong (nationwide negotiable)' },
+      { k: 'Main service area', v: 'Jeonbuk · Jeonnam' },
     ],
     about_values: [
       { icon: 'region', title: 'Growing with our region', desc: 'Rooted in Jeonbuk, we bring learning opportunities to every corner of the region — so no community is left behind in the AI era.' },
