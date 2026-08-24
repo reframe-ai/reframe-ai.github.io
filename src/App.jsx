@@ -5,7 +5,7 @@ import { useForm, ValidationError } from '@formspree/react';
 const T = {
   ko: {
     nav: { about: '소개', areas: '강의 분야', education: '교육 과정', instructors: '강사진', contact: '문의' },
-    badge: 'AI 교육 전문 기업 · (주)리프레임',
+    badge: 'AI 교육 전문 Re:Frame',
     h1: 'AI와 함께,',
     h2_accent: '가능성을',
     h2_rest: ' 열다.',
@@ -106,7 +106,7 @@ const T = {
   },
   en: {
     nav: { about: 'About', areas: 'Lecture Areas', education: 'Curriculum', instructors: 'Instructors', contact: 'Contact' },
-    badge: 'AI Education Company · Re:Frame Inc.',
+    badge: 'AI Education Experts · Re:Frame',
     h1: 'Opening possibilities,',
     h2_accent: 'together',
     h2_rest: ' with AI.',
@@ -404,7 +404,7 @@ export default function App() {
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_cream/90 backdrop-blur-sm border-b border-main/5">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
+          <a href="#" className="font-heading flex items-center gap-2.5 text-xl font-bold tracking-tight">
             <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
               <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
               <path d="M60 22 H75 V78 H60" fill="none" stroke="currentColor" strokeWidth="10" />

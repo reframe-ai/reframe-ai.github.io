@@ -1,8 +1,19 @@
 @import "tailwindcss";
 @config "../tailwind.config.mjs";
 
+:root {
+    --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-heading: "SUITE Variable", SUITE, "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", sans-serif;
+}
+
 body {
-    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-family: var(--font-body);
+}
+
+h1, h2, h3, h4,
+.font-heading {
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
 }
 
 details>summary {
