@@ -16,6 +16,21 @@ h1, h2, h3, h4,
     letter-spacing: -0.01em;
 }
 
+/* 히어로 배경 슬라이드 — 미세 확대·이동 (Ken Burns) */
+@keyframes kenburns {
+    0%   { transform: scale(1.05) translate(0%, 0%); }
+    100% { transform: scale(1.13) translate(-1.2%, 0.8%); }
+}
+
+.hero-slide {
+    animation: kenburns 16s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide { animation: none; }
+}
+
 details>summary {
     list-style: none;
 }

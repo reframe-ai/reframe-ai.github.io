@@ -296,6 +296,37 @@ function NetworkCanvas() {
 // ── 히어로 애니메이션 태그 ─────────────────────────────────────
 const WORDS = ['실습 중심', '맞춤교육', '리터러시', '바이브 코딩'];
 
+// ── 히어로 배경 슬라이드쇼 (디졸브 전환 + Ken Burns) ────────────
+const HERO_IMAGES = ['hero/hero-1.jpg', 'hero/hero-2.jpg', 'hero/hero-3.jpg', 'hero/hero-4.jpg', 'hero/hero-5.jpg', 'hero/hero-6.jpg'];
+
+function HeroSlideshow() {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIdx(i => (i + 1) % HERO_IMAGES.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+      {HERO_IMAGES.map((src, i) => (
+        <img
+          key={src}
+          src={`${import.meta.env.BASE_URL}${src}`}
+          alt=""
+          className={`hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-[1800ms] ease-in-out ${
+            i === idx ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      ))}
+      {/* 다크 오버레이 — 텍스트 가독성 확보 */}
+      <div className="absolute inset-0 bg-gradient-to-r from-bg_dark/95 via-bg_dark/85 to-bg_dark/65" />
+    </div>
+  );
+}
+
 // ── 강의 신청 폼 ──────────────────────────────────────────────
 function ContactForm({ lang }) {
   const [state, handleSubmit] = useForm('maqkjojj');
@@ -444,6 +475,8 @@ export default function App() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-bg_dark overflow-hidden">
+        {/* 배경 슬라이드쇼 */}
+        <HeroSlideshow />
         {/* 격자 패턴 */}
         <div
           className="absolute inset-0 pointer-events-none opacity-60"
@@ -552,22 +585,24 @@ export default function App() {
             <p className="text-sub">{t.areas_sub}</p>
           </div>
 
-          <div className="space-y-10">
+          <div className="grid md:grid-cols-3 gap-5 items-start">
             {t.areas_groups.map(g => (
-              <div key={g.id}>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-8 h-8 rounded-full bg-accent text-white text-sm font-bold flex items-center justify-center">{g.id}</span>
-                  <h3 className="text-xl font-bold text-main">{g.name}</h3>
+              <div key={g.id} className="bg-white rounded-2xl p-7 shadow-sm border border-main/5">
+                <div className="flex items-center gap-3 mb-6 pb-5 border-b border-main/8">
+                  <span className="w-9 h-9 rounded-full bg-accent text-white text-sm font-bold flex items-center justify-center shrink-0">{g.id}</span>
+                  <h3 className="text-lg font-bold text-main leading-snug">{g.name}</h3>
                 </div>
-                <div className={`grid gap-4 ${g.items.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
+                <ul className="space-y-5">
                   {g.items.map(item => (
-                    <div key={item.n} className="bg-white rounded-2xl p-6 shadow-sm border border-main/5 flex flex-col gap-2">
-                      <span className="text-accent_deep text-xs font-bold tracking-wider">{item.n}</span>
-                      <h4 className="text-base font-bold text-main leading-snug">{item.title}</h4>
-                      <p className="text-sm text-sub leading-relaxed">{item.desc}</p>
-                    </div>
+                    <li key={item.n}>
+                      <p className="text-[15px] font-bold text-main leading-snug flex gap-2">
+                        <span className="text-accent_deep shrink-0">{item.n}</span>
+                        {item.title}
+                      </p>
+                      <p className="text-[13px] text-sub leading-relaxed mt-1 pl-7">{item.desc}</p>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             ))}
           </div>
