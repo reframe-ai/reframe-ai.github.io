@@ -22,7 +22,7 @@ const T = {
       { k: '전문 영역', v: 'AI 교육 · 바이브코딩' },
     ],
     about_values: [
-      { icon: 'field', title: '현장에서 검증된 교육', desc: '국민연금공단, 한국남동발전 등 공공기관·기업 현장에서 400시간 이상의 실습 중심 교육으로 검증받았습니다.' },
+      { icon: 'field', title: '현장에서 검증된 교육', desc: '공공기관·기업·대학 특강·평생학습 기관에서 400시간 이상의 실습 중심 교육으로 검증받았습니다.' },
       { icon: 'design', title: '학습자 눈높이 설계', desc: '평생교육·HRD 석사 & 직업능력훈련교사의 설계 전문성으로 초등학생부터 중장년까지, 대상과 목적에 맞는 커리큘럼을 만듭니다.' },
       { icon: 'insight', title: '글과 현장을 잇는 통찰', desc: '로컬M - AI 칼럼 연재와 AI 교재 집필로 배움을 기록하고, 그 통찰을 다시 강의 현장에 담아냅니다.' },
     ],
@@ -135,7 +135,7 @@ const T = {
       { k: 'Focus', v: 'AI education · Vibe coding' },
     ],
     about_values: [
-      { icon: 'field', title: 'Field-proven education', desc: 'Over 400 hours of hands-on training validated at public institutions and companies including the National Pension Service and Korea South-East Power.' },
+      { icon: 'field', title: 'Field-proven education', desc: 'Over 400 hours of hands-on training validated at public institutions, companies, university lectures and lifelong-learning centers.' },
       { icon: 'design', title: 'Learner-centered design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we build curricula that fit every audience — from elementary students to seniors." },
       { icon: 'insight', title: 'Insight from writing to field', desc: 'A weekly LocalM column and an AI textbook keep our thinking sharp — and feed it back into every classroom.' },
     ],
