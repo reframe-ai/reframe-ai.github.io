@@ -4,24 +4,55 @@ import { useForm, ValidationError } from '@formspree/react';
 // ── 번역 텍스트 ────────────────────────────────────────────────
 const T = {
   ko: {
-    nav: { about: '소개', education: '교육 과정', vibe: '바이브 코딩', contact: '문의' },
-    badge: 'AI 활용 강사 · NCS 강사',
-    h1: 'AI, 어렵지 않아요.',
-    h2_accent: '천천히, 제대로 배우는',
-    h2_rest: ' AI 교육.',
-    sub: '도구를 익히고, AI와 함께 생각하는 힘을 키웁니다.',
-    cta1: '커리큘럼 보기',
-    cta2: '프로필 보기',
-    cta3: '오늘의 AI',
-    about_title: '학력 및 자격',
+    nav: { about: '소개', areas: '강의 분야', education: '교육 과정', instructors: '강사진', contact: '문의' },
+    badge: 'AI 교육 전문 기업 · (주)리프레임',
+    h1: 'AI와 함께,',
+    h2_accent: '가능성을',
+    h2_rest: ' 열다.',
+    sub: '천천히, 제대로 배우는 AI 교육 — 도구를 익히고, AI와 함께 생각하는 힘을 키웁니다.',
+    cta1: '강의 분야 보기',
+    cta2: '강사진 보기',
+    cta3: '강의 문의하기',
+    about_title: 'Re:Frame 소개',
+    company_p: '(주)리프레임은 생성형 AI 활용 교육 전문 기업입니다. 공공기관 직무교육부터 기업 재직자 역량강화, 학교·평생교육까지 — 학습자의 눈높이에 맞춘 실습 중심의 AI 교육을 설계하고 운영합니다.',
+    stats: [
+      { n: '2023', l: 'AI 교육 시작' },
+      { n: '400+', l: '누적 강의 시간' },
+      { n: '25+', l: '출강 기관' },
+      { n: '11', l: '강의 분야' },
+    ],
     bg1_1: '음악학 학사 · 필름스코어링 전공',
     bg1_2: '라디오·영상 기획·촬영·제작 실무 15년',
     univ: '전북대학교 교육대학원',
     univ_sub: '평생교육 및 HRD 전공 (석사)',
     thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
-    certs: ['📜 AICE Basic (KT)', '📜 NCS 강사', '📜 평생교육사 2급', '📜 디지털 튜터'],
-    tags: ['AI 입문', 'AI 심화', '바이브 코딩', 'AI 크리에이터'],
+    certs: ['📜 AICE(AI 활용능력) BASIC', '📜 NCS 강사', '📜 평생교육사 2급', '📜 사회복지사 1급', '📜 직업능력훈련교사(영상분야)', '📜 AI특화인재양성교육 이수 (AI서비스개발 40시간)', '📜 Google Workspace for Education Fundamentals', '📜 디지털 튜터'],
+    book: '『AI야, 안녕!』 — 초등학교 저학년을 위한 AI수업 교재 (공저 · 기획 · 집필 · 편집)',
+    role_now: '(주)리프레임 Re:Frame 대표 · 한국평생교육HRD진흥협회 AI교육부장',
+    tags: ['생성형 AI 업무 활용', '바이브코딩', 'AI 콘텐츠 제작', 'AI 리터러시 · 저작권'],
     quote_card: ['도구를 익히고,', 'AI와 함께 생각하는 힘을', '키웁니다.', '사용하는 것이 시작이라면,', '협업은 완성입니다.'],
+    areas_title: '강의 분야',
+    areas_sub: '11개 분야 · 3개 영역 — 기관과 대상에 맞춰 조합해 과정을 설계합니다',
+    areas_cta: '강의 신청하기',
+    areas_groups: [
+      { id: 'A', name: 'AI 업무 실무', items: [
+        { n: '01', title: '생성형 AI 업무 활용', desc: '사업계획서 · 보고서 · 공문 · 보도자료 초안, 회의록 요약과 업무 메일까지 행정 문서에 바로 적용' },
+        { n: '02', title: '프롬프트 엔지니어링', desc: '4단계 질문법(배경 · 목적 · 요청 · 출력형식)으로 프롬프트를 설계하고 반복 개선' },
+        { n: '03', title: 'AI 리터러시 · 윤리 · 저작권', desc: '민감정보 입력 기준, AI 생성물 저작권, 가짜정보 구별과 교차 검증' },
+        { n: '04', title: 'AI 데이터 분석 · 시각화', desc: '엑셀 · 구글시트 데이터 정리와 AI 분석, 차트 · 대시보드 시각화' },
+      ]},
+      { id: 'B', name: '제작 · 자동화 · 개발', items: [
+        { n: '05', title: '노코드 업무 자동화', desc: '코딩 없이 반복 업무 흐름을 설계하고 문서 · 메일 · 데이터 수집을 자동화' },
+        { n: '06', title: 'AI 에이전트 구축 · 활용', desc: '업무 목적별 맞춤 AI 에이전트를 설계하고 반복 업무를 위임' },
+        { n: '07', title: '바이브코딩 (웹/앱 만들기)', desc: '코딩 지식 없이 대화형 AI(Claude)로 웹앱을 기획 → 제작 → 배포까지' },
+        { n: '08', title: 'AI 콘텐츠 제작', desc: '카드뉴스 · 포스터 · 안내문과 홍보 · 행사 숏폼 영상을 기획부터 자막 · 편집까지' },
+      ]},
+      { id: 'C', name: '학습 · 플랫폼 심화', items: [
+        { n: '09', title: 'AI 활용 글쓰기 · 학습', desc: 'AI와 함께하는 글쓰기와 자료 조사, 스스로 검증하며 배우는 자기주도 학습법' },
+        { n: '10', title: 'Google AI 워크스페이스 활용', desc: 'Gemini · NotebookLM과 Google 드라이브 · 시트 · 문서 · 폼 연동 업무' },
+        { n: '11', title: 'Claude 마스터', desc: '데스크톱 설치 · Claude Cowork · Claude Code · 스킬 · MCP · 디자인 활용' },
+      ]},
+    ],
     edu_title: '맞춤형 AI 활용 교육 과정',
     edu_sub: '대상과 목적에 맞는 단계별 AI 교육',
     b1_title: '생성형 AI 입문', b1_target: '입문자·시니어', b1_tag: 'AI가 친구처럼 느껴지게.', b1_desc: 'ChatGPT 기초, 프롬프팅, 실생활 활용',
@@ -45,30 +76,84 @@ const T = {
     q_body: 'AI라는 단어 자체가 낯설고 어색했던 때가 있었어요.\n하지만 하나씩 시도하면서,\n이건 사람과 AI의 진짜 협업이라는 걸 깨달았습니다.',
     q_quote: '"이 길을 직접 걸어왔기에, 제가 경험한 그대로를 가르칩니다."',
     q_name: '',
+    inst_title: '강사진',
+    inst_sub: '현장에서 검증된 전문 강사진이 함께합니다',
+    inst1_name: '박선례', inst1_role: '대표 · 생성형 AI 활용 교육 전문 강사',
+    inst2_name: '박선미', inst2_role: '전문 강사 · 미디어 리터러시 & 영상 교육',
+    inst2_desc: '2008년부터 17년간 미디어센터와 학교 현장에서 다양한 계층을 만나온 베테랑 강사입니다. 전라북도교육청 미디어 리터러시 강사로 청소년 미디어 교육을 이끌고 있으며, 단편영화 연출 경험을 살린 생생한 영상 교육을 진행합니다.',
+    inst2_certs: ['원광대학교 사범대학 일어교육과', '중등교원 2급 정교사', '미디어 리터러시 강사 · 전북특별자치도교육청', '익산공공영상미디어센터 미디어교육 강사 (2008~)', '디지털튜터 지도사'],
+    trust_title: '칼럼 & 출강 실적',
+    trust_sub: '글로 생각을 나누고, 현장으로 증명합니다',
+    col_badge: '로컬M 칼럼 연재',
+    col_name: '「로컬시대와 새파트너 AI」',
+    col_desc: '지역의 눈으로 AI를 씁니다 — 인터넷신문 로컬M에 연재 중인 박선례 대표의 칼럼입니다.',
+    col_read: '칼럼 읽기',
+    columns: [
+      { t: 'AI시대, 우리 지역은 검색되고 있습니까?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
+      { t: '맡길까, 직접 할까… 작은 카페를 알리는 세 가지 방법', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4405' },
+      { t: '사흘 만에 사라진 AI, 통제권은 누구에게 있었나', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
+    ],
+    orgs_title: '주요 출강 기관',
+    orgs_note: '2023년부터 공공기관 · 기업 · 대학 · 평생교육기관에서 총 400시간 이상의 AI 교육을 진행했습니다.',
+    orgs: ['국민연금공단', '한국남동발전', '전북지방조달청', '전북문화관광재단', '전북평생교육장학진흥원', '한국평생교육HRD진흥협회', '송호대학교', '순천대학교', '순천제일대학교', '전북시민대학', '익산시평생학습관', '전주시평생학습관', '순창군청', '순창군평생학습관', '완주군귀농귀촌센터', '진안청년센터', '고창청소년문화센터', '호남제일고등학교', '전주덕진중학교', '익산남성중학교', '핵심인재개발원', '신기술교육원', '(주)한터', '(주)큐라이트'],
     footer_title: '함께 기술을',
     footer_title2: ' 하세요.',
     footer_sub: '강의 문의는 신청 폼 또는 이메일로 연락해주세요.',
-    copy: '© 2026 Re:Frame. All rights reserved.',
+    tax_note: '기관 · 단체 계약 및 세금계산서 발행이 가능합니다.',
+    biz1: '(주)리프레임 · 대표 박선례',
+    biz2: '사업자등록번호 · 소재지 표기 준비 중 · pianossun@naver.com',
+    copy: '© 2026 (주)리프레임 Re:Frame. All rights reserved.',
   },
   en: {
-    nav: { about: 'About', education: 'Curriculum', vibe: 'Vibe Coding', contact: 'Contact' },
-    badge: 'AI Utilization · NCS Instructor',
-    h1: "AI doesn't have to be hard.",
-    h2_accent: 'Slow, steady, and',
-    h2_rest: ' real AI education.',
-    sub: 'Learn the tools. Build the thinking to collaborate with AI.',
-    cta1: 'View Curriculum',
-    cta2: 'View Profile',
-    cta3: 'AI Today',
-    about_title: 'Education & Credentials',
+    nav: { about: 'About', areas: 'Lecture Areas', education: 'Curriculum', instructors: 'Instructors', contact: 'Contact' },
+    badge: 'AI Education Company · Re:Frame Inc.',
+    h1: 'Opening possibilities,',
+    h2_accent: 'together',
+    h2_rest: ' with AI.',
+    sub: 'Slow, steady, real AI education — learn the tools, build the thinking to collaborate with AI.',
+    cta1: 'Lecture Areas',
+    cta2: 'Meet the Instructors',
+    cta3: 'Request a Lecture',
+    about_title: 'About Re:Frame',
+    company_p: 'Re:Frame Inc. is a company specializing in generative AI education — from public-sector job training and corporate upskilling to schools and lifelong learning, we design and run hands-on AI programs tailored to every learner.',
+    stats: [
+      { n: '2023', l: 'Teaching AI since' },
+      { n: '400+', l: 'Lecture hours' },
+      { n: '25+', l: 'Organizations' },
+      { n: '11', l: 'Lecture areas' },
+    ],
     bg1_1: 'B.A. in Music · Film Scoring',
     bg1_2: '15 years in radio & video production',
     univ: 'Jeonbuk National University Graduate School of Education',
     univ_sub: 'Lifelong Education & HRD (M.Ed.)',
     thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
-    certs: ['📜 AICE Basic (KT)', '📜 NCS Instructor', '📜 Lifelong Educator Lv.2', '📜 Digital Tutor'],
-    tags: ['AI Basics', 'AI Advanced', 'Vibe Coding', 'AI Creator'],
+    certs: ['📜 AICE Basic (KT)', '📜 NCS Instructor', '📜 Lifelong Educator Lv.2', '📜 Social Worker Lv.1', '📜 Vocational Training Teacher (Video)', '📜 AI Specialist Program (40h, AI service dev)', '📜 Google Workspace for Education Fundamentals', '📜 Digital Tutor'],
+    book: '"Hello, AI!" — an AI textbook for lower elementary (co-author · planning · writing · editing)',
+    role_now: 'CEO, Re:Frame Inc. · Head of AI Education, Korea Lifelong Education & HRD Association',
+    tags: ['Gen AI at Work', 'Vibe Coding', 'AI Content Creation', 'AI Literacy · Copyright'],
     quote_card: ['Learn the tools,', 'build the thinking', 'to collaborate with AI.', 'If using it is the start,', 'collaboration is the finish.'],
+    areas_title: 'Lecture Areas',
+    areas_sub: '11 areas in 3 tracks — combined and tailored to each organization and audience',
+    areas_cta: 'Request a Lecture',
+    areas_groups: [
+      { id: 'A', name: 'Gen AI at Work', items: [
+        { n: '01', title: 'Gen AI for Work', desc: 'Drafts of plans, reports, official letters and press releases; meeting summaries and emails' },
+        { n: '02', title: 'Prompt Engineering', desc: 'Design prompts with the 4-step method (context · goal · request · format) and iterate' },
+        { n: '03', title: 'AI Literacy · Ethics · Copyright', desc: 'Sensitive-data rules, copyright of AI output, spotting and cross-checking misinformation' },
+        { n: '04', title: 'AI Data Analysis · Visualization', desc: 'Clean Excel / Google Sheets data with AI, build charts and dashboards' },
+      ]},
+      { id: 'B', name: 'Build · Automate · Create', items: [
+        { n: '05', title: 'No-code Automation', desc: 'Design repetitive workflows without code; automate documents, email and data collection' },
+        { n: '06', title: 'AI Agents', desc: 'Design purpose-built AI agents and delegate repetitive work' },
+        { n: '07', title: 'Vibe Coding (Web/App)', desc: 'Plan → build → deploy a web app with conversational AI (Claude), no coding background' },
+        { n: '08', title: 'AI Content Creation', desc: 'Card news, posters, notices and short-form videos from planning to captions and editing' },
+      ]},
+      { id: 'C', name: 'Learning · Platforms', items: [
+        { n: '09', title: 'Writing & Learning with AI', desc: 'Writing and research with AI; self-directed learning through verification' },
+        { n: '10', title: 'Google AI Workspace', desc: 'Gemini · NotebookLM with Google Drive · Sheets · Docs · Forms' },
+        { n: '11', title: 'Claude Master', desc: 'Desktop setup · Claude Cowork · Claude Code · skills · MCP · design' },
+      ]},
+    ],
     edu_title: 'Tailored AI Education Programs',
     edu_sub: 'Step-by-step AI education for every goal and audience',
     b1_title: 'Understanding Gen AI (Basic)', b1_target: 'Beginners · Seniors', b1_tag: 'Make AI feel like a friend.', b1_desc: 'ChatGPT basics, prompting, everyday use',
@@ -92,10 +177,33 @@ const T = {
     q_body: 'There was a time when even the word "AI" felt foreign and strange.\nBut as I tried things one by one,\nI realized — this is what true human-AI collaboration looks like.',
     q_quote: '"Because I walked this path myself, I teach exactly what I experienced."',
     q_name: '',
+    inst_title: 'Instructors',
+    inst_sub: 'Field-proven professional instructors',
+    inst1_name: 'Park Sun-rye', inst1_role: 'CEO · Generative AI Education Specialist',
+    inst2_name: 'Park Seon-mi', inst2_role: 'Instructor · Media Literacy & Video Education',
+    inst2_desc: 'A veteran educator with 17 years of experience (since 2008) at media centers and schools. Currently a media literacy instructor for the Jeonbuk Office of Education, she brings her background in short-film directing to vivid, hands-on video education.',
+    inst2_certs: ['B.A. in Japanese Education, Wonkwang University', 'Secondary School Teacher Certificate Lv.2', 'Media Literacy Instructor · Jeonbuk Office of Education', 'Media Educator, Iksan Public Media Center (2008~)', 'Certified Digital Tutor'],
+    trust_title: 'Column & Track Record',
+    trust_sub: 'Sharing ideas in writing, proving them in the field',
+    col_badge: 'LocalM Column',
+    col_name: '"The Local Era and Its New Partner, AI"',
+    col_desc: 'A column by CEO Park Sun-rye in the local news outlet LocalM — writing about AI through a local lens.',
+    col_read: 'Read',
+    columns: [
+      { t: 'In the AI era, is your region searchable?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
+      { t: 'Outsource or DIY? Three ways to market a small café', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4405' },
+      { t: 'The AI that vanished in three days — who held the control?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
+    ],
+    orgs_title: 'Selected Client Organizations',
+    orgs_note: 'Over 400 hours of AI education since 2023 for public institutions, companies, universities and lifelong-learning centers.',
+    orgs: ['National Pension Service', 'Korea South-East Power', 'Jeonbuk Regional Procurement Office', 'Jeonbuk Culture & Tourism Foundation', 'Jeonbuk Lifelong Education Institute', 'Korea Lifelong Education & HRD Association', 'Songho University', 'Sunchon National University', 'Suncheon Jeil University', 'Jeonbuk Citizen University', 'Iksan Lifelong Learning Center', 'Jeonju Lifelong Learning Center', 'Sunchang County Office', 'Sunchang Lifelong Learning Center', 'Wanju Return-to-Farm Center', 'Jinan Youth Center', 'Gochang Youth Culture Center', 'Honam Jeil High School', 'Jeonju Deokjin Middle School', 'Iksan Namseong Middle School', 'Core Talent Development Institute', 'New Tech Training Institute', 'Hanteo Inc.', 'Qlight Inc.'],
     footer_title: "Let's Re:",
     footer_title2: 'Frame technology together.',
     footer_sub: 'For inquiries, please use the form or email.',
-    copy: '© 2026 Re:Frame. All rights reserved.',
+    tax_note: 'Institutional contracts and tax invoices available.',
+    biz1: 'Re:Frame Inc. · CEO Park Sun-rye',
+    biz2: 'Business registration & address coming soon · pianossun@naver.com',
+    copy: '© 2026 Re:Frame Inc. All rights reserved.',
   },
 };
 
@@ -204,8 +312,8 @@ function ContactForm({ lang }) {
     );
   }
 
-  const inputClass = "w-full bg-[#3A3733] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:outline-none focus:border-accent/50 transition";
-  const labelClass = "text-white/60 text-xs font-medium mb-1.5 block";
+  const inputClass = "w-full bg-[#3A3733] border border-white/30 rounded-xl px-4 py-3 text-white text-sm placeholder-white/40 focus:outline-none focus:border-accent transition";
+  const labelClass = "text-white/70 text-xs font-medium mb-1.5 block";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -235,14 +343,18 @@ function ContactForm({ lang }) {
         <label className={labelClass}>{lang === 'ko' ? '희망 교육 과정' : 'Preferred Course'}</label>
         <select name="course" required className={inputClass}>
           <option value="">{lang === 'ko' ? '선택해주세요' : 'Select'}</option>
-          <option value="AI 입문 (스마트폰)">{lang === 'ko' ? 'AI 입문 (스마트폰 활용)' : 'AI Basics (Smartphone)'}</option>
-          <option value="AI 입문 (노트북)">{lang === 'ko' ? 'AI 입문 (노트북 활용)' : 'AI Basics (Laptop)'}</option>
-          <option value="AI 활용 (전문가)">{lang === 'ko' ? 'AI 활용 (전문가 과정)' : 'AI Hands-on (Professional)'}</option>
-          <option value="AI 활용 (크리에이터)">{lang === 'ko' ? 'AI 활용 (크리에이터 과정)' : 'AI Hands-on (Creator)'}</option>
-          <option value="AI 리터러시">{lang === 'ko' ? 'AI 리터러시 (저작권, 안전사용 등)' : 'AI Literacy (Copyright, Safety)'}</option>
-          <option value="바이브코딩 입문">{lang === 'ko' ? '바이브코딩 입문' : 'Vibe Coding Intro'}</option>
-          <option value="바이브코딩 심화">{lang === 'ko' ? '바이브코딩 심화' : 'Vibe Coding Advanced'}</option>
-          <option value="시그니처 (AI영상제작)">{lang === 'ko' ? '시그니처 과정 (AI 영상제작의 모든 것)' : 'Signature (AI Video Production)'}</option>
+          <option value="01 생성형 AI 업무 활용">{lang === 'ko' ? '01 생성형 AI 업무 활용' : '01 Gen AI for Work'}</option>
+          <option value="02 프롬프트 엔지니어링">{lang === 'ko' ? '02 프롬프트 엔지니어링' : '02 Prompt Engineering'}</option>
+          <option value="03 AI 리터러시 · 윤리 · 저작권">{lang === 'ko' ? '03 AI 리터러시 · 윤리 · 저작권' : '03 AI Literacy · Ethics · Copyright'}</option>
+          <option value="04 AI 데이터 분석 · 시각화">{lang === 'ko' ? '04 AI 데이터 분석 · 시각화' : '04 AI Data Analysis · Visualization'}</option>
+          <option value="05 노코드 업무 자동화">{lang === 'ko' ? '05 노코드 업무 자동화' : '05 No-code Automation'}</option>
+          <option value="06 AI 에이전트 구축 · 활용">{lang === 'ko' ? '06 AI 에이전트 구축 · 활용' : '06 AI Agents'}</option>
+          <option value="07 바이브코딩 (웹/앱 만들기)">{lang === 'ko' ? '07 바이브코딩 (웹/앱 만들기)' : '07 Vibe Coding (Web/App)'}</option>
+          <option value="08 AI 콘텐츠 제작">{lang === 'ko' ? '08 AI 콘텐츠 제작' : '08 AI Content Creation'}</option>
+          <option value="09 AI 활용 글쓰기 · 학습">{lang === 'ko' ? '09 AI 활용 글쓰기 · 학습' : '09 Writing & Learning with AI'}</option>
+          <option value="10 Google AI 워크스페이스 활용">{lang === 'ko' ? '10 Google AI 워크스페이스 활용' : '10 Google AI Workspace'}</option>
+          <option value="11 Claude 마스터">{lang === 'ko' ? '11 Claude 마스터' : '11 Claude Master'}</option>
+          <option value="시그니처 과정 (AI 영상제작의 모든 것)">{lang === 'ko' ? '시그니처 과정 (AI 영상제작의 모든 것)' : 'Signature (AI Video Production)'}</option>
           <option value="맞춤 커리큘럼">{lang === 'ko' ? '맞춤 커리큘럼' : 'Custom Curriculum'}</option>
         </select>
         <ValidationError field="course" errors={state.errors} />
@@ -292,15 +404,22 @@ export default function App() {
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_cream/90 backdrop-blur-sm border-b border-main/5">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="#" className="text-xl font-bold tracking-tight">
+          <a href="#" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
+            <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
+              <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
+              <path d="M60 22 H75 V78 H60" fill="none" stroke="currentColor" strokeWidth="10" />
+              <circle cx="50" cy="40" r="7.5" fill="#C05440" />
+              <circle cx="50" cy="60" r="7.5" fill="#C05440" />
+            </svg>
             Re:<span className="text-accent">Frame</span>
           </a>
           <div className="flex items-center gap-6">
             <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-main/75">
-              <li><a href="#about"     className="hover:text-accent transition">{t.nav.about}</a></li>
-              <li><a href="#education" className="hover:text-accent transition">{t.nav.education}</a></li>
-              <li><a href="#vibe"      className="hover:text-accent transition">{t.nav.vibe}</a></li>
-              <li><a href="#contact"   className="hover:text-accent transition">{t.nav.contact}</a></li>
+              <li><a href="#about"       className="hover:text-accent transition">{t.nav.about}</a></li>
+              <li><a href="#areas"       className="hover:text-accent transition">{t.nav.areas}</a></li>
+              <li><a href="#education"   className="hover:text-accent transition">{t.nav.education}</a></li>
+              <li><a href="#instructors" className="hover:text-accent transition">{t.nav.instructors}</a></li>
+              <li><a href="#contact"     className="hover:text-accent transition">{t.nav.contact}</a></li>
             </ul>
             <div className="flex items-center gap-1 border-l border-main/10 pl-5">
               <button
@@ -356,21 +475,19 @@ export default function App() {
           {/* CTA 버튼 */}
           <div className="flex flex-wrap gap-4">
             <a
-              href="#education"
+              href="#areas"
               className="bg-accent text-white px-7 py-3 rounded-full font-semibold hover:bg-[#a84030] transition shadow-sm"
             >
               {t.cta1}
             </a>
             <a
-              href="#about"
+              href="#instructors"
               className="bg-main text-white px-7 py-3 rounded-full font-semibold hover:bg-[#444] transition shadow-sm"
             >
               {t.cta2}
             </a>
             <a
-              href="https://reframe-daily.vercel.app"
-              target="_blank"
-              rel="noreferrer"
+              href="#contact"
               className="border-2 border-accent text-accent px-7 py-3 rounded-full font-semibold hover:bg-accent hover:text-white transition shadow-sm"
             >
               {t.cta3}
@@ -388,32 +505,21 @@ export default function App() {
       <section id="about" className="py-20 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
 
-          {/* 왼쪽: 학력 및 자격 카드 */}
-          <div className="bg-white rounded-2xl p-10 border border-main/8 shadow-sm">
-            <span className="bg-accent text-white text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-6">
+          {/* 왼쪽: 법인 소개 카드 */}
+          <div className="bg-white rounded-2xl p-10 border border-main/8 shadow-sm flex flex-col justify-center">
+            <span className="bg-accent text-white text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-6 w-fit">
               {t.about_title}
             </span>
-            <div className="mb-5">
-              <p className="font-bold text-main text-xl leading-tight">{t.univ}</p>
-              <p className="text-sub text-base mt-1">{t.univ_sub}</p>
-              <p className="text-sub/60 text-sm mt-1.5 italic">{t.thesis}</p>
-            </div>
-            <div className="mb-6">
-              <p className="text-sub text-base leading-relaxed">
-                {t.bg1_1}<br className="md:hidden" /><span className="hidden md:inline"> · </span>{t.bg1_2}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-4 mb-6 text-base text-main/70">
-              {t.certs.map(c => <span key={c} className="flex items-center gap-1.5">{c}</span>)}
-            </div>
-            <div>
-              <div className="flex flex-wrap gap-2">
-                {t.tags.map(tag => (
-                  <span key={tag} className="border border-accent/40 text-accent text-sm px-4 py-1.5 rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <p className="text-main text-lg leading-relaxed mb-8">
+              {t.company_p}
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {t.stats.map(s => (
+                <div key={s.l} className="bg-bg_cream rounded-xl px-3 py-4 text-center">
+                  <p className="text-accent text-2xl font-bold leading-none mb-1.5">{s.n}</p>
+                  <p className="text-sub text-xs">{s.l}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -424,6 +530,45 @@ export default function App() {
               alt="창작과 현장을 거쳐, 교육과 AI로"
               className="w-full object-contain md:object-cover md:h-full md:min-h-[300px] aspect-[3/2] md:aspect-auto"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* ── 강의 분야 (11개) ───────────────────────────────────── */}
+      <section id="areas" className="py-20 px-6 bg-bg_cream">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.areas_title}</h2>
+            <p className="text-sub">{t.areas_sub}</p>
+          </div>
+
+          <div className="space-y-10">
+            {t.areas_groups.map(g => (
+              <div key={g.id}>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-8 rounded-full bg-accent text-white text-sm font-bold flex items-center justify-center">{g.id}</span>
+                  <h3 className="text-xl font-bold text-main">{g.name}</h3>
+                </div>
+                <div className={`grid gap-4 ${g.items.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
+                  {g.items.map(item => (
+                    <div key={item.n} className="bg-white rounded-2xl p-6 shadow-sm border border-main/5 flex flex-col gap-2">
+                      <span className="text-accent text-xs font-bold tracking-wider">{item.n}</span>
+                      <h4 className="text-base font-bold text-main leading-snug">{item.title}</h4>
+                      <p className="text-sm text-sub leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <a
+              href="#contact"
+              className="inline-block bg-main text-white px-7 py-3 rounded-full font-semibold hover:bg-[#444] transition shadow-sm"
+            >
+              {t.areas_cta} →
+            </a>
           </div>
         </div>
       </section>
@@ -570,6 +715,125 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── 강사진 ────────────────────────────────────────────── */}
+      <section id="instructors" className="py-20 px-6 bg-card_bg">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.inst_title}</h2>
+            <p className="text-sub">{t.inst_sub}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+            {/* 박선례 대표 */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
+              <div className="grid grid-cols-3">
+                <img
+                  src={`${import.meta.env.BASE_URL}profile_seonrye_v2.png`}
+                  alt={t.inst1_name}
+                  className="w-full h-full object-cover col-span-1 min-h-[200px]"
+                />
+                <div className="col-span-2 p-6">
+                  <h3 className="text-xl font-bold text-main">{t.inst1_name}</h3>
+                  <p className="text-accent text-sm font-medium mb-3">{t.inst1_role}</p>
+                  <p className="font-bold text-main text-sm leading-snug">{t.univ}</p>
+                  <p className="text-sub text-sm">{t.univ_sub}</p>
+                  <p className="text-sub/60 text-xs mt-1 italic">{t.thesis}</p>
+                  <p className="text-sub text-sm mt-2">{t.bg1_1} · {t.bg1_2}</p>
+                </div>
+              </div>
+              <div className="px-6 pb-6">
+                <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-main/70 mb-4">
+                  {t.certs.map(c => <span key={c}>{c}</span>)}
+                </div>
+                <div className="bg-bg_cream rounded-xl px-4 py-2.5 mb-2 text-xs text-main/80">
+                  <span className="text-accent font-bold mr-2">저서</span>{t.book}
+                </div>
+                <div className="bg-bg_cream rounded-xl px-4 py-2.5 mb-4 text-xs text-main/80">
+                  <span className="text-accent font-bold mr-2">현 소속</span>{t.role_now}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer"
+                    className="border border-main/15 text-main/70 text-xs px-3.5 py-1.5 rounded-full hover:border-accent hover:text-accent transition">
+                    스레드 @slowsoyang
+                  </a>
+                  <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer"
+                    className="border border-main/15 text-main/70 text-xs px-3.5 py-1.5 rounded-full hover:border-accent hover:text-accent transition">
+                    네이버 블로그
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 박선미 강사 */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
+              <div className="grid grid-cols-3">
+                <img
+                  src={`${import.meta.env.BASE_URL}instructor_park_seonmi_v2.jpg`}
+                  alt={t.inst2_name}
+                  className="w-full h-full object-cover col-span-1 min-h-[200px]"
+                />
+                <div className="col-span-2 p-6">
+                  <h3 className="text-xl font-bold text-main">{t.inst2_name}</h3>
+                  <p className="text-accent text-sm font-medium mb-3">{t.inst2_role}</p>
+                  <p className="text-sub text-sm leading-relaxed">{t.inst2_desc}</p>
+                </div>
+              </div>
+              <div className="px-6 pb-6">
+                <ul className="space-y-1.5">
+                  {t.inst2_certs.map(c => (
+                    <li key={c} className="text-main/70 text-xs flex items-start gap-2">
+                      <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/60 shrink-0" />
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 칼럼 & 출강 실적 ──────────────────────────────────── */}
+      <section id="trust" className="py-20 px-6 bg-bg_cream">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.trust_title}</h2>
+            <p className="text-sub">{t.trust_sub}</p>
+          </div>
+
+          {/* 로컬M 칼럼 */}
+          <div className="mb-14">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">{t.col_badge}</span>
+              <h3 className="text-lg font-bold text-main">{t.col_name}</h3>
+            </div>
+            <p className="text-sub text-sm mb-5">{t.col_desc}</p>
+            <div className="grid md:grid-cols-3 gap-4">
+              {t.columns.map(c => (
+                <a key={c.u} href={c.u} target="_blank" rel="noreferrer"
+                  className="group bg-white rounded-2xl p-6 shadow-sm border border-main/5 flex flex-col justify-between gap-4 hover:border-accent/40 hover:shadow-md transition">
+                  <p className="text-main font-bold leading-snug group-hover:text-accent transition">{c.t}</p>
+                  <span className="text-accent text-sm font-medium">{t.col_read} →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* 출강 기관 */}
+          <div>
+            <h3 className="text-lg font-bold text-main mb-2">{t.orgs_title}</h3>
+            <p className="text-sub text-sm mb-5">{t.orgs_note}</p>
+            <div className="flex flex-wrap gap-2">
+              {t.orgs.map(o => (
+                <span key={o} className="bg-white border border-main/10 text-main/70 text-sm px-4 py-1.5 rounded-full">
+                  {o}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CONTACT / FOOTER ─────────────────────────────────── */}
       <footer id="contact" className="bg-bg_dark py-20 px-6">
         <div className="max-w-6xl mx-auto">
@@ -583,25 +847,24 @@ export default function App() {
                 )}
               </h2>
               <p className="text-[#888] text-lg mt-3">{t.footer_sub}</p>
+              <p className="text-accent/90 text-sm mt-2 font-medium">{t.tax_note}</p>
               <div className="space-y-3 mt-8">
                 <a href="mailto:pianossun@naver.com" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
                   <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white text-base">✉</span>
                   <span className="text-white font-medium text-sm">pianossun@naver.com</span>
                 </a>
-                <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
-                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">@</span>
-                  <span className="text-white font-medium text-sm">스레드 @slowsoyang</span>
-                </a>
-                <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
-                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">B</span>
-                  <span className="text-white font-medium text-sm">네이버 블로그</span>
+                <a href="https://reframe-daily.vercel.app" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
+                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">AI</span>
+                  <span className="text-white font-medium text-sm">{lang === 'ko' ? '오늘의 AI — 매일 업데이트되는 AI 소식' : 'AI Today — daily AI news curation'}</span>
                 </a>
               </div>
             </div>
             <ContactForm lang={lang} />
           </div>
-          <div className="border-t border-white/10 pt-8 text-center text-[#555] text-sm">
-            {t.copy}
+          <div className="border-t border-white/10 pt-8 text-center text-sm">
+            <p className="text-[#777] mb-1">{t.biz1}</p>
+            <p className="text-[#555] text-xs mb-4">{t.biz2}</p>
+            <p className="text-[#555]">{t.copy}</p>
           </div>
         </div>
       </footer>
