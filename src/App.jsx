@@ -112,7 +112,7 @@ const T = {
     trust_sub: '대표 강사가 걸어온 길이 곧 리프레임의 교육 역량입니다',
     col_badge: '로컬M 칼럼 연재',
     col_name: '「로컬시대와 새파트너 AI」',
-    col_desc: '지역의 눈으로 AI를 씁니다 — 인터넷신문 로컬M에 연재 중인 박선례 대표의 칼럼입니다.',
+    col_desc: '지역의 눈으로 AI를 씁니다 — 로컬M에 연재 중인 대표의 칼럼입니다.',
     col_read: '칼럼 읽기',
     columns: [
       { t: 'AI시대, 우리 지역은 검색되고 있습니까?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
@@ -238,7 +238,7 @@ const T = {
     trust_sub: "Our lead instructor's journey is Re:Frame's teaching capability",
     col_badge: 'LocalM Column',
     col_name: '"The Local Era and Its New Partner, AI"',
-    col_desc: 'A column by CEO Park Sun-rye in the local news outlet LocalM — writing about AI through a local lens.',
+    col_desc: 'Our CEO\u2019s column in LocalM — writing about AI through a local lens.',
     col_read: 'Read',
     columns: [
       { t: 'In the AI era, is your region searchable?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
