@@ -120,7 +120,6 @@ const T = {
       { t: '사흘 만에 사라진 AI, 통제권은 누구에게 있었나', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
     ],
     orgs_title: '주요 출강 기관',
-    orgs_note: '대표 강사 박선례가 2023년부터 공공기관 · 기업 · 대학 · 평생교육기관에서 400시간 이상 진행한 AI 교육의 기록입니다 — 이 경험이 그대로 리프레임 교육과정의 바탕이 됩니다.',
     orgs: ['국민연금공단', '한국남동발전', '전북지방조달청', '전북문화관광재단', '전북평생교육장학진흥원', '한국평생교육HRD진흥협회', '송호대학교', '순천대학교', '순천제일대학교', '전북시민대학', '익산시평생학습관', '전주시평생학습관', '순창군청', '순창군평생학습관', '완주군귀농귀촌센터', '진안청년센터', '고창청소년문화센터', '호남제일고등학교', '전주덕진중학교', '익산남성중학교', '핵심인재개발원', '신기술교육원', '(주)한터', '(주)큐라이트'],
     footer_title: '함께 기술을',
     footer_title2: ' 하세요.',
@@ -247,7 +246,6 @@ const T = {
       { t: 'The AI that vanished in three days — who held the control?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
     ],
     orgs_title: 'Selected Client Organizations',
-    orgs_note: 'A record of 400+ hours of AI education delivered by lead instructor Park Sun-rye since 2023 at public institutions, companies, universities and lifelong-learning centers — the foundation of every Re:Frame program.',
     orgs: ['National Pension Service', 'Korea South-East Power', 'Jeonbuk Regional Procurement Office', 'Jeonbuk Culture & Tourism Foundation', 'Jeonbuk Lifelong Education Institute', 'Korea Lifelong Education & HRD Association', 'Songho University', 'Sunchon National University', 'Suncheon Jeil University', 'Jeonbuk Citizen University', 'Iksan Lifelong Learning Center', 'Jeonju Lifelong Learning Center', 'Sunchang County Office', 'Sunchang Lifelong Learning Center', 'Wanju Return-to-Farm Center', 'Jinan Youth Center', 'Gochang Youth Culture Center', 'Honam Jeil High School', 'Jeonju Deokjin Middle School', 'Iksan Namseong Middle School', 'Core Talent Development Institute', 'New Tech Training Institute', 'Hanteo Inc.', 'Qlight Inc.'],
     footer_title: "Let's Re:",
     footer_title2: 'Frame technology together.',
@@ -975,8 +973,7 @@ export default function App() {
 
           {/* 출강 기관 */}
           <div>
-            <h3 className="text-lg font-bold text-main mb-2">{t.orgs_title}</h3>
-            <p className="text-sub text-sm mb-5">{t.orgs_note}</p>
+            <h3 className="text-lg font-bold text-main mb-4">{t.orgs_title}</h3>
             <p className="text-sub/80 text-[13px] leading-relaxed break-keep">
               {t.orgs.join(' · ')}
             </p>
