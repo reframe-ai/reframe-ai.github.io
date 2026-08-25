@@ -904,7 +904,7 @@ export default function App() {
             {/* 박선례 대표 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
               <div className="grid grid-cols-3">
-                <div className="col-span-1 p-6 pr-0">
+                <div className="col-span-1 p-6 pr-0 pt-3">
                   <img
                     src={`${import.meta.env.BASE_URL}profile_seonrye_sq.jpg`}
                     alt={t.inst1_name}
