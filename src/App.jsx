@@ -523,7 +523,7 @@ export default function App() {
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-4 flex items-center justify-between">
-          <a href="#" className="font-heading flex items-center gap-2.5 text-xl font-bold tracking-tight text-white">
+          <a href="#" className="font-heading flex items-center gap-1.5 text-xl font-bold tracking-tight text-white">
             <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
               <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
               <path d="M60 22 H75 V78 H60" fill="none" stroke="currentColor" strokeWidth="10" />
