@@ -522,7 +522,7 @@ export default function App() {
 
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-3 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 py-3 flex items-center justify-between">
           <a href="#" className="font-heading flex items-center gap-1.5 text-xl font-bold tracking-tight text-white">
             <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
               <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
@@ -572,7 +572,7 @@ export default function App() {
             backgroundSize: '56px 56px',
           }}
         />
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-24 pt-28 pb-12 animate-fade-in">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-12 animate-fade-in">
 
           {/* 애니메이션 태그 목록 */}
           <div className="flex flex-wrap gap-1.5 mb-6">
@@ -596,10 +596,10 @@ export default function App() {
           </div>
 
           {/* 헤드라인 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.14] mb-3 text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.12] mb-2 text-white">
             {t.h1}
           </h1>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[1.14] mb-5 text-white">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.12] mb-6 text-white">
             <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
           </h2>
           <p className="text-[#B8B2AC] text-base md:text-lg mb-8 max-w-2xl">
@@ -638,7 +638,7 @@ export default function App() {
       </section>
 
       {/* ── 소개 (ABOUT) ──────────────────────────────────────── */}
-      <section id="about" className="py-24 px-6 bg-bg_cream">
+      <section id="about" className="py-16 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
 
           {/* 왼쪽: 배지 + 헤드라인 + 소개문 + 팩트 카드 */}
@@ -680,9 +680,9 @@ export default function App() {
       </section>
 
       {/* ── 전문 역량 (EXPERTISE) ─────────────────────────────── */}
-      <section className="py-24 px-6 bg-card_bg">
+      <section className="py-16 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-10">
             <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-5">
               {t.exp_badge}
             </span>
@@ -711,25 +711,25 @@ export default function App() {
       </section>
 
       {/* ── 강의 분야 (11개) ───────────────────────────────────── */}
-      <section id="areas" className="py-20 px-6 bg-bg_cream">
+      <section id="areas" className="py-16 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.areas_title}</h2>
             <p className="text-sub">{t.areas_sub}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5 items-start">
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 items-start">
             {t.areas_groups.map(g => (
-              <div key={g.id} className="bg-white rounded-2xl p-8 shadow-sm border border-main/5">
-                <span className="w-12 h-12 rounded-xl bg-bg_dark text-accent flex items-center justify-center mb-5">
+              <div key={g.id} className="bg-white rounded-2xl p-6 shadow-sm border border-main/5">
+                <span className="w-12 h-12 rounded-xl bg-bg_dark text-accent flex items-center justify-center mb-4">
                   {VALUE_ICONS[g.icon]}
                 </span>
                 <p className="text-accent_deep text-xs font-bold tracking-[0.15em] mb-1.5">{g.id} · {g.label}</p>
                 <h3 className="text-xl font-bold text-main mb-2">{g.name}</h3>
-                <p className="text-sub text-sm leading-relaxed mb-5">{g.gdesc}</p>
-                <ul className="space-y-2.5 border-t border-main/8 pt-5">
+                <p className="text-sub text-[13px] leading-relaxed mb-4">{g.gdesc}</p>
+                <ul className="space-y-2 border-t border-main/8 pt-4">
                   {g.items.map(item => (
-                    <li key={item.n} className="flex items-start gap-2.5 text-[15px] text-main/85 leading-snug">
+                    <li key={item.n} className="flex items-start gap-2 text-sm text-main/85 leading-snug">
                       <span className="text-accent_deep text-xs font-bold mt-0.5 w-5 shrink-0">{item.n}</span>
                       {item.title}
                     </li>
@@ -739,7 +739,7 @@ export default function App() {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-9">
             <a
               href="#contact"
               className="inline-block bg-main text-white px-7 py-3 rounded-full font-semibold hover:bg-[#444] transition shadow-sm"
@@ -751,9 +751,9 @@ export default function App() {
       </section>
 
       {/* ── 교육 과정 ─────────────────────────────────────────── */}
-      <section id="education" className="py-20 px-6 bg-card_bg">
+      <section id="education" className="py-16 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.edu_title}</h2>
             <p className="text-sub">{t.edu_sub}</p>
           </div>
@@ -824,7 +824,7 @@ export default function App() {
       </section>
 
       {/* ── 바이브 코딩 ───────────────────────────────────────── */}
-      <section id="vibe" className="py-20 px-6 bg-bg_cream">
+      <section id="vibe" className="py-16 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
 
           {/* 제목 + 이미지 */}
@@ -880,9 +880,9 @@ export default function App() {
       </section>
 
       {/* ── 강사진 ────────────────────────────────────────────── */}
-      <section id="instructors" className="py-20 px-6 bg-card_bg">
+      <section id="instructors" className="py-16 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.inst_title}</h2>
             <p className="text-sub">{t.inst_sub}</p>
           </div>
@@ -935,9 +935,9 @@ export default function App() {
       </section>
 
       {/* ── 칼럼 & 출강 실적 ──────────────────────────────────── */}
-      <section id="trust" className="py-20 px-6 bg-bg_cream">
+      <section id="trust" className="py-16 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.trust_title}</h2>
             <p className="text-sub">{t.trust_sub}</p>
           </div>
@@ -971,7 +971,7 @@ export default function App() {
       </section>
 
       {/* ── CONTACT / FOOTER ─────────────────────────────────── */}
-      <footer id="contact" className="bg-bg_dark py-20 px-6">
+      <footer id="contact" className="bg-bg_dark py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
             <div>
