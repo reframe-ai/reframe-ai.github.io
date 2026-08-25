@@ -39,7 +39,7 @@ const T = {
       { n: '10년+', l: '강의 경력' },
       { n: '400+', l: 'AI 교육 시간 (2023~)' },
       { n: '25+', l: '출강 기관' },
-      { n: '11개', l: '강의 분야' },
+      { n: '14개', l: '강의 분야' },
     ],
     stats_note: '대표 강사 박선례 기준',
     bg1_1: '음악학 학사 · 필름스코어링 전공',
@@ -53,25 +53,30 @@ const T = {
     tags: ['생성형 AI 업무 활용', '바이브코딩', 'AI 콘텐츠 제작', 'AI 리터러시 · 저작권'],
     quote_card: ['도구를 익히고,', 'AI와 함께 생각하는 힘을', '키웁니다.', '사용하는 것이 시작이라면,', '협업은 완성입니다.'],
     areas_title: '강의 분야',
-    areas_sub: '11개 분야 · 3개 영역 — 기관과 대상에 맞춰 조합해 과정을 설계합니다',
+    areas_sub: '14개 분야 · 4개 영역 — 기관과 대상에 맞춰 조합해 과정을 설계합니다',
     areas_cta: '강의 신청하기',
     areas_groups: [
-      { id: 'A', name: 'AI 업무 실무', items: [
+      { id: 'A', label: 'WORK', icon: 'work', name: 'AI 업무 실무', gdesc: '문서 작성부터 데이터 분석까지, 내 업무에 바로 쓰는 AI 실무 과정입니다.', items: [
         { n: '01', title: '생성형 AI 업무 활용', desc: '사업계획서 · 보고서 · 공문 · 보도자료 초안, 회의록 요약과 업무 메일까지 행정 문서에 바로 적용' },
         { n: '02', title: '프롬프트 엔지니어링', desc: '4단계 질문법(배경 · 목적 · 요청 · 출력형식)으로 프롬프트를 설계하고 반복 개선' },
-        { n: '03', title: 'AI 리터러시 · 윤리 · 저작권', desc: '민감정보 입력 기준, AI 생성물 저작권, 가짜정보 구별과 교차 검증' },
-        { n: '04', title: 'AI 데이터 분석 · 시각화', desc: '엑셀 · 구글시트 데이터 정리와 AI 분석, 차트 · 대시보드 시각화' },
+        { n: '03', title: 'AI 데이터 분석 · 시각화', desc: '엑셀 · 구글시트 데이터 정리와 AI 분석, 차트 · 대시보드 시각화' },
+        { n: '04', title: '노코드 업무 자동화', desc: '코딩 없이 반복 업무 흐름을 설계하고 문서 · 메일 · 데이터 수집을 자동화' },
       ]},
-      { id: 'B', name: '제작 · 자동화 · 개발', items: [
-        { n: '05', title: '노코드 업무 자동화', desc: '코딩 없이 반복 업무 흐름을 설계하고 문서 · 메일 · 데이터 수집을 자동화' },
+      { id: 'B', label: 'BUILD', icon: 'content', name: '개발 · 자동화 · 플랫폼', gdesc: '코딩 없이 웹앱과 에이전트를 만들고, AI 플랫폼을 깊이 있게 다룹니다.', items: [
+        { n: '05', title: '바이브코딩 (웹/앱 만들기)', desc: '코딩 지식 없이 대화형 AI(Claude)로 웹앱을 기획 → 제작 → 배포까지' },
         { n: '06', title: 'AI 에이전트 구축 · 활용', desc: '업무 목적별 맞춤 AI 에이전트를 설계하고 반복 업무를 위임' },
-        { n: '07', title: '바이브코딩 (웹/앱 만들기)', desc: '코딩 지식 없이 대화형 AI(Claude)로 웹앱을 기획 → 제작 → 배포까지' },
-        { n: '08', title: 'AI 콘텐츠 제작', desc: '카드뉴스 · 포스터 · 안내문과 홍보 · 행사 숏폼 영상을 기획부터 자막 · 편집까지' },
+        { n: '07', title: 'Google AI 워크스페이스 활용', desc: 'Gemini · NotebookLM과 Google 드라이브 · 시트 · 문서 · 폼 연동 업무' },
+        { n: '08', title: 'Claude 마스터', desc: '데스크톱 설치 · Claude Cowork · Claude Code · 스킬 · MCP · 디자인 활용' },
       ]},
-      { id: 'C', name: '학습 · 플랫폼 심화', items: [
-        { n: '09', title: 'AI 활용 글쓰기 · 학습', desc: 'AI와 함께하는 글쓰기와 자료 조사, 스스로 검증하며 배우는 자기주도 학습법' },
-        { n: '10', title: 'Google AI 워크스페이스 활용', desc: 'Gemini · NotebookLM과 Google 드라이브 · 시트 · 문서 · 폼 연동 업무' },
-        { n: '11', title: 'Claude 마스터', desc: '데스크톱 설치 · Claude Cowork · Claude Code · 스킬 · MCP · 디자인 활용' },
+      { id: 'C', label: 'CREATE', icon: 'video', name: '콘텐츠 · 영상 제작', gdesc: '카드뉴스부터 영상까지, 기획 → 제작 전 과정을 AI와 함께 완성합니다.', items: [
+        { n: '09', title: 'AI 콘텐츠 제작', desc: '카드뉴스 · 포스터 · 안내문 등 홍보 콘텐츠를 AI 도구로 기획부터 제작까지' },
+        { n: '10', title: '쇼츠영상 제작', desc: '스마트폰과 AI 도구로 숏폼 영상을 기획 · 촬영 · 편집하고 채널에 올리기까지' },
+        { n: '11', title: 'AI 영상 제작 (기획 → 편집)', desc: '15년 영상 실무의 노하우 — 프리미어와 AI 도구로 기획 · 촬영 · 편집 전 과정을 배웁니다' },
+      ]},
+      { id: 'D', label: 'TEACH', icon: 'grad', name: '리터러시 · 교육 전문', gdesc: '기술을 올바르게 읽고 쓰는 힘, 그리고 가르치는 전문성을 기릅니다.', items: [
+        { n: '12', title: 'AI 리터러시 · 윤리 · 저작권', desc: '민감정보 입력 기준, AI 생성물 저작권, 가짜정보 구별과 교차 검증' },
+        { n: '13', title: 'AI 활용 글쓰기 · 학습', desc: 'AI와 함께하는 글쓰기와 자료 조사, 스스로 검증하며 배우는 자기주도 학습법' },
+        { n: '14', title: 'AI 강사 양성', desc: 'AI 교육 강사를 위한 커리큘럼 설계와 실습 운영 노하우 — 강사 역량 강화 과정' },
       ]},
     ],
     edu_title: '맞춤형 AI 활용 교육 과정',
@@ -161,7 +166,7 @@ const T = {
       { n: '10+ yrs', l: 'Teaching experience' },
       { n: '400+', l: 'AI lecture hours (2023~)' },
       { n: '25+', l: 'Organizations served' },
-      { n: '11', l: 'Lecture areas' },
+      { n: '14', l: 'Lecture areas' },
     ],
     stats_note: 'Based on lead instructor Park Sun-rye',
     bg1_1: 'B.A. in Music · Film Scoring',
@@ -175,25 +180,30 @@ const T = {
     tags: ['Gen AI at Work', 'Vibe Coding', 'AI Content Creation', 'AI Literacy · Copyright'],
     quote_card: ['Learn the tools,', 'build the thinking', 'to collaborate with AI.', 'If using it is the start,', 'collaboration is the finish.'],
     areas_title: 'Lecture Areas',
-    areas_sub: '11 areas in 3 tracks — combined and tailored to each organization and audience',
+    areas_sub: '14 areas in 4 tracks — combined and tailored to each organization and audience',
     areas_cta: 'Request a Lecture',
     areas_groups: [
-      { id: 'A', name: 'Gen AI at Work', items: [
+      { id: 'A', label: 'WORK', icon: 'work', name: 'Gen AI at Work', gdesc: 'AI you can use at work right away — from documents to data analysis.', items: [
         { n: '01', title: 'Gen AI for Work', desc: 'Drafts of plans, reports, official letters and press releases; meeting summaries and emails' },
         { n: '02', title: 'Prompt Engineering', desc: 'Design prompts with the 4-step method (context · goal · request · format) and iterate' },
-        { n: '03', title: 'AI Literacy · Ethics · Copyright', desc: 'Sensitive-data rules, copyright of AI output, spotting and cross-checking misinformation' },
-        { n: '04', title: 'AI Data Analysis · Visualization', desc: 'Clean Excel / Google Sheets data with AI, build charts and dashboards' },
+        { n: '03', title: 'AI Data Analysis · Visualization', desc: 'Clean Excel / Google Sheets data with AI, build charts and dashboards' },
+        { n: '04', title: 'No-code Automation', desc: 'Design repetitive workflows without code; automate documents, email and data collection' },
       ]},
-      { id: 'B', name: 'Build · Automate · Create', items: [
-        { n: '05', title: 'No-code Automation', desc: 'Design repetitive workflows without code; automate documents, email and data collection' },
+      { id: 'B', label: 'BUILD', icon: 'content', name: 'Build · Automate · Platforms', gdesc: 'Build web apps and agents without code, and master AI platforms in depth.', items: [
+        { n: '05', title: 'Vibe Coding (Web/App)', desc: 'Plan → build → deploy a web app with conversational AI (Claude), no coding background' },
         { n: '06', title: 'AI Agents', desc: 'Design purpose-built AI agents and delegate repetitive work' },
-        { n: '07', title: 'Vibe Coding (Web/App)', desc: 'Plan → build → deploy a web app with conversational AI (Claude), no coding background' },
-        { n: '08', title: 'AI Content Creation', desc: 'Card news, posters, notices and short-form videos from planning to captions and editing' },
+        { n: '07', title: 'Google AI Workspace', desc: 'Gemini · NotebookLM with Google Drive · Sheets · Docs · Forms' },
+        { n: '08', title: 'Claude Master', desc: 'Desktop setup · Claude Cowork · Claude Code · skills · MCP · design' },
       ]},
-      { id: 'C', name: 'Learning · Platforms', items: [
-        { n: '09', title: 'Writing & Learning with AI', desc: 'Writing and research with AI; self-directed learning through verification' },
-        { n: '10', title: 'Google AI Workspace', desc: 'Gemini · NotebookLM with Google Drive · Sheets · Docs · Forms' },
-        { n: '11', title: 'Claude Master', desc: 'Desktop setup · Claude Cowork · Claude Code · skills · MCP · design' },
+      { id: 'C', label: 'CREATE', icon: 'video', name: 'Content · Video Production', gdesc: 'From card news to full videos — planning to production, together with AI.', items: [
+        { n: '09', title: 'AI Content Creation', desc: 'Card news, posters and notices — plan and produce promotional content with AI tools' },
+        { n: '10', title: 'Short-form Video', desc: 'Plan, shoot and edit short-form videos with a smartphone and AI tools, up to publishing' },
+        { n: '11', title: 'AI Video Production (Plan → Edit)', desc: '15 years of production know-how — the full workflow with Premiere and AI tools' },
+      ]},
+      { id: 'D', label: 'TEACH', icon: 'grad', name: 'Literacy · Teaching', gdesc: 'The power to use technology responsibly — and the expertise to teach it.', items: [
+        { n: '12', title: 'AI Literacy · Ethics · Copyright', desc: 'Sensitive-data rules, copyright of AI output, spotting and cross-checking misinformation' },
+        { n: '13', title: 'Writing & Learning with AI', desc: 'Writing and research with AI; self-directed learning through verification' },
+        { n: '14', title: 'Train the AI Trainer', desc: 'Curriculum design and hands-on facilitation know-how for AI education instructors' },
       ]},
     ],
     edu_title: 'Tailored AI Education Programs',
@@ -370,6 +380,16 @@ const VALUE_ICONS = {
       <path d="M12 15v3" /><path d="M8 21l4-3 4 3" />
     </svg>
   ),
+  work: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><path d="M3 13h18" />
+    </svg>
+  ),
+  video: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <rect x="2" y="5" width="14" height="14" rx="2" /><path d="m22 8-6 4 6 4Z" />
+    </svg>
+  ),
 };
 
 // ── 히어로 배경 슬라이드쇼 (디졸브 전환 + Ken Burns) ────────────
@@ -452,17 +472,9 @@ function ContactForm({ lang }) {
         <label className={labelClass}>{lang === 'ko' ? '희망 교육 과정' : 'Preferred Course'}</label>
         <select name="course" required className={inputClass}>
           <option value="">{lang === 'ko' ? '선택해주세요' : 'Select'}</option>
-          <option value="01 생성형 AI 업무 활용">{lang === 'ko' ? '01 생성형 AI 업무 활용' : '01 Gen AI for Work'}</option>
-          <option value="02 프롬프트 엔지니어링">{lang === 'ko' ? '02 프롬프트 엔지니어링' : '02 Prompt Engineering'}</option>
-          <option value="03 AI 리터러시 · 윤리 · 저작권">{lang === 'ko' ? '03 AI 리터러시 · 윤리 · 저작권' : '03 AI Literacy · Ethics · Copyright'}</option>
-          <option value="04 AI 데이터 분석 · 시각화">{lang === 'ko' ? '04 AI 데이터 분석 · 시각화' : '04 AI Data Analysis · Visualization'}</option>
-          <option value="05 노코드 업무 자동화">{lang === 'ko' ? '05 노코드 업무 자동화' : '05 No-code Automation'}</option>
-          <option value="06 AI 에이전트 구축 · 활용">{lang === 'ko' ? '06 AI 에이전트 구축 · 활용' : '06 AI Agents'}</option>
-          <option value="07 바이브코딩 (웹/앱 만들기)">{lang === 'ko' ? '07 바이브코딩 (웹/앱 만들기)' : '07 Vibe Coding (Web/App)'}</option>
-          <option value="08 AI 콘텐츠 제작">{lang === 'ko' ? '08 AI 콘텐츠 제작' : '08 AI Content Creation'}</option>
-          <option value="09 AI 활용 글쓰기 · 학습">{lang === 'ko' ? '09 AI 활용 글쓰기 · 학습' : '09 Writing & Learning with AI'}</option>
-          <option value="10 Google AI 워크스페이스 활용">{lang === 'ko' ? '10 Google AI 워크스페이스 활용' : '10 Google AI Workspace'}</option>
-          <option value="11 Claude 마스터">{lang === 'ko' ? '11 Claude 마스터' : '11 Claude Master'}</option>
+          {T[lang].areas_groups.flatMap(g => g.items).map(item => (
+            <option key={item.n} value={`${item.n} ${item.title}`}>{item.n} {item.title}</option>
+          ))}
           <option value="시그니처 과정 (AI 영상제작의 모든 것)">{lang === 'ko' ? '시그니처 과정 (AI 영상제작의 모든 것)' : 'Signature (AI Video Production)'}</option>
           <option value="맞춤 커리큘럼">{lang === 'ko' ? '맞춤 커리큘럼' : 'Custom Curriculum'}</option>
         </select>
@@ -708,21 +720,20 @@ export default function App() {
             <p className="text-sub">{t.areas_sub}</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 items-start">
+          <div className="grid md:grid-cols-2 gap-5 items-start">
             {t.areas_groups.map(g => (
-              <div key={g.id} className="bg-white rounded-2xl p-7 shadow-sm border border-main/5">
-                <div className="flex items-center gap-3 mb-6 pb-5 border-b border-main/8">
-                  <span className="w-9 h-9 rounded-full bg-accent text-white text-sm font-bold flex items-center justify-center shrink-0">{g.id}</span>
-                  <h3 className="text-lg font-bold text-main leading-snug">{g.name}</h3>
-                </div>
-                <ul className="space-y-5">
+              <div key={g.id} className="bg-white rounded-2xl p-8 shadow-sm border border-main/5">
+                <span className="w-12 h-12 rounded-xl bg-bg_dark text-accent flex items-center justify-center mb-5">
+                  {VALUE_ICONS[g.icon]}
+                </span>
+                <p className="text-accent_deep text-xs font-bold tracking-[0.15em] mb-1.5">{g.id} · {g.label}</p>
+                <h3 className="text-xl font-bold text-main mb-2">{g.name}</h3>
+                <p className="text-sub text-sm leading-relaxed mb-5">{g.gdesc}</p>
+                <ul className="space-y-2.5 border-t border-main/8 pt-5">
                   {g.items.map(item => (
-                    <li key={item.n}>
-                      <p className="text-[15px] font-bold text-main leading-snug flex gap-2">
-                        <span className="text-accent_deep shrink-0">{item.n}</span>
-                        {item.title}
-                      </p>
-                      <p className="text-[13px] text-sub leading-relaxed mt-1 pl-7">{item.desc}</p>
+                    <li key={item.n} className="flex items-start gap-2.5 text-[15px] text-main/85 leading-snug">
+                      <span className="text-accent_deep text-xs font-bold mt-0.5 w-5 shrink-0">{item.n}</span>
+                      {item.title}
                     </li>
                   ))}
                 </ul>
