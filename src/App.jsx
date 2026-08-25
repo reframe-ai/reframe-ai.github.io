@@ -574,7 +574,7 @@ export default function App() {
             backgroundSize: '56px 56px',
           }}
         />
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 animate-fade-in-up">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-28 pb-20 animate-fade-in-up">
 
           {/* 애니메이션 태그 목록 */}
           <div className="flex flex-wrap gap-2 mb-8">
