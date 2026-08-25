@@ -524,11 +524,11 @@ export default function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 py-3 xl:py-4 flex items-center justify-between">
           <a href="#" className="font-heading flex items-center gap-1.5 text-xl xl:text-2xl font-bold tracking-tight text-white">
-            <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
-              <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
-              <path d="M60 22 H75 V78 H60" fill="none" stroke="currentColor" strokeWidth="10" />
-              <circle cx="50" cy="40" r="7.5" fill="#F4581C" />
-              <circle cx="50" cy="60" r="7.5" fill="#F4581C" />
+            <svg viewBox="0 0 100 100" className="w-6 h-6 xl:w-7 xl:h-7 shrink-0" aria-hidden="true">
+              <path d="M38 14 H19 V86 H38" fill="none" stroke="currentColor" strokeWidth="13" />
+              <path d="M62 14 H81 V86 H62" fill="none" stroke="currentColor" strokeWidth="13" />
+              <circle cx="50" cy="37" r="8" fill="#F4581C" />
+              <circle cx="50" cy="63" r="8" fill="#F4581C" />
             </svg>
             <span>Re:<span className="text-accent">Frame</span></span>
           </a>
