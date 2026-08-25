@@ -541,7 +541,7 @@ export default function App() {
             </ul>
             <a
               href="#contact"
-              className="hidden sm:inline-block bg-accent text-white text-sm font-semibold px-5 py-2 rounded-full hover:bg-accent_deep transition"
+              className="hidden sm:inline-block bg-accent text-white text-[13px] font-semibold px-4 py-1.5 rounded-full hover:bg-accent_deep transition"
             >
               {t.nav.contact}
             </a>
@@ -572,14 +572,14 @@ export default function App() {
             backgroundSize: '56px 56px',
           }}
         />
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-24 pt-20 pb-12 animate-fade-in-up">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-24 pt-28 pb-12 animate-fade-in">
 
           {/* 애니메이션 태그 목록 */}
           <div className="flex flex-wrap gap-1.5 mb-6">
             {WORDS.map((word, i) => (
               <span
                 key={word}
-                className={`text-[11px] font-medium px-2.5 py-1 rounded-full transition-all duration-500 ${
+                className={`text-[11px] font-medium px-2.5 py-0.5 rounded-full transition-all duration-500 ${
                   i === wordIdx
                     ? 'bg-accent text-white scale-105'
                     : 'bg-white/10 text-white/40'
@@ -591,7 +591,7 @@ export default function App() {
           </div>
 
           {/* 배지 */}
-          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs font-medium px-3.5 py-1.5 rounded-full mb-5">
+          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs font-medium px-3 py-1 rounded-full mb-5">
             ✦ {t.badge}
           </div>
 
@@ -610,13 +610,13 @@ export default function App() {
           <div className="flex flex-wrap gap-4">
             <a
               href="#areas"
-              className="bg-accent text-white text-[15px] px-6 py-2.5 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
+              className="bg-accent text-white text-sm px-5 py-2 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
             >
               {t.cta1} →
             </a>
             <a
               href="#contact"
-              className="border-2 border-white/40 text-white text-[15px] px-6 py-2.5 rounded-full font-semibold hover:bg-white hover:text-main transition"
+              className="border border-white/40 text-white text-sm px-5 py-2 rounded-full font-semibold hover:bg-white hover:text-main transition"
             >
               {t.cta3}
             </a>
@@ -625,10 +625,10 @@ export default function App() {
           {/* 지표 바 */}
           <div className="mt-8 max-w-2xl">
             <p className="text-white/40 text-xs mb-2">{t.stats_note}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-5 bg-white/5 backdrop-blur-sm rounded-2xl px-4 py-5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 bg-white/5 backdrop-blur-sm rounded-xl px-4 py-4">
               {t.stats.map((s, i) => (
                 <div key={s.l} className={`text-center px-3 ${i > 0 ? 'sm:border-l sm:border-white/10' : ''}`}>
-                  <p className="font-heading font-black text-accent text-2xl leading-none mb-1.5 whitespace-nowrap">{s.n}</p>
+                  <p className="font-heading font-black text-accent text-[22px] leading-none mb-1 whitespace-nowrap">{s.n}</p>
                   <p className="text-white/60 text-xs">{s.l}</p>
                 </div>
               ))}
