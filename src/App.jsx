@@ -890,7 +890,7 @@ export default function App() {
             <p className="text-sub xl:text-lg">{t.inst_sub}</p>
           </div>
 
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl xl:max-w-5xl mx-auto">
             {/* 박선례 대표 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
               <div className="grid grid-cols-3">
