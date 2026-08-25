@@ -9,7 +9,7 @@ const T = {
     h1: 'AI와 함께,',
     h2_accent: '가능성을',
     h2_rest: ' 열다.',
-    sub: '천천히, 제대로 배우는 AI 교육 — Re:Frame은 도구 사용법을 넘어 AI와 함께 생각하고 만드는 힘을 키웁니다. 처음 배우는 시니어부터 실무에 적용하려는 직장인까지, 학습자의 눈높이에 맞춘 실습 중심 AI 교육을 설계하고 운영합니다.',
+    sub: '천천히, 제대로 배우는 AI 교육 —\nRe:Frame은 도구 사용법을 넘어 AI와 함께 생각하고 만드는 힘을 키웁니다. 처음 배우는 시니어부터 실무에 적용하려는 직장인까지, 학습자의 눈높이에 맞춘 실습 중심 AI 교육을 설계하고 운영합니다.',
     cta1: '강의 분야 보기',
     cta2: '강사진 보기',
     cta3: '강의 문의하기',
@@ -135,7 +135,7 @@ const T = {
     h1: 'Opening possibilities,',
     h2_accent: 'together',
     h2_rest: ' with AI.',
-    sub: 'Slow, steady, real AI education — Re:Frame builds the power to think and create with AI, beyond tool skills. From first-time seniors to working professionals, we design and run hands-on AI education tailored to every learner.',
+    sub: 'Slow, steady, real AI education —\nRe:Frame builds the power to think and create with AI, beyond tool skills. From first-time seniors to working professionals, we design and run hands-on AI education tailored to every learner.',
     cta1: 'Lecture Areas',
     cta2: 'Meet the Instructors',
     cta3: 'Request a Lecture',
@@ -603,7 +603,7 @@ export default function App() {
             ))}
           </div>
 
-          <p className="text-[#B8B2AC] text-sm md:text-base xl:text-lg 2xl:text-xl mb-8 max-w-2xl xl:max-w-3xl">
+          <p className="text-[#B8B2AC] text-sm md:text-base xl:text-lg 2xl:text-xl mb-8 max-w-2xl xl:max-w-3xl whitespace-pre-line">
             {t.sub}
           </p>
 
