@@ -522,8 +522,8 @@ export default function App() {
 
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 py-3 flex items-center justify-between">
-          <a href="#" className="font-heading flex items-center gap-1.5 text-xl font-bold tracking-tight text-white">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 py-3 xl:py-4 flex items-center justify-between">
+          <a href="#" className="font-heading flex items-center gap-1.5 text-xl xl:text-2xl font-bold tracking-tight text-white">
             <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
               <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
               <path d="M60 22 H75 V78 H60" fill="none" stroke="currentColor" strokeWidth="10" />
@@ -533,7 +533,7 @@ export default function App() {
             <span>Re:<span className="text-accent">Frame</span></span>
           </a>
           <div className="flex items-center gap-5">
-            <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-white/70">
+            <ul className="hidden md:flex items-center gap-7 xl:gap-8 text-sm xl:text-[15px] font-medium text-white/70">
               <li><a href="#about"       className="hover:text-accent transition">{t.nav.about}</a></li>
               <li><a href="#areas"       className="hover:text-accent transition">{t.nav.areas}</a></li>
               <li><a href="#education"   className="hover:text-accent transition">{t.nav.education}</a></li>
@@ -541,7 +541,7 @@ export default function App() {
             </ul>
             <a
               href="#contact"
-              className="hidden sm:inline-block bg-accent text-white text-[13px] font-semibold px-4 py-1.5 rounded-full hover:bg-accent_deep transition"
+              className="hidden sm:inline-block bg-accent text-white text-[13px] xl:text-sm font-semibold px-4 py-1.5 xl:px-5 xl:py-2 rounded-full hover:bg-accent_deep transition"
             >
               {t.nav.contact}
             </a>
@@ -579,7 +579,7 @@ export default function App() {
             {WORDS.map((word, i) => (
               <span
                 key={word}
-                className={`text-[11px] font-medium px-2.5 py-0.5 rounded-full transition-all duration-500 ${
+                className={`text-[11px] xl:text-xs font-medium px-2.5 py-0.5 xl:px-3 xl:py-1 rounded-full transition-all duration-500 ${
                   i === wordIdx
                     ? 'bg-accent text-white scale-105'
                     : 'bg-white/10 text-white/40'
@@ -591,7 +591,7 @@ export default function App() {
           </div>
 
           {/* 배지 */}
-          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs font-medium px-3 py-1 rounded-full mb-5">
+          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs xl:text-sm font-medium px-3 py-1 xl:px-4 xl:py-1.5 rounded-full mb-5">
             ✦ {t.badge}
           </div>
 
@@ -602,7 +602,7 @@ export default function App() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.12] mb-6 text-white">
             <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
           </h2>
-          <p className="text-[#B8B2AC] text-base md:text-lg mb-8 max-w-2xl">
+          <p className="text-[#B8B2AC] text-base md:text-lg xl:text-xl mb-8 max-w-2xl xl:max-w-3xl">
             {t.sub}
           </p>
 
@@ -610,26 +610,26 @@ export default function App() {
           <div className="flex flex-wrap gap-4">
             <a
               href="#areas"
-              className="bg-accent text-white text-sm px-5 py-2 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
+              className="bg-accent text-white text-sm xl:text-base px-5 py-2 xl:px-7 xl:py-3 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
             >
               {t.cta1} →
             </a>
             <a
               href="#contact"
-              className="border border-white/40 text-white text-sm px-5 py-2 rounded-full font-semibold hover:bg-white hover:text-main transition"
+              className="border border-white/40 text-white text-sm xl:text-base px-5 py-2 xl:px-7 xl:py-3 rounded-full font-semibold hover:bg-white hover:text-main transition"
             >
               {t.cta3}
             </a>
           </div>
 
           {/* 지표 바 */}
-          <div className="mt-8 max-w-2xl">
-            <p className="text-white/40 text-xs mb-2">{t.stats_note}</p>
+          <div className="mt-8 xl:mt-10 max-w-2xl xl:max-w-3xl">
+            <p className="text-white/40 text-xs xl:text-sm mb-2">{t.stats_note}</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 bg-white/5 backdrop-blur-sm rounded-xl px-4 py-4">
               {t.stats.map((s, i) => (
                 <div key={s.l} className={`text-center px-3 ${i > 0 ? 'sm:border-l sm:border-white/10' : ''}`}>
-                  <p className="font-heading font-black text-accent text-[22px] leading-none mb-1 whitespace-nowrap">{s.n}</p>
-                  <p className="text-white/60 text-xs">{s.l}</p>
+                  <p className="font-heading font-black text-accent text-[22px] xl:text-3xl leading-none mb-1 xl:mb-1.5 whitespace-nowrap">{s.n}</p>
+                  <p className="text-white/60 text-xs xl:text-sm">{s.l}</p>
                 </div>
               ))}
             </div>
@@ -646,17 +646,17 @@ export default function App() {
             <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-6">
               {t.about_title}
             </span>
-            <h2 className="text-3xl md:text-[2.5rem] font-black text-main leading-[1.28] mb-6">
+            <h2 className="text-3xl md:text-[2.5rem] xl:text-5xl font-black text-main leading-[1.28] mb-6">
               {t.about_head1}<br />{t.about_head2}
             </h2>
-            <p className="text-sub text-base md:text-lg leading-relaxed mb-10">
+            <p className="text-sub text-base md:text-lg xl:text-xl leading-relaxed mb-10">
               {t.company_p}
             </p>
             <div className="grid grid-cols-5 gap-4">
               {t.about_facts.map((f, i) => (
                 <div key={f.k} className={`bg-white border border-main/8 rounded-2xl px-6 py-6 ${i === 0 ? 'col-span-3' : 'col-span-2'}`}>
                   <p className="text-sub text-sm mb-2">{f.k}</p>
-                  <p className="text-main text-lg md:text-xl font-bold leading-snug break-keep">{f.v}</p>
+                  <p className="text-main text-lg md:text-xl xl:text-2xl font-bold leading-snug break-keep">{f.v}</p>
                 </div>
               ))}
             </div>
@@ -670,8 +670,8 @@ export default function App() {
                   {VALUE_ICONS[v.icon]}
                 </span>
                 <div>
-                  <h3 className="text-lg font-bold text-main mb-1.5">{v.title}</h3>
-                  <p className="text-sub text-sm leading-relaxed">{v.desc}</p>
+                  <h3 className="text-lg xl:text-xl font-bold text-main mb-1.5">{v.title}</h3>
+                  <p className="text-sub text-sm xl:text-[15px] leading-relaxed">{v.desc}</p>
                 </div>
               </div>
             ))}
@@ -686,10 +686,10 @@ export default function App() {
             <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-5">
               {t.exp_badge}
             </span>
-            <h2 className="text-3xl md:text-4xl font-black text-main leading-[1.3] mb-4">
+            <h2 className="text-3xl md:text-4xl xl:text-5xl font-black text-main leading-[1.3] mb-4">
               {t.exp_head1}<br />{t.exp_head2}
             </h2>
-            <p className="text-sub max-w-2xl mx-auto">{t.exp_sub}</p>
+            <p className="text-sub xl:text-lg max-w-2xl mx-auto">{t.exp_sub}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
@@ -702,8 +702,8 @@ export default function App() {
                   <span className="font-heading font-black text-5xl text-accent/20 leading-none select-none">{item.n}</span>
                 </div>
                 <p className="text-accent_deep text-xs font-bold tracking-[0.15em] mb-2">{item.label}</p>
-                <h3 className="text-xl font-bold text-main mb-3">{item.title}</h3>
-                <p className="text-sub text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-xl xl:text-2xl font-bold text-main mb-3">{item.title}</h3>
+                <p className="text-sub text-sm xl:text-[15px] leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -714,22 +714,22 @@ export default function App() {
       <section id="areas" className="py-16 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.areas_title}</h2>
-            <p className="text-sub">{t.areas_sub}</p>
+            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.areas_title}</h2>
+            <p className="text-sub xl:text-lg">{t.areas_sub}</p>
           </div>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 items-start">
             {t.areas_groups.map(g => (
-              <div key={g.id} className="bg-white rounded-2xl p-6 shadow-sm border border-main/5">
+              <div key={g.id} className="bg-white rounded-2xl p-6 xl:p-7 shadow-sm border border-main/5">
                 <span className="w-12 h-12 rounded-xl bg-bg_dark text-accent flex items-center justify-center mb-4">
                   {VALUE_ICONS[g.icon]}
                 </span>
                 <p className="text-accent_deep text-xs font-bold tracking-[0.15em] mb-1.5">{g.id} · {g.label}</p>
-                <h3 className="text-xl font-bold text-main mb-2">{g.name}</h3>
-                <p className="text-sub text-[13px] leading-relaxed mb-4">{g.gdesc}</p>
+                <h3 className="text-xl xl:text-[22px] font-bold text-main mb-2">{g.name}</h3>
+                <p className="text-sub text-[13px] xl:text-sm leading-relaxed mb-4">{g.gdesc}</p>
                 <ul className="space-y-2 border-t border-main/8 pt-4">
                   {g.items.map(item => (
-                    <li key={item.n} className="flex items-start gap-2 text-sm text-main/85 leading-snug">
+                    <li key={item.n} className="flex items-start gap-2 text-sm xl:text-[15px] text-main/85 leading-snug">
                       <span className="text-accent_deep text-xs font-bold mt-0.5 w-5 shrink-0">{item.n}</span>
                       {item.title}
                     </li>
@@ -754,8 +754,8 @@ export default function App() {
       <section id="education" className="py-16 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.edu_title}</h2>
-            <p className="text-sub">{t.edu_sub}</p>
+            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.edu_title}</h2>
+            <p className="text-sub xl:text-lg">{t.edu_sub}</p>
           </div>
 
           {/* B-1 / B-2 / B-3 */}
@@ -830,7 +830,7 @@ export default function App() {
           {/* 제목 + 이미지 */}
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.vibe_title}</h2>
+              <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.vibe_title}</h2>
               <div className="flex items-center gap-2 mb-4">
                 <span className="bg-main text-white text-xs font-semibold px-3 py-1.5 rounded-full">with Claude</span>
                 <span className="bg-accent text-white text-xs font-medium px-2.5 py-1.5 rounded-full">{t.vibe_new}</span>
@@ -883,8 +883,8 @@ export default function App() {
       <section id="instructors" className="py-16 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.inst_title}</h2>
-            <p className="text-sub">{t.inst_sub}</p>
+            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.inst_title}</h2>
+            <p className="text-sub xl:text-lg">{t.inst_sub}</p>
           </div>
 
           <div className="max-w-3xl mx-auto">
@@ -938,8 +938,8 @@ export default function App() {
       <section id="trust" className="py-16 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.trust_title}</h2>
-            <p className="text-sub">{t.trust_sub}</p>
+            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.trust_title}</h2>
+            <p className="text-sub xl:text-lg">{t.trust_sub}</p>
           </div>
 
           {/* 로컬M 칼럼 */}
