@@ -902,31 +902,31 @@ export default function App() {
                   />
                 </div>
                 <div className="col-span-2 p-6">
-                  <h3 className="text-xl font-bold text-main">{t.inst1_name}</h3>
-                  <p className="text-accent_deep text-sm font-medium mb-3">{t.inst1_role}</p>
-                  <p className="font-bold text-main text-sm leading-snug">{t.univ}</p>
-                  <p className="text-sub text-sm">{t.univ_sub}</p>
-                  <p className="text-sub/60 text-xs mt-1 italic">{t.thesis}</p>
-                  <p className="text-sub text-sm mt-2">{t.bg1_1} · {t.bg1_2}</p>
-                  <div className="bg-bg_cream rounded-xl px-4 py-2.5 mt-4 mb-2 text-xs text-main/80">
+                  <h3 className="text-xl xl:text-2xl font-bold text-main">{t.inst1_name}</h3>
+                  <p className="text-accent_deep text-sm xl:text-base font-medium mb-3">{t.inst1_role}</p>
+                  <p className="font-bold text-main text-sm xl:text-base leading-snug">{t.univ}</p>
+                  <p className="text-sub text-sm xl:text-base">{t.univ_sub}</p>
+                  <p className="text-sub/60 text-xs xl:text-sm mt-1 italic">{t.thesis}</p>
+                  <p className="text-sub text-sm xl:text-base mt-2">{t.bg1_1} · {t.bg1_2}</p>
+                  <div className="bg-bg_cream rounded-xl px-4 py-2.5 xl:py-3 mt-4 mb-2 text-xs xl:text-sm text-main/80">
                     <span className="text-accent_deep font-bold mr-2">저서</span>{t.book}
                   </div>
-                  <div className="bg-bg_cream rounded-xl px-4 py-2.5 text-xs text-main/80">
+                  <div className="bg-bg_cream rounded-xl px-4 py-2.5 xl:py-3 text-xs xl:text-sm text-main/80">
                     <span className="text-accent_deep font-bold mr-2">현 소속</span>{t.role_now}
                   </div>
                 </div>
               </div>
               <div className="px-6 pb-6">
-                <p className="text-[13px] text-main/70 leading-relaxed break-keep mb-4 border-t border-main/8 pt-4">
+                <p className="text-[13px] xl:text-[15px] text-main/70 leading-relaxed break-keep mb-4 border-t border-main/8 pt-4">
                   {t.certs.join(' · ')}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer"
-                    className="border border-main/15 text-main/70 text-xs px-3.5 py-1.5 rounded-full hover:border-accent hover:text-accent transition">
+                    className="border border-main/15 text-main/70 text-xs xl:text-sm px-3.5 py-1.5 xl:px-4 xl:py-2 rounded-full hover:border-accent hover:text-accent transition">
                     스레드 @slowsoyang
                   </a>
                   <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer"
-                    className="border border-main/15 text-main/70 text-xs px-3.5 py-1.5 rounded-full hover:border-accent hover:text-accent transition">
+                    className="border border-main/15 text-main/70 text-xs xl:text-sm px-3.5 py-1.5 xl:px-4 xl:py-2 rounded-full hover:border-accent hover:text-accent transition">
                     네이버 블로그
                   </a>
                 </div>
