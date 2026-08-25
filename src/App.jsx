@@ -575,8 +575,20 @@ export default function App() {
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 flex-1 flex flex-col justify-between pt-32 xl:pt-36 pb-10 xl:pb-12 animate-fade-in">
           <div>
 
+          {/* 배지 */}
+          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs xl:text-sm font-medium px-3 py-1 xl:px-4 xl:py-1.5 rounded-full mb-5">
+            ✦ {t.badge}
+          </div>
+
+          {/* 헤드라인 */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-2 text-white">
+            {t.h1}
+          </h1>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-6 text-white">
+            <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
+          </h2>
           {/* 애니메이션 태그 목록 */}
-          <div className="flex flex-wrap gap-1.5 mb-6">
+          <div className="flex flex-wrap gap-1.5 mb-4">
             {WORDS.map((word, i) => (
               <span
                 key={word}
@@ -591,19 +603,7 @@ export default function App() {
             ))}
           </div>
 
-          {/* 배지 */}
-          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs xl:text-sm font-medium px-3 py-1 xl:px-4 xl:py-1.5 rounded-full mb-5">
-            ✦ {t.badge}
-          </div>
-
-          {/* 헤드라인 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-2 text-white">
-            {t.h1}
-          </h1>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-6 text-white">
-            <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
-          </h2>
-          <p className="text-[#B8B2AC] text-base md:text-lg xl:text-xl 2xl:text-2xl mb-8 max-w-2xl xl:max-w-3xl">
+          <p className="text-[#B8B2AC] text-sm md:text-base xl:text-lg 2xl:text-xl mb-8 max-w-2xl xl:max-w-3xl">
             {t.sub}
           </p>
 
