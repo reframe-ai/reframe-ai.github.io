@@ -596,13 +596,13 @@ export default function App() {
           </div>
 
           {/* 헤드라인 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.12] mb-2 text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-2 text-white">
             {t.h1}
           </h1>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.12] mb-6 text-white">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-6 text-white">
             <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
           </h2>
-          <p className="text-[#B8B2AC] text-base md:text-lg xl:text-xl mb-8 max-w-2xl xl:max-w-3xl">
+          <p className="text-[#B8B2AC] text-base md:text-lg xl:text-xl 2xl:text-2xl mb-8 max-w-2xl xl:max-w-3xl">
             {t.sub}
           </p>
 
@@ -638,7 +638,7 @@ export default function App() {
       </section>
 
       {/* ── 소개 (ABOUT) ──────────────────────────────────────── */}
-      <section id="about" className="py-16 px-6 bg-bg_cream">
+      <section id="about" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
 
           {/* 왼쪽: 배지 + 헤드라인 + 소개문 + 팩트 카드 */}
@@ -680,9 +680,9 @@ export default function App() {
       </section>
 
       {/* ── 전문 역량 (EXPERTISE) ─────────────────────────────── */}
-      <section className="py-16 px-6 bg-card_bg">
+      <section className="py-16 md:py-20 xl:py-24 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 xl:mb-14">
             <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-5">
               {t.exp_badge}
             </span>
@@ -711,9 +711,9 @@ export default function App() {
       </section>
 
       {/* ── 강의 분야 (11개) ───────────────────────────────────── */}
-      <section id="areas" className="py-16 px-6 bg-bg_cream">
+      <section id="areas" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.areas_title}</h2>
             <p className="text-sub xl:text-lg">{t.areas_sub}</p>
           </div>
@@ -751,9 +751,9 @@ export default function App() {
       </section>
 
       {/* ── 교육 과정 ─────────────────────────────────────────── */}
-      <section id="education" className="py-16 px-6 bg-card_bg">
+      <section id="education" className="py-16 md:py-20 xl:py-24 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.edu_title}</h2>
             <p className="text-sub xl:text-lg">{t.edu_sub}</p>
           </div>
@@ -824,7 +824,7 @@ export default function App() {
       </section>
 
       {/* ── 바이브 코딩 ───────────────────────────────────────── */}
-      <section id="vibe" className="py-16 px-6 bg-bg_cream">
+      <section id="vibe" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
 
           {/* 제목 + 이미지 */}
@@ -880,9 +880,9 @@ export default function App() {
       </section>
 
       {/* ── 강사진 ────────────────────────────────────────────── */}
-      <section id="instructors" className="py-16 px-6 bg-card_bg">
+      <section id="instructors" className="py-16 md:py-20 xl:py-24 px-6 bg-card_bg">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.inst_title}</h2>
             <p className="text-sub xl:text-lg">{t.inst_sub}</p>
           </div>
@@ -935,9 +935,9 @@ export default function App() {
       </section>
 
       {/* ── 칼럼 & 출강 실적 ──────────────────────────────────── */}
-      <section id="trust" className="py-16 px-6 bg-bg_cream">
+      <section id="trust" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.trust_title}</h2>
             <p className="text-sub xl:text-lg">{t.trust_sub}</p>
           </div>
@@ -971,7 +971,7 @@ export default function App() {
       </section>
 
       {/* ── CONTACT / FOOTER ─────────────────────────────────── */}
-      <footer id="contact" className="bg-bg_dark py-16 px-6">
+      <footer id="contact" className="bg-bg_dark py-16 md:py-20 xl:py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
             <div>
