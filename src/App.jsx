@@ -89,7 +89,7 @@ const T = {
     sig_title: 'AI로 나만의 작품을 만듭니다.',
     sig_desc: '음악과 영상을 전공한 NCS 강사가 직접 설계한 AI 창작 수업입니다.\n이미지, 영상, 음악 —\n세 가지 도구로 당신의 이야기를 표현하세요.',
     sig_cta: '나만의 기록 만들기',
-    vibe_title: '바이브 코딩',
+    vibe_title: '바이브코딩',
     vibe_sub: '코딩 몰라도 OK. AI와 함께 웹/앱 만들기.',
     vibe_new: '신규',
     v1_title: '입문 과정', v1_desc: '코딩 몰라도 만들 수 있는 것들',
@@ -830,12 +830,12 @@ export default function App() {
           {/* 제목 + 이미지 */}
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-main mb-1">
-                {t.vibe_title}<br />
-                <span className="text-4xl">with Claude</span>
-                <span className="ml-3 bg-accent text-white text-xs px-2.5 py-1 rounded-full align-middle font-medium">{t.vibe_new}</span>
-              </h2>
-              <p className="text-sub mt-3">{t.vibe_sub}</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-main mb-3">{t.vibe_title}</h2>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="bg-main text-white text-xs font-semibold px-3 py-1.5 rounded-full">with Claude</span>
+                <span className="bg-accent text-white text-xs font-medium px-2.5 py-1.5 rounded-full">{t.vibe_new}</span>
+              </div>
+              <p className="text-sub">{t.vibe_sub}</p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-md">
               <img
@@ -846,8 +846,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* 과정 3개 */}
-          <div className="grid md:grid-cols-3 gap-4">
+          {/* 과정 2개: 입문 · 심화 */}
+          <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-accent rounded-2xl p-8 relative">
               <span className="absolute top-4 right-4 bg-white text-accent_deep text-xs font-bold px-2.5 py-1 rounded-full">FEATURED</span>
               <div className="text-white text-2xl mb-3 font-mono">&lt;&gt;</div>
@@ -868,19 +868,6 @@ export default function App() {
               <p className="text-sub/60 text-sm mb-3">{t.v2_desc}</p>
               <ul className="space-y-1.5">
                 {t.v2_items.map(item => (
-                  <li key={item} className="text-sub text-sm flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/50 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <div className="text-accent text-2xl mb-3">👥</div>
-              <h3 className="text-xl font-bold text-main mb-2">{t.v3_title}</h3>
-              <p className="text-sub/60 text-sm mb-3">{t.v3_desc}</p>
-              <ul className="space-y-1.5">
-                {t.v3_items.map(item => (
                   <li key={item} className="text-sub text-sm flex items-start gap-2">
                     <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/50 shrink-0" />
                     {item}
