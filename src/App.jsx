@@ -673,7 +673,7 @@ export default function App() {
                   {VALUE_ICONS[v.icon]}
                 </span>
                 <div>
-                  <h3 className="text-lg xl:text-xl font-bold text-main mb-1.5">{v.title}</h3>
+                  <h3 className="text-lg xl:text-xl xl:text-2xl font-bold text-main mb-1.5">{v.title}</h3>
                   <p className="text-sub text-sm xl:text-[15px] leading-relaxed">{v.desc}</p>
                 </div>
               </div>
@@ -764,35 +764,35 @@ export default function App() {
           {/* B-1 / B-2 / B-3 */}
           <div className="grid md:grid-cols-3 gap-4 mb-5">
             <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <p className="font-bold text-main text-lg mb-1">B-1</p>
-              <h3 className="text-xl font-bold text-main mb-1">{t.b1_title}</h3>
-              <p className="text-xs text-sub mb-4">{t.b1_target}</p>
-              <p className="text-accent_deep font-medium italic mb-2">{t.b1_tag}</p>
-              <p className="text-sm text-sub">{t.b1_desc}</p>
+              <p className="font-bold text-main text-lg xl:text-xl mb-1">B-1</p>
+              <h3 className="text-xl xl:text-2xl font-bold text-main mb-1">{t.b1_title}</h3>
+              <p className="text-xs xl:text-sm text-sub mb-4">{t.b1_target}</p>
+              <p className="text-accent_deep xl:text-lg font-medium italic mb-2">{t.b1_tag}</p>
+              <p className="text-sm xl:text-base text-sub">{t.b1_desc}</p>
             </div>
 
             <div className="bg-accent rounded-2xl p-8 shadow-md relative">
               <span className="absolute top-4 right-4 bg-white text-accent_deep text-xs font-bold px-2.5 py-1 rounded-full">
                 {t.b2_badge}
               </span>
-              <p className="font-bold text-white text-lg mb-1">B-2</p>
-              <h3 className="text-xl font-bold text-white mb-1">{t.b2_title}</h3>
-              <p className="text-xs text-white/70 mb-4">{t.b2_target}</p>
-              <p className="text-white font-medium italic mb-2">{t.b2_tag}</p>
-              <p className="text-sm text-white/80">{t.b2_desc}</p>
+              <p className="font-bold text-white text-lg xl:text-xl mb-1">B-2</p>
+              <h3 className="text-xl xl:text-2xl font-bold text-white mb-1">{t.b2_title}</h3>
+              <p className="text-xs xl:text-sm text-white/70 mb-4">{t.b2_target}</p>
+              <p className="text-white xl:text-lg font-medium italic mb-2">{t.b2_tag}</p>
+              <p className="text-sm xl:text-base text-white/80">{t.b2_desc}</p>
             </div>
 
             <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <p className="font-bold text-main text-lg mb-1">B-3</p>
-              <h3 className="text-xl font-bold text-main mb-1">{t.b3_title}</h3>
-              <p className="text-xs text-sub mb-4">{t.b3_target}</p>
-              <p className="text-accent_deep font-medium italic mb-2">{t.b3_tag}</p>
-              <p className="text-sm text-sub">{t.b3_desc}</p>
+              <p className="font-bold text-main text-lg xl:text-xl mb-1">B-3</p>
+              <h3 className="text-xl xl:text-2xl font-bold text-main mb-1">{t.b3_title}</h3>
+              <p className="text-xs xl:text-sm text-sub mb-4">{t.b3_target}</p>
+              <p className="text-accent_deep xl:text-lg font-medium italic mb-2">{t.b3_tag}</p>
+              <p className="text-sm xl:text-base text-sub">{t.b3_desc}</p>
             </div>
           </div>
 
           {/* 운영 방식 안내 바 */}
-          <div className="bg-white rounded-xl px-8 py-4 text-sm text-sub text-center mb-12 shadow-sm">
+          <div className="bg-white rounded-xl px-8 py-4 xl:py-5 text-sm xl:text-base text-sub text-center mb-12 shadow-sm">
             {t.ops}
           </div>
 
@@ -802,15 +802,15 @@ export default function App() {
               <span className="bg-accent text-white text-xs px-3 py-1 rounded-full font-medium w-fit mb-4">
                 {t.sig_badge}
               </span>
-              <h3 className="text-2xl font-bold text-white mb-4">{t.sig_title}</h3>
-              <p className="text-[#AAA] text-sm leading-relaxed mb-6">
+              <h3 className="text-2xl xl:text-3xl font-bold text-white mb-4">{t.sig_title}</h3>
+              <p className="text-[#AAA] text-sm xl:text-base leading-relaxed mb-6">
                 {t.sig_desc.split('\n').map((line, i) => (
                   <React.Fragment key={i}>{line}{i < 2 && <br />}</React.Fragment>
                 ))}
               </p>
               <a
                 href="#contact"
-                className="bg-accent text-white px-6 py-3 rounded-full text-sm font-semibold w-fit hover:bg-accent_deep transition"
+                className="bg-accent text-white px-6 py-3 rounded-full text-sm xl:text-base font-semibold w-fit hover:bg-accent_deep transition"
               >
                 {t.sig_cta}
               </a>
