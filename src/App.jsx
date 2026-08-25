@@ -977,13 +977,9 @@ export default function App() {
           <div>
             <h3 className="text-lg font-bold text-main mb-2">{t.orgs_title}</h3>
             <p className="text-sub text-sm mb-5">{t.orgs_note}</p>
-            <div className="flex flex-wrap gap-2">
-              {t.orgs.map(o => (
-                <span key={o} className="bg-white border border-main/10 text-main/70 text-sm px-4 py-1.5 rounded-full">
-                  {o}
-                </span>
-              ))}
-            </div>
+            <p className="text-sub/80 text-[13px] leading-relaxed break-keep">
+              {t.orgs.join(' · ')}
+            </p>
           </div>
         </div>
       </section>
