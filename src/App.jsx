@@ -905,9 +905,9 @@ export default function App() {
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
               <div className="grid grid-cols-3">
                 <img
-                  src={`${import.meta.env.BASE_URL}profile_seonrye_v2.png`}
+                  src={`${import.meta.env.BASE_URL}profile_seonrye_crop.jpg`}
                   alt={t.inst1_name}
-                  className="w-full h-full object-cover col-span-1 min-h-[200px]"
+                  className="w-full h-full object-cover object-top col-span-1 min-h-[200px]"
                 />
                 <div className="col-span-2 p-6">
                   <h3 className="text-xl font-bold text-main">{t.inst1_name}</h3>
@@ -919,8 +919,8 @@ export default function App() {
                 </div>
               </div>
               <div className="px-6 pb-6">
-                <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-main/70 mb-4">
-                  {t.certs.map(c => <span key={c}>{c}</span>)}
+                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-main/70 mb-4 border-t border-main/8 pt-4">
+                  {t.certs.map(c => <span key={c} className="leading-relaxed">{c}</span>)}
                 </div>
                 <div className="bg-bg_cream rounded-xl px-4 py-2.5 mb-2 text-xs text-main/80">
                   <span className="text-accent_deep font-bold mr-2">저서</span>{t.book}
