@@ -522,7 +522,7 @@ export default function App() {
 
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-4 flex items-center justify-between">
           <a href="#" className="font-heading flex items-center gap-2.5 text-xl font-bold tracking-tight text-white">
             <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
               <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
@@ -572,7 +572,7 @@ export default function App() {
             backgroundSize: '56px 56px',
           }}
         />
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-28 pb-20 animate-fade-in-up">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-24 pt-24 pb-14 animate-fade-in-up">
 
           {/* 애니메이션 태그 목록 */}
           <div className="flex flex-wrap gap-2 mb-8">
@@ -596,10 +596,10 @@ export default function App() {
           </div>
 
           {/* 헤드라인 */}
-          <h1 className="text-4xl md:text-7xl font-black leading-[1.14] mb-3 text-white">
+          <h1 className="text-4xl md:text-6xl font-black leading-[1.14] mb-3 text-white">
             {t.h1}
           </h1>
-          <h2 className="text-3xl md:text-6xl font-black leading-[1.14] mb-6 text-white">
+          <h2 className="text-3xl md:text-5xl font-black leading-[1.14] mb-6 text-white">
             <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
           </h2>
           <p className="text-[#B8B2AC] text-lg md:text-xl mb-10 max-w-2xl">
@@ -623,7 +623,7 @@ export default function App() {
           </div>
 
           {/* 지표 바 */}
-          <div className="mt-14 max-w-3xl">
+          <div className="mt-10 max-w-3xl">
             <p className="text-white/40 text-xs mb-2">{t.stats_note}</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 bg-white/5 backdrop-blur-sm rounded-2xl px-4 py-6">
               {t.stats.map((s, i) => (
@@ -906,7 +906,7 @@ export default function App() {
               <div className="grid grid-cols-3">
                 <div className="col-span-1 p-6 pr-0">
                   <img
-                    src={`${import.meta.env.BASE_URL}profile_seonrye_head.jpg`}
+                    src={`${import.meta.env.BASE_URL}profile_seonrye_v3.jpg`}
                     alt={t.inst1_name}
                     className="w-full h-auto rounded-xl"
                   />
