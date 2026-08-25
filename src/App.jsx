@@ -47,7 +47,7 @@ const T = {
     univ: '전북대학교 교육대학원',
     univ_sub: '평생교육 및 HRD 전공 (석사)',
     thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
-    certs: ['📜 AICE(AI 활용능력) BASIC', '📜 NCS 강사', '📜 평생교육사 2급', '📜 사회복지사 1급', '📜 직업능력훈련교사(영상분야)', '📜 AI특화인재양성교육 이수 (AI서비스개발 40시간)', '📜 Google Workspace for Education Fundamentals', '📜 디지털 튜터'],
+    certs: ['AICE(AI 활용능력) BASIC', 'NCS 강사', '평생교육사 2급', '사회복지사 1급', '직업능력훈련교사(영상분야)', 'AI특화인재양성교육 이수 (AI서비스개발 40시간)', 'Google Workspace for Education Fundamentals', '디지털 튜터'],
     book: '『AI야, 안녕!』 — 초등학교 저학년을 위한 AI수업 교재 (공저 · 기획 · 집필 · 편집)',
     role_now: '(주)리프레임 Re:Frame 대표 · 한국평생교육HRD진흥협회 AI교육부장',
     tags: ['생성형 AI 업무 활용', '바이브코딩', 'AI 콘텐츠 제작', 'AI 리터러시 · 저작권'],
@@ -173,7 +173,7 @@ const T = {
     univ: 'Jeonbuk National University Graduate School of Education',
     univ_sub: 'Lifelong Education & HRD (M.Ed.)',
     thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
-    certs: ['📜 AICE Basic (KT)', '📜 NCS Instructor', '📜 Lifelong Educator Lv.2', '📜 Social Worker Lv.1', '📜 Vocational Training Teacher (Video)', '📜 AI Specialist Program (40h, AI service dev)', '📜 Google Workspace for Education Fundamentals', '📜 Digital Tutor'],
+    certs: ['AICE Basic (KT)', 'NCS Instructor', 'Lifelong Educator Lv.2', 'Social Worker Lv.1', 'Vocational Training Teacher (Video)', 'AI Specialist Program (40h, AI service dev)', 'Google Workspace for Education Fundamentals', 'Digital Tutor'],
     book: '"Hello, AI!" — an AI textbook for lower elementary (co-author · planning · writing · editing)',
     role_now: 'CEO, Re:Frame Inc. · Head of AI Education, Korea Lifelong Education & HRD Association',
     tags: ['Gen AI at Work', 'Vibe Coding', 'AI Content Creation', 'AI Literacy · Copyright'],
@@ -904,11 +904,13 @@ export default function App() {
             {/* 박선례 대표 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
               <div className="grid grid-cols-3">
-                <img
-                  src={`${import.meta.env.BASE_URL}profile_seonrye_crop.jpg`}
-                  alt={t.inst1_name}
-                  className="w-full h-full object-cover object-top col-span-1 min-h-[200px]"
-                />
+                <div className="col-span-1 relative min-h-[240px]">
+                  <img
+                    src={`${import.meta.env.BASE_URL}profile_seonrye_crop.jpg`}
+                    alt={t.inst1_name}
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                  />
+                </div>
                 <div className="col-span-2 p-6">
                   <h3 className="text-xl font-bold text-main">{t.inst1_name}</h3>
                   <p className="text-accent_deep text-sm font-medium mb-3">{t.inst1_role}</p>
@@ -919,9 +921,9 @@ export default function App() {
                 </div>
               </div>
               <div className="px-6 pb-6">
-                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-main/70 mb-4 border-t border-main/8 pt-4">
-                  {t.certs.map(c => <span key={c} className="leading-relaxed">{c}</span>)}
-                </div>
+                <p className="text-[13px] text-main/70 leading-relaxed break-keep mb-4 border-t border-main/8 pt-4">
+                  {t.certs.join(' · ')}
+                </p>
                 <div className="bg-bg_cream rounded-xl px-4 py-2.5 mb-2 text-xs text-main/80">
                   <span className="text-accent_deep font-bold mr-2">저서</span>{t.book}
                 </div>
