@@ -560,7 +560,7 @@ export default function App() {
       </nav>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center bg-bg_dark overflow-hidden">
+      <section className="relative min-h-screen flex flex-col bg-bg_dark overflow-hidden">
         {/* 배경 슬라이드쇼 */}
         <HeroSlideshow />
         {/* 격자 패턴 */}
@@ -572,7 +572,8 @@ export default function App() {
             backgroundSize: '56px 56px',
           }}
         />
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-12 animate-fade-in">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 flex-1 flex flex-col justify-between pt-32 xl:pt-36 pb-10 xl:pb-12 animate-fade-in">
+          <div>
 
           {/* 애니메이션 태그 목록 */}
           <div className="flex flex-wrap gap-1.5 mb-6">
@@ -622,8 +623,10 @@ export default function App() {
             </a>
           </div>
 
-          {/* 지표 바 */}
-          <div className="mt-8 xl:mt-10 max-w-2xl xl:max-w-3xl">
+          </div>
+
+          {/* 지표 바 — 하단 고정 */}
+          <div className="mt-10 max-w-2xl xl:max-w-3xl">
             <p className="text-white/40 text-xs xl:text-sm mb-2">{t.stats_note}</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 bg-white/5 backdrop-blur-sm rounded-xl px-4 py-4">
               {t.stats.map((s, i) => (
