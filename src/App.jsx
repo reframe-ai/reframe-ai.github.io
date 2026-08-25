@@ -910,9 +910,8 @@ export default function App() {
                   <p className="text-[13px] xl:text-[15px] text-main/70 leading-relaxed break-keep mt-3">
                     {t.certs.join(' · ')}
                   </p>
-                  <div className="bg-bg_cream rounded-xl px-4 py-3 mt-4 text-xs xl:text-sm text-main/80 space-y-1.5">
+                  <div className="bg-bg_cream rounded-xl px-4 py-3 mt-4 text-xs xl:text-sm text-main/80">
                     <p><span className="text-accent_deep font-bold mr-2">저서</span>{t.book}</p>
-                    <p><span className="text-accent_deep font-bold mr-2">현 소속</span>{t.role_now}</p>
                   </div>
                 </div>
               </div>
