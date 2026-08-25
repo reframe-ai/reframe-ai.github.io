@@ -721,7 +721,7 @@ export default function App() {
             <p className="text-sub xl:text-lg">{t.areas_sub}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 items-start">
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
             {t.areas_groups.map(g => (
               <div key={g.id} className="bg-white rounded-2xl p-6 xl:p-7 shadow-sm border border-main/5">
                 <span className="w-12 h-12 rounded-xl bg-bg_dark text-accent flex items-center justify-center mb-4">
