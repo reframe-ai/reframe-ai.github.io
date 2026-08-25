@@ -641,8 +641,8 @@ export default function App() {
       </section>
 
       {/* ── 소개 (ABOUT) ──────────────────────────────────────── */}
-      <section id="about" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+      <section id="about" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-12 md:gap-16">
 
           {/* 왼쪽: 배지 + 헤드라인 + 소개문 + 팩트 카드 */}
           <div>
@@ -665,8 +665,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* 오른쪽: 가치 카드 3개 */}
-          <div className="space-y-5">
+          {/* 오른쪽: 가치 카드 3개 — 좌측 하단 라인에 정렬 */}
+          <div className="flex flex-col justify-between gap-5">
             {t.about_values.map(v => (
               <div key={v.title} className="bg-white border border-main/8 rounded-2xl p-7 flex gap-5 items-start shadow-sm">
                 <span className="w-12 h-12 rounded-xl bg-accent_tint text-accent_deep flex items-center justify-center shrink-0">
@@ -683,8 +683,8 @@ export default function App() {
       </section>
 
       {/* ── 전문 역량 (EXPERTISE) ─────────────────────────────── */}
-      <section className="py-16 md:py-20 xl:py-24 px-6 bg-card_bg">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-16 md:py-20 xl:py-24 bg-card_bg">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center mb-10 xl:mb-14">
             <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-5">
               {t.exp_badge}
@@ -714,8 +714,8 @@ export default function App() {
       </section>
 
       {/* ── 강의 분야 (11개) ───────────────────────────────────── */}
-      <section id="areas" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
-        <div className="max-w-6xl mx-auto">
+      <section id="areas" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.areas_title}</h2>
             <p className="text-sub xl:text-lg">{t.areas_sub}</p>
@@ -754,8 +754,8 @@ export default function App() {
       </section>
 
       {/* ── 교육 과정 ─────────────────────────────────────────── */}
-      <section id="education" className="py-16 md:py-20 xl:py-24 px-6 bg-card_bg">
-        <div className="max-w-6xl mx-auto">
+      <section id="education" className="py-16 md:py-20 xl:py-24 bg-card_bg">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.edu_title}</h2>
             <p className="text-sub xl:text-lg">{t.edu_sub}</p>
@@ -827,8 +827,8 @@ export default function App() {
       </section>
 
       {/* ── 바이브 코딩 ───────────────────────────────────────── */}
-      <section id="vibe" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
-        <div className="max-w-6xl mx-auto">
+      <section id="vibe" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
 
           {/* 제목 + 이미지 */}
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
@@ -883,8 +883,8 @@ export default function App() {
       </section>
 
       {/* ── 강사진 ────────────────────────────────────────────── */}
-      <section id="instructors" className="py-16 md:py-20 xl:py-24 px-6 bg-card_bg">
-        <div className="max-w-6xl mx-auto">
+      <section id="instructors" className="py-16 md:py-20 xl:py-24 bg-card_bg">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.inst_title}</h2>
             <p className="text-sub xl:text-lg">{t.inst_sub}</p>
@@ -938,8 +938,8 @@ export default function App() {
       </section>
 
       {/* ── 칼럼 & 출강 실적 ──────────────────────────────────── */}
-      <section id="trust" className="py-16 md:py-20 xl:py-24 px-6 bg-bg_cream">
-        <div className="max-w-6xl mx-auto">
+      <section id="trust" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center mb-10 xl:mb-14">
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.trust_title}</h2>
             <p className="text-sub xl:text-lg">{t.trust_sub}</p>
@@ -974,8 +974,8 @@ export default function App() {
       </section>
 
       {/* ── CONTACT / FOOTER ─────────────────────────────────── */}
-      <footer id="contact" className="bg-bg_dark py-16 md:py-20 xl:py-24 px-6">
-        <div className="max-w-6xl mx-auto">
+      <footer id="contact" className="bg-bg_dark py-16 md:py-20 xl:py-24">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
             <div>
               <h2 className="text-3xl font-bold text-white mb-3 leading-snug">
