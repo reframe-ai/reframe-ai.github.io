@@ -906,7 +906,7 @@ export default function App() {
               <div className="grid grid-cols-3">
                 <div className="col-span-1 p-6 pr-0">
                   <img
-                    src={`${import.meta.env.BASE_URL}profile_seonrye_crop.jpg`}
+                    src={`${import.meta.env.BASE_URL}profile_seonrye_head.jpg`}
                     alt={t.inst1_name}
                     className="w-full h-auto rounded-xl"
                   />
