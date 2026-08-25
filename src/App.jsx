@@ -853,12 +853,12 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-accent rounded-2xl p-8 relative">
               <span className="absolute top-4 right-4 bg-white text-accent_deep text-xs font-bold px-2.5 py-1 rounded-full">FEATURED</span>
-              <div className="text-white text-2xl mb-3 font-mono">&lt;&gt;</div>
-              <h3 className="text-xl font-bold text-white mb-2">{t.v1_title}</h3>
-              <p className="text-white/60 text-sm mb-3">{t.v1_desc}</p>
+              <div className="text-white text-2xl xl:text-3xl mb-3 font-mono">&lt;&gt;</div>
+              <h3 className="text-xl xl:text-2xl font-bold text-white mb-2">{t.v1_title}</h3>
+              <p className="text-white/60 text-sm xl:text-base mb-3">{t.v1_desc}</p>
               <ul className="space-y-1.5">
                 {t.v1_items.map(item => (
-                  <li key={item} className="text-white/80 text-sm flex items-start gap-2">
+                  <li key={item} className="text-white/80 text-sm xl:text-base flex items-start gap-2">
                     <span className="mt-1.5 w-1 h-1 rounded-full bg-white/50 shrink-0" />
                     {item}
                   </li>
@@ -866,12 +866,12 @@ export default function App() {
               </ul>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <div className="text-accent text-2xl mb-3">🚀</div>
-              <h3 className="text-xl font-bold text-main mb-2">{t.v2_title}</h3>
-              <p className="text-sub/60 text-sm mb-3">{t.v2_desc}</p>
+              <div className="text-accent text-2xl xl:text-3xl mb-3">🚀</div>
+              <h3 className="text-xl xl:text-2xl font-bold text-main mb-2">{t.v2_title}</h3>
+              <p className="text-sub/60 text-sm xl:text-base mb-3">{t.v2_desc}</p>
               <ul className="space-y-1.5">
                 {t.v2_items.map(item => (
-                  <li key={item} className="text-sub text-sm flex items-start gap-2">
+                  <li key={item} className="text-sub text-sm xl:text-base flex items-start gap-2">
                     <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/50 shrink-0" />
                     {item}
                   </li>
