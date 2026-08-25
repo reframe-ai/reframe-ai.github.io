@@ -530,7 +530,7 @@ export default function App() {
               <circle cx="50" cy="40" r="7.5" fill="#F4581C" />
               <circle cx="50" cy="60" r="7.5" fill="#F4581C" />
             </svg>
-            Re:<span className="text-accent">Frame</span>
+            <span>Re:<span className="text-accent">Frame</span></span>
           </a>
           <div className="flex items-center gap-5">
             <ul className="hidden md:flex items-center gap-7 text-sm font-medium text-white/70">
