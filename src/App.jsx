@@ -522,7 +522,7 @@ export default function App() {
 
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-3 flex items-center justify-between">
           <a href="#" className="font-heading flex items-center gap-1.5 text-xl font-bold tracking-tight text-white">
             <svg viewBox="0 0 100 100" className="w-6 h-6 shrink-0" aria-hidden="true">
               <path d="M40 22 H25 V78 H40" fill="none" stroke="currentColor" strokeWidth="10" />
@@ -572,14 +572,14 @@ export default function App() {
             backgroundSize: '56px 56px',
           }}
         />
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-24 pt-24 pb-14 animate-fade-in-up">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-24 pt-20 pb-12 animate-fade-in-up">
 
           {/* 애니메이션 태그 목록 */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-1.5 mb-6">
             {WORDS.map((word, i) => (
               <span
                 key={word}
-                className={`text-xs font-medium px-3 py-1 rounded-full transition-all duration-500 ${
+                className={`text-[11px] font-medium px-2.5 py-1 rounded-full transition-all duration-500 ${
                   i === wordIdx
                     ? 'bg-accent text-white scale-105'
                     : 'bg-white/10 text-white/40'
@@ -591,18 +591,18 @@ export default function App() {
           </div>
 
           {/* 배지 */}
-          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs font-medium px-3.5 py-1.5 rounded-full mb-5">
             ✦ {t.badge}
           </div>
 
           {/* 헤드라인 */}
-          <h1 className="text-4xl md:text-6xl font-black leading-[1.14] mb-3 text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.14] mb-3 text-white">
             {t.h1}
           </h1>
-          <h2 className="text-3xl md:text-5xl font-black leading-[1.14] mb-6 text-white">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[1.14] mb-5 text-white">
             <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
           </h2>
-          <p className="text-[#B8B2AC] text-lg md:text-xl mb-10 max-w-2xl">
+          <p className="text-[#B8B2AC] text-base md:text-lg mb-8 max-w-2xl">
             {t.sub}
           </p>
 
@@ -610,25 +610,25 @@ export default function App() {
           <div className="flex flex-wrap gap-4">
             <a
               href="#areas"
-              className="bg-accent text-white px-7 py-3 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
+              className="bg-accent text-white text-[15px] px-6 py-2.5 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
             >
               {t.cta1} →
             </a>
             <a
               href="#contact"
-              className="border-2 border-white/40 text-white px-7 py-3 rounded-full font-semibold hover:bg-white hover:text-main transition"
+              className="border-2 border-white/40 text-white text-[15px] px-6 py-2.5 rounded-full font-semibold hover:bg-white hover:text-main transition"
             >
               {t.cta3}
             </a>
           </div>
 
           {/* 지표 바 */}
-          <div className="mt-10 max-w-3xl">
+          <div className="mt-8 max-w-2xl">
             <p className="text-white/40 text-xs mb-2">{t.stats_note}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 bg-white/5 backdrop-blur-sm rounded-2xl px-4 py-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-5 bg-white/5 backdrop-blur-sm rounded-2xl px-4 py-5">
               {t.stats.map((s, i) => (
                 <div key={s.l} className={`text-center px-3 ${i > 0 ? 'sm:border-l sm:border-white/10' : ''}`}>
-                  <p className="font-heading font-black text-accent text-3xl leading-none mb-1.5 whitespace-nowrap">{s.n}</p>
+                  <p className="font-heading font-black text-accent text-2xl leading-none mb-1.5 whitespace-nowrap">{s.n}</p>
                   <p className="text-white/60 text-xs">{s.l}</p>
                 </div>
               ))}
