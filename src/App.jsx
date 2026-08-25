@@ -692,7 +692,7 @@ export default function App() {
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-black text-main leading-[1.3] mb-4">
               {t.exp_head1}<br />{t.exp_head2}
             </h2>
-            <p className="text-sub xl:text-lg max-w-2xl mx-auto">{t.exp_sub}</p>
+            <p className="text-sub xl:text-lg break-keep">{t.exp_sub}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
