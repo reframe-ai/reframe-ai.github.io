@@ -895,11 +895,13 @@ export default function App() {
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
               <div className="grid grid-cols-4">
                 <div className="col-span-1 p-6 pr-0">
-                  <img
-                    src={`${import.meta.env.BASE_URL}profile_seonrye_sq2.jpg`}
-                    alt={t.inst1_name}
-                    className="w-full h-auto rounded-xl"
-                  />
+                  <div className="relative h-full min-h-[240px] rounded-xl overflow-hidden">
+                    <img
+                      src={`${import.meta.env.BASE_URL}profile_seonrye_tall.jpg`}
+                      alt={t.inst1_name}
+                      className="absolute inset-0 w-full h-full object-cover object-top"
+                    />
+                  </div>
                 </div>
                 <div className="col-span-3 p-6">
                   <h3 className="text-xl xl:text-2xl font-bold text-main">{t.inst1_name}</h3>
