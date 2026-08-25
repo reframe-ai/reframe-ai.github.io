@@ -439,8 +439,8 @@ function ContactForm({ lang }) {
     );
   }
 
-  const inputClass = "w-full bg-[#3A3733] border border-white/30 rounded-xl px-4 py-3 text-white text-sm placeholder-white/40 focus:outline-none focus:border-accent transition";
-  const labelClass = "text-white/70 text-xs font-medium mb-1.5 block";
+  const inputClass = "w-full bg-[#3A3733] border border-white/30 rounded-xl px-4 py-3 text-white text-base placeholder-white/40 focus:outline-none focus:border-accent transition";
+  const labelClass = "text-white/70 text-sm font-medium mb-1.5 block";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
