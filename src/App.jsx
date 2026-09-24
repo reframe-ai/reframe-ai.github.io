@@ -374,6 +374,9 @@ const T = {
   },
 };
 
+// 기관 교육 카드 사진 (public/edu) — 맞춤형 교육 설계 · AI 콘텐츠 개발 · AI 교육 현장경험 순
+const EXP_PHOTOS = ['design.jpg', 'content.jpg', 'field.jpg'];
+
 const ORG_COUNT = T.ko.org_groups.reduce((a, g) => a + g.items.length, 0);
 
 // ── 공통 훅: 화면에 들어오면 .is-in 추가 (한 번만) ──────────────
@@ -1043,11 +1046,23 @@ export default function App() {
         <section id="education" className={section}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
             <SectionHead label={t.exp_label} title={t.exp_title} sub={t.exp_sub} />
-            <div className="md:col-span-8 grid md:grid-cols-3 gap-8 md:gap-10">
+            <div className="md:col-span-12 grid sm:grid-cols-3 gap-4 md:gap-5">
               {t.exp.map((e, i) => (
-                <div key={e.title} className="reveal border-t-2 border-ink pt-5" style={{ '--d': `${i * 100}ms` }}>
-                  <h3 className="text-xl font-bold text-ink mb-3">{e.title}</h3>
-                  <p className="text-sub leading-relaxed">{e.desc}</p>
+                <div key={e.title} className="reveal" style={{ '--d': `${i * 110}ms` }}>
+                  <div className="exp-card group relative overflow-hidden rounded-lg aspect-[4/5] sm:aspect-[3/4] lg:aspect-[2/3] bg-surface">
+                    <img
+                      src={`${import.meta.env.BASE_URL}edu/${EXP_PHOTOS[i]}`}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1D1F24]/90 via-[#1D1F24]/45 via-45% to-transparent" aria-hidden="true" />
+                    <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                      <span className="block w-8 h-[3px] bg-accent mb-4 transition-[width] duration-500 group-hover:w-14" aria-hidden="true" />
+                      <h3 className="text-2xl font-bold text-white mb-2">{e.title}</h3>
+                      <p className="text-white/85 leading-relaxed">{e.desc}</p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
