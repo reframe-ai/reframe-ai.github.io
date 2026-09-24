@@ -132,16 +132,7 @@ a:focus-visible .arrow {
 }
 
 /* ── 첫 화면 인포그래픽 — 배움의 여정 ────────────────────────── */
-/* 구슬이 9초마다 길을 따라 이동한다. 출발은 평소 속도, 노드에 가까워질수록 느려지고,
-   노드 테두리에 닿는 순간 그 노드가 주황색으로 켜진다. 잠시 머문 뒤 노드 뒤로 지나 다음으로.
-   도착 시점: 노드1 20%, 노드2 42%, 노드3 64%, 끝 노드 86% · 96~100%에 모두 흰색으로 복귀.
-   --p0~--p4 = 노드 중심 위치(px, JS가 측정). 구슬 8px, 노드 18px(끝 노드 24px) →
-   테두리에 닿는 구슬 앞 가장자리 위치 = 중심 - 17px (끝 노드는 - 20px) */
-:root {
-    --journey-cycle: 9s;
-    --journey-start: 3s;
-    --journey-ease: cubic-bezier(.3, .3, .4, 1);
-}
+/* 구슬과 노드 점등 움직임은 App.jsx의 Journey(Web Animations)가 만든다. */
 
 .journey {
     margin: 0;
@@ -184,15 +175,8 @@ a:focus-visible .arrow {
     background: #FFFFFF;
     border: 2px solid #1D1F24;
     transform: scale(0);
-    animation:
-        node-in .5s var(--ease-out) calc(950ms + var(--i) * 320ms) forwards,
-        var(--lit) var(--journey-cycle) linear var(--journey-start) infinite;
+    animation: node-in .5s var(--ease-out) calc(950ms + var(--i) * 320ms) forwards;
 }
-.journey-step:nth-child(1) .journey-node { --lit: lit-0; }
-.journey-step:nth-child(2) .journey-node { --lit: lit-1; }
-.journey-step:nth-child(3) .journey-node { --lit: lit-2; }
-.journey-step:nth-child(4) .journey-node { --lit: lit-3; }
-.journey-step:nth-child(5) .journey-node { --lit: lit-4; }
 .journey-step.is-end .journey-node {
     width: 24px;
     height: 24px;
@@ -201,33 +185,6 @@ a:focus-visible .arrow {
 }
 @keyframes node-in { to { transform: scale(1); } }
 
-@keyframes lit-0 {
-    0%, 1.9%   { background: #FFFFFF; border-color: #1D1F24; }
-    2%, 96%    { background: #F4581C; border-color: #F4581C; }
-    100%       { background: #FFFFFF; border-color: #1D1F24; }
-}
-@keyframes lit-1 {
-    0%, 19.9%  { background: #FFFFFF; border-color: #1D1F24; }
-    20%, 96%   { background: #F4581C; border-color: #F4581C; }
-    100%       { background: #FFFFFF; border-color: #1D1F24; }
-}
-@keyframes lit-2 {
-    0%, 41.9%  { background: #FFFFFF; border-color: #1D1F24; }
-    42%, 96%   { background: #F4581C; border-color: #F4581C; }
-    100%       { background: #FFFFFF; border-color: #1D1F24; }
-}
-@keyframes lit-3 {
-    0%, 63.9%  { background: #FFFFFF; border-color: #1D1F24; }
-    64%, 96%   { background: #F4581C; border-color: #F4581C; }
-    100%       { background: #FFFFFF; border-color: #1D1F24; }
-}
-@keyframes lit-4 {
-    0%, 85.9%  { background: #FFFFFF; border-color: #1D1F24; box-shadow: 0 0 0 0 rgba(244, 88, 28, 0); }
-    86%        { background: #F4581C; border-color: #F4581C; box-shadow: 0 0 0 0 rgba(244, 88, 28, .4); }
-    94%        { box-shadow: 0 0 0 14px rgba(244, 88, 28, 0); }
-    96%        { background: #F4581C; border-color: #F4581C; }
-    100%       { background: #FFFFFF; border-color: #1D1F24; box-shadow: 0 0 0 0 rgba(244, 88, 28, 0); }
-}
 
 .journey-no {
     font-family: var(--font-heading);
@@ -242,14 +199,6 @@ a:focus-visible .arrow {
     font-weight: 700;
     color: #1D1F24;
     letter-spacing: -0.01em;
-}
-.journey-step.is-end .journey-title {
-    animation: end-title var(--journey-cycle) linear var(--journey-start) infinite;
-}
-@keyframes end-title {
-    0%, 85.9% { color: #1D1F24; }
-    86%, 96%  { color: #C93E0C; }
-    100%      { color: #1D1F24; }
 }
 .journey-desc { font-size: 14px; color: #5E6168; }
 
@@ -280,15 +229,6 @@ a:focus-visible .arrow {
     border-radius: 50%;
     background: #F4581C;
     opacity: 0;
-    animation: run-y var(--journey-cycle) linear var(--journey-start) infinite;
-}
-@keyframes run-y {
-    0%, 2%    { top: calc(var(--p0, 0px) - 4px);  opacity: 1; animation-timing-function: var(--journey-ease); }
-    20%, 26%  { top: calc(var(--p1, 25%) - 17px); animation-timing-function: var(--journey-ease); }
-    42%, 48%  { top: calc(var(--p2, 50%) - 17px); animation-timing-function: var(--journey-ease); }
-    64%, 70%  { top: calc(var(--p3, 75%) - 17px); animation-timing-function: var(--journey-ease); }
-    86%, 92%  { top: calc(var(--p4, 100%) - 20px); opacity: 1; }
-    96%, 100% { top: calc(var(--p4, 100%) - 20px); opacity: 0; }
 }
 
 /* 가로 흐름 (태블릿·PC) */
@@ -322,19 +262,7 @@ a:focus-visible .arrow {
         animation-name: draw-x;
     }
     @keyframes draw-x { to { transform: scaleX(1); } }
-    .journey-runner {
-        top: -3px;
-        left: 0;
-        animation-name: run-x;
-    }
-    @keyframes run-x {
-        0%, 2%    { left: calc(var(--p0, 0px) - 4px);  opacity: 1; animation-timing-function: var(--journey-ease); }
-        20%, 26%  { left: calc(var(--p1, 25%) - 17px); animation-timing-function: var(--journey-ease); }
-        42%, 48%  { left: calc(var(--p2, 50%) - 17px); animation-timing-function: var(--journey-ease); }
-        64%, 70%  { left: calc(var(--p3, 75%) - 17px); animation-timing-function: var(--journey-ease); }
-        86%, 92%  { left: calc(var(--p4, 100%) - 20px); opacity: 1; }
-        96%, 100% { left: calc(var(--p4, 100%) - 20px); opacity: 0; }
-    }
+    .journey-runner { top: -3px; left: 0; }
     .journey-title { font-size: 20px; }
 }
 @media (min-width: 1280px) {
@@ -343,6 +271,6 @@ a:focus-visible .arrow {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .journey-cap, .journey-step, .journey-node, .journey-line-fill, .journey-title { animation: none; opacity: 1; transform: none; }
+    .journey-cap, .journey-step, .journey-node, .journey-line-fill { animation: none; opacity: 1; transform: none; }
     .journey-runner { display: none; }
 }

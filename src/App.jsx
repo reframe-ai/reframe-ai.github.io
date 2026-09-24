@@ -433,27 +433,128 @@ function CountUp({ to }) {
 }
 
 // ── 첫 화면 인포그래픽 — 배움의 여정 ───────────────────────────
+// 구슬 움직임 (9초 주기, 반복):
+//  · 노드를 떠날 때는 평소 속도, 다음 노드에 가까워질수록 느려짐
+//  · 노드 테두리에 닿는 순간 그 노드가 주황색으로 켜지며 살짝 커졌다 돌아오고 빛이 번짐
+//  · 구슬은 멈추지 않고 노드 안(중심)까지 들어가 잠시 머문 뒤 다음 노드로
+// 테두리에 닿는 시점을 정확히 맞추려고 노드 위치를 실측해 Web Animations로 만든다.
+const JOURNEY = {
+  cycle: 9000,
+  startDelay: 3000,
+  moves: [[0.03, 0.19], [0.24, 0.40], [0.45, 0.61], [0.66, 0.82]], // 노드 i → i+1 이동 구간
+  firstLit: 0.02,   // 첫 노드가 켜지는 시점
+  fadeOut: [0.92, 0.93],
+  reset: 0.96,      // 이때부터 모두 흰색으로 복귀
+  runnerR: 4,
+  // 구간 앞부분: 출발 속도 그대로 → 끝에서 절반 속도로 (시작 기울기 1, 끝 기울기 0.5)
+  cruise: [0.33, 0.33, 0.6, 0.8],
+  // 구간 뒷부분(테두리 → 중심): 이어받은 속도에서 0으로 (시작 기울기 3)
+  settle: [0.2, 0.6, 0.4, 1],
+};
+const ORANGE = '#F4581C';
+const WHITE = '#FFFFFF';
+const INK = '#1D1F24';
+
+function buildJourneyAnimations(track) {
+  // 위치는 레이아웃 좌표(offset*)로 잰다 — 나타나는 중인 이동·확대 효과와 무관하게 정확
+  const line = track.querySelector('.journey-line');
+  const horizontal = window.matchMedia('(min-width: 768px)').matches;
+  const prop = horizontal ? 'left' : 'top';
+  const nodes = [...track.querySelectorAll('.journey-node')];
+  const pts = nodes.map(n => {
+    const step = n.offsetParent;   // .journey-step (position: relative)
+    return {
+      c: horizontal
+        ? step.offsetLeft + n.offsetLeft + n.offsetWidth / 2 - line.offsetLeft
+        : step.offsetTop + n.offsetTop + n.offsetHeight / 2 - line.offsetTop,
+      r: n.offsetWidth / 2,
+    };
+  });
+  const J = JOURNEY;
+  const bez = b => `cubic-bezier(${b.join(', ')})`;
+  const at = c => `${(c - J.runnerR).toFixed(1)}px`;
+
+  // 구슬 키프레임과 각 노드가 켜지는 시점(테두리 접촉) 계산
+  const runner = [
+    { offset: 0, [prop]: at(pts[0].c), opacity: 0 },
+    { offset: J.firstLit, [prop]: at(pts[0].c), opacity: 1 },
+  ];
+  const litAt = [J.firstLit];
+  J.moves.forEach(([a, b], i) => {
+    const from = pts[i];
+    const to = pts[i + 1];
+    const dB = to.r + J.runnerR;                 // 테두리 접촉 → 중심 거리
+    const dA = to.c - from.c - dB;               // 출발 중심 → 테두리 접촉 거리
+    const kEnd = (1 - J.cruise[3]) / (1 - J.cruise[2]);
+    const kStart = J.settle[1] / J.settle[0];
+    // 앞 구간 끝 속도 = 뒤 구간 시작 속도가 되도록 시간 배분
+    const tA = (b - a) / (1 + (kStart * dB) / (kEnd * dA));
+    const contact = a + tA;
+    runner.push({ offset: a, [prop]: at(from.c), easing: bez(J.cruise) });
+    runner.push({ offset: contact, [prop]: at(to.c - dB), easing: bez(J.settle) });
+    runner.push({ offset: b, [prop]: at(to.c) });
+    litAt.push(contact);
+  });
+  const last = pts[pts.length - 1];
+  runner.push({ offset: J.fadeOut[0], [prop]: at(last.c), opacity: 1 });
+  runner.push({ offset: J.fadeOut[1], [prop]: at(last.c), opacity: 0 });
+  runner.push({ offset: 1, [prop]: at(last.c), opacity: 0 });
+
+  const timing = { duration: J.cycle, iterations: Infinity };
+  const anims = [track.querySelector('.journey-runner').animate(runner, timing)];
+
+  nodes.forEach((node, i) => {
+    const t = litAt[i];
+    const isEnd = i === nodes.length - 1;
+    const ring = isEnd ? 16 : 10;
+    const off = { background: WHITE, borderColor: INK, transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(244, 88, 28, 0)' };
+    const on = { background: ORANGE, borderColor: ORANGE, transform: 'scale(1)', boxShadow: `0 0 0 ${ring}px rgba(244, 88, 28, 0)` };
+    anims.push(node.animate([
+      { offset: 0, ...off },
+      { offset: t - 0.001, ...off },
+      { offset: t, background: ORANGE, borderColor: ORANGE, transform: `scale(${isEnd ? 1.2 : 1.25})`, boxShadow: '0 0 0 0 rgba(244, 88, 28, .45)' },
+      { offset: Math.min(t + 0.06, J.reset - 0.01), ...on },
+      { offset: J.reset, ...on },
+      { offset: 1, ...off },
+    ], timing));
+    if (isEnd) {
+      anims.push(node.closest('.journey-step').querySelector('.journey-title').animate([
+        { offset: 0, color: INK },
+        { offset: t - 0.001, color: INK },
+        { offset: t, color: '#C93E0C' },
+        { offset: J.reset, color: '#C93E0C' },
+        { offset: 1, color: INK },
+      ], timing));
+    }
+  });
+  return anims;
+}
+
 function Journey({ t }) {
   const trackRef = useRef(null);
 
-  // 노드 중심이 선의 시작점에서 몇 px 떨어져 있는지 재서 --p0~--p4로 넘긴다.
-  // 구슬 애니메이션이 이 값으로 "테두리에 닿는 지점"을 계산한다.
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return;
-    const measure = () => {
-      const line = track.querySelector('.journey-line').getBoundingClientRect();
-      const horizontal = window.matchMedia('(min-width: 768px)').matches;
-      track.querySelectorAll('.journey-node').forEach((node, i) => {
-        const r = node.getBoundingClientRect();
-        const c = horizontal ? r.left + r.width / 2 - line.left : r.top + r.height / 2 - line.top;
-        track.style.setProperty(`--p${i}`, `${c.toFixed(1)}px`);
-      });
+    if (!track || !track.animate) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let anims = [];
+    let timer;
+    const start = delay => {
+      anims.forEach(a => a.cancel());
+      anims = buildJourneyAnimations(track);
+      anims.forEach(a => { a.currentTime = -delay; });
     };
-    measure();
-    const ro = new ResizeObserver(measure);
+    // 노드가 나타나는 애니메이션이 끝난 뒤(약 3초)에 측정·시작
+    timer = setTimeout(() => start(0), JOURNEY.startDelay);
+    let width = track.offsetWidth;
+    const ro = new ResizeObserver(() => {
+      if (track.offsetWidth === width) return;
+      width = track.offsetWidth;
+      clearTimeout(timer);
+      timer = setTimeout(() => start(0), 200);
+    });
     ro.observe(track);
-    return () => ro.disconnect();
+    return () => { clearTimeout(timer); ro.disconnect(); anims.forEach(a => a.cancel()); };
   }, [t]);
 
   return (
