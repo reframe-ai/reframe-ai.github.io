@@ -132,6 +132,10 @@ a:focus-visible .arrow {
 }
 
 /* ── 첫 화면 인포그래픽 — 배움의 여정 ────────────────────────── */
+/* 구슬이 7초마다 길을 따라 이동하며, 지나가는 노드를 차례로 주황색으로 켠다.
+   노드 i에 닿는 시점 = 5% + i × 18.75% (선형 이동, 80%에 끝 노드 도착) */
+:root { --journey-cycle: 7s; --journey-start: 3s; }
+
 .journey {
     margin: 0;
     background: #F4F4F1;
@@ -164,6 +168,7 @@ a:focus-visible .arrow {
 }
 .journey-node {
     position: absolute;
+    z-index: 1;
     left: -40px;
     top: 3px;
     width: 18px;
@@ -172,24 +177,51 @@ a:focus-visible .arrow {
     background: #FFFFFF;
     border: 2px solid #1D1F24;
     transform: scale(0);
-    animation: node-in .5s var(--ease-out) forwards;
-    animation-delay: calc(950ms + var(--i) * 320ms);
+    animation:
+        node-in .5s var(--ease-out) calc(950ms + var(--i) * 320ms) forwards,
+        var(--lit) var(--journey-cycle) linear var(--journey-start) infinite;
 }
+.journey-step:nth-child(1) .journey-node { --lit: lit-0; }
+.journey-step:nth-child(2) .journey-node { --lit: lit-1; }
+.journey-step:nth-child(3) .journey-node { --lit: lit-2; }
+.journey-step:nth-child(4) .journey-node { --lit: lit-3; }
+.journey-step:nth-child(5) .journey-node { --lit: lit-4; }
 .journey-step.is-end .journey-node {
     width: 24px;
     height: 24px;
     left: -43px;
     top: 0;
-    background: #F4581C;
-    border-color: #F4581C;
-    box-shadow: 0 0 0 0 rgba(244, 88, 28, .35);
-    animation: node-in .5s var(--ease-out) forwards, glow 2.4s ease-out 3.4s 2;
 }
 @keyframes node-in { to { transform: scale(1); } }
-@keyframes glow {
-    0%   { box-shadow: 0 0 0 0 rgba(244, 88, 28, .35); }
-    100% { box-shadow: 0 0 0 14px rgba(244, 88, 28, 0); }
+
+@keyframes lit-0 {
+    0%, 4.5%   { background: #FFFFFF; border-color: #1D1F24; }
+    5%, 93%    { background: #F4581C; border-color: #F4581C; }
+    100%       { background: #FFFFFF; border-color: #1D1F24; }
 }
+@keyframes lit-1 {
+    0%, 23.25% { background: #FFFFFF; border-color: #1D1F24; }
+    23.75%, 93% { background: #F4581C; border-color: #F4581C; }
+    100%       { background: #FFFFFF; border-color: #1D1F24; }
+}
+@keyframes lit-2 {
+    0%, 42%    { background: #FFFFFF; border-color: #1D1F24; }
+    42.5%, 93% { background: #F4581C; border-color: #F4581C; }
+    100%       { background: #FFFFFF; border-color: #1D1F24; }
+}
+@keyframes lit-3 {
+    0%, 60.75% { background: #FFFFFF; border-color: #1D1F24; }
+    61.25%, 93% { background: #F4581C; border-color: #F4581C; }
+    100%       { background: #FFFFFF; border-color: #1D1F24; }
+}
+@keyframes lit-4 {
+    0%, 79.5%  { background: #FFFFFF; border-color: #1D1F24; box-shadow: 0 0 0 0 rgba(244, 88, 28, 0); }
+    80%        { background: #F4581C; border-color: #F4581C; box-shadow: 0 0 0 0 rgba(244, 88, 28, .4); }
+    90%        { box-shadow: 0 0 0 14px rgba(244, 88, 28, 0); }
+    93%        { background: #F4581C; border-color: #F4581C; }
+    100%       { background: #FFFFFF; border-color: #1D1F24; box-shadow: 0 0 0 0 rgba(244, 88, 28, 0); }
+}
+
 .journey-no {
     font-family: var(--font-heading);
     font-size: 12px;
@@ -204,7 +236,14 @@ a:focus-visible .arrow {
     color: #1D1F24;
     letter-spacing: -0.01em;
 }
-.journey-step.is-end .journey-title { color: #C93E0C; }
+.journey-step.is-end .journey-title {
+    animation: end-title var(--journey-cycle) linear var(--journey-start) infinite;
+}
+@keyframes end-title {
+    0%, 79.5% { color: #1D1F24; }
+    80%, 93%  { color: #C93E0C; }
+    100%      { color: #1D1F24; }
+}
 .journey-desc { font-size: 14px; color: #5E6168; }
 
 /* 세로 선 (휴대폰) */
@@ -227,6 +266,7 @@ a:focus-visible .arrow {
 @keyframes draw-y { to { transform: scaleY(1); } }
 .journey-runner {
     position: absolute;
+    z-index: 2;
     left: -3px;
     top: 0;
     width: 8px;
@@ -234,14 +274,13 @@ a:focus-visible .arrow {
     border-radius: 50%;
     background: #F4581C;
     opacity: 0;
-    animation: run-y 6s ease-in-out infinite;
-    animation-delay: 3.4s;
+    animation: run-y var(--journey-cycle) linear var(--journey-start) infinite;
 }
 @keyframes run-y {
-    0%   { top: 0;    opacity: 0; }
-    8%   { opacity: 1; }
-    85%  { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
+    0%        { top: 0;    opacity: 0; }
+    5%        { top: 0;    opacity: 1; }
+    80%       { top: 100%; opacity: 1; }
+    84%, 100% { top: 100%; opacity: 0; }
 }
 
 /* 가로 흐름 (태블릿·PC) */
@@ -266,7 +305,7 @@ a:focus-visible .arrow {
         left: 9px;
         top: 8px;
         bottom: auto;
-        width: calc(80% + 16px);
+        width: calc(80% + 12.8px);
         height: 2px;
     }
     .journey-line-fill {
@@ -281,10 +320,10 @@ a:focus-visible .arrow {
         animation-name: run-x;
     }
     @keyframes run-x {
-        0%   { left: 0;    opacity: 0; }
-        8%   { opacity: 1; }
-        85%  { opacity: 1; }
-        100% { left: 100%; opacity: 0; }
+        0%        { left: 0;    opacity: 0; }
+        5%        { left: 0;    opacity: 1; }
+        80%       { left: 100%; opacity: 1; }
+        84%, 100% { left: 100%; opacity: 0; }
     }
     .journey-title { font-size: 20px; }
 }
@@ -294,6 +333,6 @@ a:focus-visible .arrow {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .journey-cap, .journey-step, .journey-node, .journey-line-fill { animation: none; opacity: 1; transform: none; }
+    .journey-cap, .journey-step, .journey-node, .journey-line-fill, .journey-title { animation: none; opacity: 1; transform: none; }
     .journey-runner { display: none; }
 }
