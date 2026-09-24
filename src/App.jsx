@@ -11,6 +11,9 @@ const COMPANY = {
 };
 
 const NEWS_URL = 'https://re-frame.kr';
+const TEACHING_SINCE = 2008;
+const TEACHING_YEARS = new Date().getFullYear() - TEACHING_SINCE;
+const NEWS_DATE = '2026.09';   // Re:frame News 등록 완료되면 등록일로 교체 (예: 2026.10.15)
 
 // ── 번역 텍스트 ────────────────────────────────────────────────
 const T = {
@@ -18,35 +21,31 @@ const T = {
     nav: [
       { href: '#about', label: '회사 소개' },
       { href: '#business', label: '사업 영역' },
-      { href: '#programs', label: '교육 분야' },
-      { href: '#process', label: '진행 방식' },
-      { href: '#instructor', label: '대표 강사' },
-      { href: '#record', label: '실적' },
+      { href: '#company', label: '회사 개요' },
+      { href: '#education', label: '기관 교육' },
+      { href: '#ceo', label: '대표 소개' },
     ],
     nav_cta: '출강 문의',
     menu: '메뉴',
 
-    hero_eyebrow: '주식회사 리프레임 · AI 교육 전문기업',
-    hero_lines: ['AI 시대,', '배움의 틀을', '다시 짭니다.'],
-    hero_sub: '공공기관·기업·학교·평생학습 현장에서, 성인이 자기 속도로 익히는 실습 중심 AI 교육을 설계하고 운영합니다.',
+    hero_eyebrow: '주식회사 리프레임 · 교육 전문기업',
+    hero_lines: [['새로운 시대의 가능성은,'], [{ em: '배움' }, '에서 열립니다.']],
+    hero_sub: 'AI가 바꾸는 세상에서, 누구나 자기 속도로 배우고 새로운 가능성을 열 수 있는 교육을 만듭니다.',
     hero_cta1: '출강 문의하기',
     hero_cta2: '교육 분야 보기',
     hero_photo_alt: '성인 학습자들이 노트북으로 AI 실습을 하는 강의실',
     stats: [
-      { n: 10, suffix: '년+', l: '강의 경력' },
+      { n: TEACHING_YEARS, suffix: '년', l: `강의 경력 (${TEACHING_SINCE}~)` },
       { n: 400, suffix: '+', l: 'AI 교육 시간 (2023~)' },
       { n: null, suffix: '곳', l: '출강 기관' },
-      { n: 14, suffix: '개', l: '강의 분야' },
     ],
-    stats_note: '대표 강사 박선례 기준',
 
     about_label: '회사 소개',
     about_meaning: '새로운 시대에 맞게, 생각과 가치의 틀을 다시 짭니다.',
-    about_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 기술을 읽고 소통하는 문해력을 바탕으로 누구나 자기 속도로 익힐 수 있는 AI 교육을 기획·개발합니다. 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대 배움의 새로운 프레임을 제시합니다.',
+    about_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 기술을 읽고 소통하는 문해력을 바탕으로, 누구나 자기 속도로 익힐 수 있는 교육과 콘텐츠를 기획·개발합니다. 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대 배움의 새로운 프레임을 제시합니다.',
     about_facts: [
       { k: '교육 철학', v: '자기주도 · 평생학습' },
       { k: '주요 활동 지역', v: '전북 · 전남' },
-      { k: '본사', v: '전주' },
     ],
     values: [
       { title: '지역과 함께 성장합니다', desc: '전북에 뿌리를 두고 활동합니다. AI 시대에 지역이 소외되지 않도록, 배움의 기회를 지역 곳곳으로 넓힙니다.' },
@@ -62,15 +61,37 @@ const T = {
       { name: '리프레임평생교육원', desc: '개인 학습자가 전주에서 직접 만나 배우는 교육시설. 디지털 역량부터 일과 지역의 배움까지.', status: '개원 준비 중' },
     ],
 
-    exp_label: '전문 역량',
+    co_label: '회사 개요',
+    co_title: '현장에서 시작해, 법인이 되었습니다',
+    co_facts: [
+      { k: '상호', v: '주식회사 리프레임 (Re:Frame Inc.)' },
+      { k: '대표', v: '박선례' },
+      { k: '설립', v: '2026년 8월' },
+      { k: '소재지', v: '전북특별자치도 전주시 덕진구 솔내로 128, 3층' },
+      { k: '사업 분야', v: '교육 서비스 · 평생교육 · 교육 미디어' },
+    ],
+    co_bizno: '사업자등록번호',
+    hist_title: '연혁',
+    hist_tag_ceo: '대표 이력',
+    hist_tag_co: '법인',
+    history: [
+      { y: `${TEACHING_SINCE}`, t: '미디어 교육으로 강의 시작', who: 'ceo' },
+      { y: '2023', t: 'AI 교육 본격화 — 공공기관·기업·학교·평생학습관 출강, 400시간+', who: 'ceo' },
+      { y: '2026.08', t: '주식회사 리프레임 설립 (전주)', who: 'co' },
+      { y: NEWS_DATE, t: '인터넷 매체 Re:frame News 창간', who: 'co' },
+      { y: '2026', t: '리프레임평생교육원 개원 준비', who: 'co' },
+    ],
+
+    exp_label: '기관 교육',
     exp_title: '설계부터 콘텐츠, 현장까지',
+    exp_sub: '공공기관·기업·학교·평생학습관을 찾아가, 대상에 맞춘 실습 중심 AI 교육을 운영합니다.',
     exp: [
       { title: '맞춤형 교육 설계', desc: '평생교육·HRD 석사와 직업능력훈련교사의 전문성으로, 대상·목적·환경에 맞는 교육과정을 설계합니다.' },
       { title: 'AI 콘텐츠 개발', desc: '빠르게 변화하는 AI 환경을 반영해 교재와 실습 자료, 커리큘럼을 직접 기획하고 개발합니다.' },
-      { title: 'AI 교육 현장경험', desc: '2023년부터 공공기관·기업·평생교육 현장에서 400시간 이상 — 강의실에서 검증된 방법으로 가르칩니다.' },
+      { title: 'AI 교육 현장경험', desc: '대표가 2023년부터 공공기관·기업·평생교육 현장에서 쌓은 400시간 이상의 강의 경험 — 강의실에서 검증된 방법으로 가르칩니다.' },
     ],
 
-    prog_label: '교육 분야',
+    prog_label: '기관 교육 · 분야',
     prog_title: '4개 영역, 14개 분야',
     prog_sub: '기관과 대상에 맞춰 분야를 조합해 과정을 설계합니다. 분야를 누르면 내용이 펼쳐집니다.',
     groups: [
@@ -98,7 +119,7 @@ const T = {
       ]},
     ],
 
-    fmt_label: '운영 형태',
+    fmt_label: '기관 교육 · 운영 형태',
     fmt_title: '기관 상황에 맞는 단위로',
     formats: [
       { name: '특강', spec: '1회 · 2~3시간', desc: '조직 전체의 AI 이해와 인식 전환. 입문 대상, 워크숍·연수 프로그램에 적합' },
@@ -108,7 +129,7 @@ const T = {
     fmt_common_title: '모든 과정에 기본 제공',
     fmt_common: ['대상 맞춤 교안과 실습 자료', 'PC실 · 노트북 · 모바일 환경 모두 가능', '출석 · 만족도를 담은 결과보고서', '법인 계약 · 세금계산서 발행'],
 
-    proc_label: '진행 방식',
+    proc_label: '기관 교육 · 진행 방식',
     proc_title: '문의에서 결과보고까지',
     steps: [
       { t: '문의', d: '문의 폼이나 메일로 기관과 희망 교육을 알려 주세요.' },
@@ -119,7 +140,7 @@ const T = {
       { t: '결과보고', d: '출석과 만족도, 현장 기록을 담은 결과보고서를 드립니다.' },
     ],
 
-    inst_label: '대표 강사',
+    inst_label: '대표 소개',
     inst_name: '박선례',
     inst_role: '(주)리프레임 대표 · 생성형 AI 활용 교육 전문 강사',
     univ: '전북대학교 교육대학원',
@@ -131,12 +152,11 @@ const T = {
     book_label: '저서',
     book: '『AI야, 안녕!』 — 초등학교 저학년을 위한 AI수업 교재 (공저 · 기획 · 집필 · 편집)',
     links: [
-      { label: '스레드 @slowsoyang', href: 'https://www.threads.net/@slowsoyang' },
-      { label: '네이버 블로그', href: 'https://blog.naver.com/frameview-' },
+      { label: '대표 스레드 @slowsoyang', href: 'https://www.threads.net/@slowsoyang' },
     ],
 
-    rec_label: '실적',
-    rec_title: '출강 기관',
+    rec_title: '대표 출강 이력',
+    rec_note: '법인 설립 전 대표 개인으로 출강한 기관을 포함합니다.',
     org_groups: [
       { name: '공공기관', items: ['국민연금공단', '한국남동발전', '전북지방조달청', '전북문화관광재단', '전북평생교육장학진흥원', '순창군청'] },
       { name: '평생학습 · 지역', items: ['한국평생교육HRD진흥협회', '전북시민대학', '익산시평생학습관', '전주시평생학습관', '순창군평생학습관', '완주군귀농귀촌센터', '진안청년센터', '고창청소년문화센터'] },
@@ -185,27 +205,24 @@ const T = {
     nav: [
       { href: '#about', label: 'About' },
       { href: '#business', label: 'What we do' },
-      { href: '#programs', label: 'Programs' },
-      { href: '#process', label: 'Process' },
-      { href: '#instructor', label: 'Instructor' },
-      { href: '#record', label: 'Track record' },
+      { href: '#company', label: 'Company' },
+      { href: '#education', label: 'Training' },
+      { href: '#ceo', label: 'Founder' },
     ],
     nav_cta: 'Contact',
     menu: 'Menu',
 
-    hero_eyebrow: 'Re:Frame Inc. · AI education',
-    hero_lines: ['Reframing', 'how we learn', 'in the AI era.'],
-    hero_sub: 'We design and run hands-on AI education that adults can learn at their own pace — for public institutions, companies, schools and lifelong-learning centers.',
+    hero_eyebrow: 'Re:Frame Inc. · An education company',
+    hero_lines: [['In a new era,'], ['possibility begins with ', { em: 'learning' }, '.']],
+    hero_sub: 'In a world reshaped by AI, we build education that lets anyone learn at their own pace and open new possibilities.',
     hero_cta1: 'Request a lecture',
     hero_cta2: 'See programs',
     hero_photo_alt: 'Adult learners practicing AI tools on laptops in a classroom',
     stats: [
-      { n: 10, suffix: '+ yrs', l: 'Teaching experience' },
+      { n: TEACHING_YEARS, suffix: ' yrs', l: `Teaching (since ${TEACHING_SINCE})` },
       { n: 400, suffix: '+', l: 'AI lecture hours (2023~)' },
-      { n: null, suffix: '', l: 'Organizations served' },
-      { n: 14, suffix: '', l: 'Lecture areas' },
+      { n: null, suffix: '', l: 'Organizations' },
     ],
-    stats_note: 'Based on lead instructor Park Sun-rye',
 
     about_label: 'About',
     about_meaning: 'Reframing thinking and values for a new era.',
@@ -213,7 +230,6 @@ const T = {
     about_facts: [
       { k: 'Philosophy', v: 'Self-directed · Lifelong' },
       { k: 'Main area', v: 'Jeonbuk · Jeonnam' },
-      { k: 'Head office', v: 'Jeonju' },
     ],
     values: [
       { title: 'Growing with our region', desc: 'Rooted in Jeonbuk, we bring learning opportunities to every corner of the region — so no community is left behind in the AI era.' },
@@ -229,15 +245,37 @@ const T = {
       { name: 'Re:Frame Lifelong Learning Center', desc: 'An in-person learning center in Jeonju for individual learners.', status: 'Opening soon' },
     ],
 
-    exp_label: 'Expertise',
+    co_label: 'Company',
+    co_title: 'Born in the classroom, now a company',
+    co_facts: [
+      { k: 'Name', v: 'Re:Frame Inc. (주식회사 리프레임)' },
+      { k: 'CEO', v: 'Park Sun-rye' },
+      { k: 'Founded', v: 'August 2026' },
+      { k: 'Address', v: '3F, 128 Solnae-ro, Deokjin-gu, Jeonju, Jeonbuk' },
+      { k: 'Business', v: 'Education services · Lifelong learning · Education media' },
+    ],
+    co_bizno: 'Business reg. no.',
+    hist_title: 'History',
+    hist_tag_ceo: 'Founder',
+    hist_tag_co: 'Company',
+    history: [
+      { y: `${TEACHING_SINCE}`, t: 'Began teaching in media education', who: 'ceo' },
+      { y: '2023', t: 'Focus on AI education — 400+ hours at public institutions, companies, schools', who: 'ceo' },
+      { y: '2026.08', t: 'Re:Frame Inc. founded in Jeonju', who: 'co' },
+      { y: NEWS_DATE, t: 'Launched Re:frame News', who: 'co' },
+      { y: '2026', t: 'Preparing the Re:Frame Lifelong Learning Center', who: 'co' },
+    ],
+
+    exp_label: 'Institutional training',
     exp_title: 'From design to content to the classroom',
+    exp_sub: 'We visit public institutions, companies, schools and learning centers to run hands-on AI training tailored to each audience.',
     exp: [
       { title: 'Tailored curriculum design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we design programs for each audience, goal and setting." },
       { title: 'AI content development', desc: 'We plan and develop textbooks, hands-on materials and curricula that keep pace with the fast-changing AI landscape.' },
-      { title: 'Proven classroom experience', desc: 'Over 400 hours since 2023 at public institutions, companies and lifelong-learning centers.' },
+      { title: 'Proven classroom experience', desc: 'Our founder has taught 400+ hours of AI since 2023 at public institutions, companies and lifelong-learning centers.' },
     ],
 
-    prog_label: 'Programs',
+    prog_label: 'Training · Areas',
     prog_title: '4 tracks, 14 areas',
     prog_sub: 'Combined and tailored to each organization and audience. Select an area to see details.',
     groups: [
@@ -265,7 +303,7 @@ const T = {
       ]},
     ],
 
-    fmt_label: 'Formats',
+    fmt_label: 'Training · Formats',
     fmt_title: 'Sized to your organization',
     formats: [
       { name: 'Special lecture', spec: '1 session · 2–3 hrs', desc: 'Organization-wide AI awareness. Ideal for workshops and staff training days' },
@@ -275,7 +313,7 @@ const T = {
     fmt_common_title: 'Included in every program',
     fmt_common: ['Tailored slides and practice materials', 'PC lab, laptop or mobile setups', 'Final report with attendance and satisfaction', 'Corporate contract and tax invoice'],
 
-    proc_label: 'Process',
+    proc_label: 'Training · Process',
     proc_title: 'From inquiry to final report',
     steps: [
       { t: 'Inquiry', d: 'Tell us about your organization and the training you need.' },
@@ -286,7 +324,7 @@ const T = {
       { t: 'Final report', d: 'Attendance, satisfaction and field notes in one report.' },
     ],
 
-    inst_label: 'Lead instructor',
+    inst_label: 'Founder',
     inst_name: 'Park Sun-rye',
     inst_role: 'CEO, Re:Frame Inc. · Generative AI education specialist',
     univ: 'Jeonbuk National University Graduate School of Education',
@@ -299,11 +337,10 @@ const T = {
     book: '"Hello, AI!" — an AI textbook for lower elementary (co-author · planning · writing · editing)',
     links: [
       { label: 'Threads @slowsoyang', href: 'https://www.threads.net/@slowsoyang' },
-      { label: 'Naver Blog', href: 'https://blog.naver.com/frameview-' },
     ],
 
-    rec_label: 'Track record',
-    rec_title: 'Organizations served',
+    rec_title: 'Where our founder has taught',
+    rec_note: 'Includes engagements before the company was founded.',
     org_groups: [
       { name: 'Public institutions', items: ['National Pension Service', 'Korea South-East Power', 'Jeonbuk Regional Procurement Office', 'Jeonbuk Culture & Tourism Foundation', 'Jeonbuk Lifelong Education Institute', 'Sunchang County Office'] },
       { name: 'Lifelong learning · Local', items: ['Korea Lifelong Education & HRD Association', 'Jeonbuk Citizen University', 'Iksan Lifelong Learning Center', 'Jeonju Lifelong Learning Center', 'Sunchang Lifelong Learning Center', 'Wanju Return-to-Farm Center', 'Jinan Youth Center', 'Gochang Youth Culture Center'] },
@@ -624,54 +661,46 @@ export default function App() {
       <main id="top">
 
         {/* ── HERO ─────────────────────────────────────────── */}
-        <section className="pt-28 md:pt-36 pb-16 md:pb-24">
-          <div className={`${container} grid lg:grid-cols-12 gap-10 lg:gap-12 items-center`}>
-            <div className="lg:col-span-6">
-              <p className="fade-in text-sm font-semibold text-sub mb-6">{t.hero_eyebrow}</p>
-              <h1 key={lang} className="text-[42px] leading-[1.12] sm:text-6xl lg:text-[64px] xl:text-[72px] font-bold text-ink mb-7">
-                {t.hero_lines.map((line, i) => (
-                  <span key={line} className="line-mask">
-                    <span style={{ '--d': `${120 + i * 90}ms` }}>{line}</span>
+        <section
+          className="pt-28 md:pt-36"
+          style={{ background: 'linear-gradient(to bottom, #FFFFFF calc(100% - 22%), #F4F4F1 calc(100% - 22%))' }}
+        >
+          <div className={container}>
+            <p className="fade-in text-sm font-semibold text-sub mb-6 md:mb-8">{t.hero_eyebrow}</p>
+            <h1 key={lang} className="text-[40px] leading-[1.14] sm:text-6xl md:text-7xl xl:text-[88px] font-bold text-ink">
+              {t.hero_lines.map((line, i) => (
+                <span key={i} className="line-mask">
+                  <span style={{ '--d': `${120 + i * 110}ms` }}>
+                    {line.map((part, j) => typeof part === 'string'
+                      ? <React.Fragment key={j}>{part}</React.Fragment>
+                      : <em key={j} className="not-italic text-accent">{part.em}</em>)}
                   </span>
-                ))}
-              </h1>
-              <p className="fade-in text-lg md:text-xl text-sub leading-relaxed max-w-xl mb-9" style={{ '--d': '480ms' }}>
+                </span>
+              ))}
+            </h1>
+            <div className="mt-8 md:mt-10 grid md:grid-cols-12 gap-6 md:gap-10 items-end">
+              <p className="fade-in md:col-span-6 text-lg md:text-xl text-sub leading-relaxed" style={{ '--d': '420ms' }}>
                 {t.hero_sub}
               </p>
-              <div className="fade-in flex flex-wrap gap-3" style={{ '--d': '600ms' }}>
+              <div className="fade-in md:col-span-6 flex flex-wrap gap-3 md:justify-end" style={{ '--d': '540ms' }}>
                 <a href="#contact" className="btn-fill bg-ink text-white border border-ink px-6 py-3.5 rounded-md font-semibold">
                   {t.hero_cta1} <span className="arrow">→</span>
                 </a>
-                <a href="#programs" className="border border-line text-ink px-6 py-3.5 rounded-md font-semibold hover:border-ink transition-colors">
+                <a href="#programs" className="border border-line bg-white text-ink px-6 py-3.5 rounded-md font-semibold hover:border-ink transition-colors">
                   {t.hero_cta2}
                 </a>
               </div>
             </div>
-            <div className="lg:col-span-6">
-              <div className="photo-in overflow-hidden rounded-lg aspect-[4/3] bg-surface">
-                <img
-                  src={`${import.meta.env.BASE_URL}hero/hero-3.jpg`}
-                  alt={t.hero_photo_alt}
-                  className="parallax w-full h-full object-cover"
-                  fetchPriority="high"
-                />
-              </div>
-            </div>
           </div>
-
-          {/* 지표 */}
-          <div className={`${container} mt-16 md:mt-20`}>
-            <dl className="grid grid-cols-2 md:grid-cols-4 gap-y-6 border-t border-line">
-              {t.stats.map((s, i) => (
-                <div key={s.l} className={`reveal pt-6 flex flex-col-reverse ${i % 2 === 1 ? 'pl-5 border-l border-line md:pl-6' : ''} ${i === 2 ? 'md:pl-6 md:border-l md:border-line' : ''}`} style={{ '--d': `${i * 80}ms` }}>
-                  <dt className="text-sm text-sub mt-1">{s.l}</dt>
-                  <dd className="font-heading text-4xl md:text-5xl font-bold text-ink">
-                    <CountUp to={s.n ?? ORG_COUNT} />{s.suffix}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <p className="text-xs text-sub mt-5">{t.stats_note}</p>
+          <div className="photo-in mt-12 md:mt-16 mx-auto max-w-[1600px] md:px-10">
+            <div className="overflow-hidden md:rounded-lg h-[56vw] max-h-[640px] min-h-[260px] bg-surface">
+              <img
+                src={`${import.meta.env.BASE_URL}hero/hero-3.jpg`}
+                alt={t.hero_photo_alt}
+                className="parallax w-full h-full object-cover object-[50%_40%]"
+                fetchPriority="high"
+              />
+            </div>
           </div>
         </section>
 
@@ -733,10 +762,49 @@ export default function App() {
           </div>
         </section>
 
-        {/* ── 전문 역량 ─────────────────────────────────────── */}
-        <section className="pb-20 md:pb-28">
+        {/* ── 회사 개요 · 연혁 ─────────────────────────────── */}
+        <section id="company" className={`${section} bg-surface`}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
-            <SectionHead label={t.exp_label} title={t.exp_title} />
+            <SectionHead label={t.co_label} title={t.co_title} />
+            <div className="md:col-span-8 grid lg:grid-cols-2 gap-12">
+              <dl className="reveal border-t border-ink">
+                {t.co_facts.map(f => (
+                  <div key={f.k} className="grid grid-cols-[88px_1fr] gap-4 py-3.5 border-b border-line">
+                    <dt className="text-sm text-sub pt-0.5">{f.k}</dt>
+                    <dd className="text-ink">{f.v}</dd>
+                  </div>
+                ))}
+                {COMPANY.bizNo && (
+                  <div className="grid grid-cols-[88px_1fr] gap-4 py-3.5 border-b border-line">
+                    <dt className="text-sm text-sub pt-0.5">{t.co_bizno}</dt>
+                    <dd className="text-ink tabular-nums">{COMPANY.bizNo}</dd>
+                  </div>
+                )}
+              </dl>
+              <div className="reveal" style={{ '--d': '100ms' }}>
+                <p className="text-sm font-semibold text-ink pb-3 border-b border-ink">{t.hist_title}</p>
+                <ol>
+                  {t.history.map(h => (
+                    <li key={h.y + h.t} className="grid grid-cols-[72px_1fr] gap-4 py-3.5 border-b border-line">
+                      <span className={`font-heading font-bold tabular-nums ${h.who === 'co' ? 'text-ink' : 'text-sub'}`}>{h.y}</span>
+                      <span>
+                        <span className={`inline-block text-[11px] font-semibold rounded px-1.5 py-0.5 mr-2 align-[2px] ${h.who === 'co' ? 'bg-accent_tint text-accent_deep' : 'bg-white text-sub border border-line'}`}>
+                          {h.who === 'co' ? t.hist_tag_co : t.hist_tag_ceo}
+                        </span>
+                        <span className={h.who === 'co' ? 'text-ink' : 'text-sub'}>{h.t}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 기관 교육 · 전문 역량 ─────────────────────────── */}
+        <section id="education" className={section}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.exp_label} title={t.exp_title} sub={t.exp_sub} />
             <div className="md:col-span-8 grid md:grid-cols-3 gap-8 md:gap-10">
               {t.exp.map((e, i) => (
                 <div key={e.title} className="reveal border-t-2 border-ink pt-5" style={{ '--d': `${i * 100}ms` }}>
@@ -812,7 +880,7 @@ export default function App() {
         </section>
 
         {/* ── 대표 강사 ─────────────────────────────────────── */}
-        <section id="instructor" className={section}>
+        <section id="ceo" className={section}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
             <SectionHead label={t.inst_label} />
             <div className="md:col-span-8 grid sm:grid-cols-12 gap-8">
@@ -840,7 +908,17 @@ export default function App() {
                   <p className="text-sm font-semibold text-ink mb-2">{t.book_label}</p>
                   <p className="text-sub text-[15px]">{t.book}</p>
                 </div>
-                <div className="flex flex-wrap gap-2 mt-6">
+                <dl className="grid grid-cols-3 border-t border-ink mt-8">
+                  {t.stats.map((st, i) => (
+                    <div key={st.l} className={`pt-4 flex flex-col-reverse ${i > 0 ? 'pl-4 border-l border-line' : ''}`}>
+                      <dt className="text-xs sm:text-sm text-sub mt-1">{st.l}</dt>
+                      <dd className="font-heading text-3xl md:text-4xl font-bold text-ink">
+                        <CountUp to={st.n ?? ORG_COUNT} />{st.suffix}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="flex flex-wrap gap-2 mt-8">
                   {t.links.map(l => (
                     <a key={l.href} href={l.href} target="_blank" rel="noreferrer"
                       className="text-sm border border-line rounded-md px-3.5 py-2 text-sub hover:text-ink hover:border-ink transition-colors">
@@ -850,14 +928,12 @@ export default function App() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ── 실적 ──────────────────────────────────────────── */}
-        <section id="record" className={`${section} bg-surface`}>
-          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
-            <SectionHead label={t.rec_label} title={t.rec_title} />
-            <div className="md:col-span-8">
+            <div className="md:col-start-5 md:col-span-8 mt-6">
+              <div className="reveal flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-8">
+                <h3 className="text-2xl font-bold text-ink">{t.rec_title}</h3>
+                <p className="text-sm text-sub">{t.rec_note}</p>
+              </div>
               <div className="grid sm:grid-cols-2 gap-x-10 gap-y-10">
                 {t.org_groups.map((g, i) => (
                   <div key={g.name} className="reveal" style={{ '--d': `${(i % 2) * 90}ms` }}>
@@ -886,6 +962,7 @@ export default function App() {
             </div>
           </div>
         </section>
+
 
         {/* ── 출강 문의 ─────────────────────────────────────── */}
         <section id="contact" className={section}>
