@@ -48,6 +48,7 @@ const T = {
     ],
 
     about_label: '회사 소개',
+    about_title: '성인의 배움을 설계하는 교육기업',
     about_meaning: '새로운 시대에 맞게, 생각과 가치의 틀을 다시 짭니다.',
     about_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 기술을 읽고 소통하는 문해력을 바탕으로, 누구나 자기 속도로 익힐 수 있는 교육과 콘텐츠를 기획·개발합니다. 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대 배움의 새로운 프레임을 제시합니다.',
     about_facts: [
@@ -222,6 +223,7 @@ const T = {
     ],
 
     about_label: 'About',
+    about_title: 'An education company designing adult learning',
     about_meaning: 'Reframing thinking and values for a new era.',
     about_p: 'Re:Frame Inc. builds AI education anyone can learn at their own pace — grounded in our commitment to the region, our belief in adult learning, and literacy that helps people read and communicate with technology. Working with public institutions, companies and lifelong-learning centers, we run hands-on programs and propose a new frame for learning in the AI era.',
     about_facts: [
@@ -617,6 +619,22 @@ function History({ t }) {
   );
 }
 
+// ── 진행 방식 아이콘 — 화면에 들어오면 선이 그려짐 (pathLength=100) ───
+const STEP_ICONS = [
+  // 문의
+  <><rect x="3" y="5" width="18" height="14" rx="2" pathLength="100" /><path d="m3.5 7 8.5 6 8.5-6" pathLength="100" /></>,
+  // 사전 협의
+  <><path d="M20 12a8 8 0 0 1-11.3 7.3L4 20.5l1.2-4.4A8 8 0 1 1 20 12Z" pathLength="100" /><path d="M8.5 10.5h7M8.5 14h4.5" pathLength="100" /></>,
+  // 커리큘럼 제안
+  <><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z" pathLength="100" /><path d="M14 3v5h5M9 13h6M9 17h4" pathLength="100" /></>,
+  // 계약
+  <><path d="M14.5 4.5l5 5L9 20H4v-5Z" pathLength="100" /><path d="M12.5 6.5l5 5M3 21h18" pathLength="100" /></>,
+  // 교육 운영
+  <><path d="M3 4h18M5 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4" pathLength="100" /><path d="M12 15v3M8 21l4-3 4 3" pathLength="100" /></>,
+  // 결과보고
+  <><path d="M3 20h18" pathLength="100" /><path d="M6 20v-7M11 20V5M16 20v-10" pathLength="100" /><path d="m5 9 5-4 5 3 5-4" pathLength="100" /></>,
+];
+
 // ── 워드마크 — 콜론만 주황색 ───────────────────────────────────
 function Wordmark({ className = '' }) {
   return (
@@ -876,7 +894,7 @@ export default function App() {
         {/* ── 회사 소개 ─────────────────────────────────────── */}
         <section id="about" className={`${section} bg-surface`}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
-            <SectionHead label={t.about_label} />
+            <SectionHead label={t.about_label} title={t.about_title} />
             <div className="md:col-span-8">
               <p className="reveal font-heading text-3xl md:text-[40px] font-bold leading-[1.3] text-ink mb-8">
                 <Wordmark /> — {t.about_meaning}
@@ -1011,12 +1029,26 @@ export default function App() {
         <section id="process" className={`${section} bg-surface`}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
             <SectionHead label={t.proc_label} title={t.proc_title} />
-            <ol className="md:col-span-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+            <ol className="md:col-span-12 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 xl:gap-5">
               {t.steps.map((s, i) => (
-                <li key={s.t} className="reveal" style={{ '--d': `${(i % 3) * 90}ms` }}>
-                  <span className="font-heading text-sm font-bold text-accent_deep tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-                  <h3 className="text-xl font-bold text-ink mt-2 mb-2 pt-3 border-t border-line">{s.t}</h3>
-                  <p className="text-sub leading-relaxed">{s.d}</p>
+                <li key={s.t} className="reveal relative" style={{ '--d': `${i * 90}ms` }}>
+                  <div className="h-full bg-white border border-line rounded-lg p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(29,31,36,.07)]">
+                    <div className="flex items-start justify-between mb-6">
+                      <span className="w-14 h-14 rounded-lg bg-accent_tint text-accent_deep flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="step-icon w-7 h-7" aria-hidden="true">
+                          {STEP_ICONS[i]}
+                        </svg>
+                      </span>
+                      <span className="font-heading text-2xl font-bold text-line tabular-nums leading-none">{String(i + 1).padStart(2, '0')}</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-ink mb-2">{s.t}</h3>
+                    <p className="text-sub text-[15px] leading-relaxed">{s.d}</p>
+                  </div>
+                  {i < t.steps.length - 1 && (
+                    <span aria-hidden="true" className={`step-arrow hidden ${i % 3 !== 2 ? 'lg:flex' : ''} xl:flex`}>
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3"><path d="M6 3l5 5-5 5" /></svg>
+                    </span>
+                  )}
                 </li>
               ))}
             </ol>
