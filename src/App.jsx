@@ -82,7 +82,6 @@ const T = {
 
     exp_label: '기관 교육',
     exp_title: '설계부터 콘텐츠,\n실습형 교육',
-    exp_sub: '공공기관·기업·학교·평생학습관을 찾아가,\n실습 중심 AI 교육을 운영합니다.',
     exp: [
       { title: '맞춤형 교육 설계', desc: '평생교육·HRD 석사와 직업능력훈련교사의 전문성으로, 대상·목적·환경에 맞는 교육과정을 설계합니다.' },
       { title: 'AI 콘텐츠 개발', desc: '빠르게 변화하는 AI 환경을 반영해 교재와 실습 자료, 커리큘럼을 직접 기획하고 개발합니다.' },
@@ -260,7 +259,6 @@ const T = {
 
     exp_label: 'Institutional training',
     exp_title: 'From design to content,\nhands-on training',
-    exp_sub: 'We visit public institutions, companies, schools and learning centers to run hands-on AI training.',
     exp: [
       { title: 'Tailored curriculum design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we design programs for each audience, goal and setting." },
       { title: 'AI content development', desc: 'We plan and develop textbooks, hands-on materials and curricula that keep pace with the fast-changing AI landscape.' },
@@ -1045,7 +1043,7 @@ export default function App() {
         {/* ── 기관 교육 · 전문 역량 ─────────────────────────── */}
         <section id="education" className={section}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
-            <SectionHead label={t.exp_label} title={t.exp_title} sub={t.exp_sub} />
+            <SectionHead label={t.exp_label} title={t.exp_title} />
             <div className="md:col-span-12 grid sm:grid-cols-3 gap-4 md:gap-5">
               {t.exp.map((e, i) => (
                 <div key={e.title} className="reveal" style={{ '--d': `${i * 110}ms` }}>
