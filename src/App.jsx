@@ -50,7 +50,7 @@ const T = {
     about_label: '회사 소개',
     about_title: '배움을 설계하는 교육기업',
     about_meaning: '새로운 시대에 맞게, 생각과 가치의 틀을 다시 짭니다.',
-    about_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 기술을 읽고 소통하는 문해력을 바탕으로, 누구나 자기 속도로 익힐 수 있는 교육과 콘텐츠를 기획·개발합니다. 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대 배움의 새로운 프레임을 제시합니다.',
+    about_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 기술을 읽고 소통하는 문해력을 바탕으로, 누구나 자기 속도로 익힐 수 있는 교육과 콘텐츠를 기획·개발합니다. 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대에 맞는 배움의 방식을 새로 만들어 갑니다.',
     about_facts: [
       { k: '교육 철학', v: '자기주도 · 평생학습' },
       { k: '주요 활동 지역', v: '전북 · 전남' },
@@ -228,7 +228,7 @@ const T = {
     about_label: 'About',
     about_title: 'An education company designing learning',
     about_meaning: 'Reframing thinking and values for a new era.',
-    about_p: 'Re:Frame Inc. builds AI education anyone can learn at their own pace — grounded in our commitment to the region, our belief in adult learning, and literacy that helps people read and communicate with technology. Working with public institutions, companies and lifelong-learning centers, we run hands-on programs and propose a new frame for learning in the AI era.',
+    about_p: 'Re:Frame Inc. builds AI education anyone can learn at their own pace — grounded in our commitment to the region, our belief in adult learning, and literacy that helps people read and communicate with technology. Working with public institutions, companies and lifelong-learning centers, we run hands-on programs and shape new ways of learning for the AI era.',
     about_facts: [
       { k: 'Philosophy', v: 'Self-directed · Lifelong' },
       { k: 'Main area', v: 'Jeonbuk · Jeonnam' },
