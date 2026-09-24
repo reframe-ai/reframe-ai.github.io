@@ -129,6 +129,8 @@ const T = {
 
     proc_label: '기관 교육 · 진행 방식',
     proc_title: '문의에서 결과보고까지',
+    proc_prev: '이전 단계',
+    proc_next: '다음 단계',
     proc_sub: '처음 연락부터 교육이 끝난 뒤의 보고까지, 담당자가 준비할 것을 줄여 드립니다.',
     steps: [
       { t: '문의', d: '문의 폼이나 메일로 기관과 희망 교육을 알려 주세요.', out: ['문의 폼', '메일'] },
@@ -305,6 +307,8 @@ const T = {
 
     proc_label: 'Training · Process',
     proc_title: 'From inquiry to final report',
+    proc_prev: 'Previous step',
+    proc_next: 'Next step',
     proc_sub: 'From the first call to the final report, we keep your preparation to a minimum.',
     steps: [
       { t: 'Inquiry', d: 'Tell us about your organization and the training you need.', out: ['Form', 'Email'] },
@@ -622,58 +626,88 @@ function History({ t }) {
 }
 
 
-// ── 진행 방식 — 스크롤에 따라 레일이 차오르고, 닿은 단계가 켜짐 ─────
-function ProcessSteps({ steps }) {
-  const listRef = useRef(null);
-  // 동작 줄이기 설정이면 처음부터 모두 켠 상태로
+// ── 진행 방식 — 단계 탭 + 설명 한 칸 ─────────────────────────────
+// 화면에 보이는 동안 4초마다 다음 단계로 넘어가고, 방문자가 누르거나
+// 마우스를 올리면 자동 넘김을 멈춘다.
+function ProcessSteps({ steps, t }) {
+  const boxRef = useRef(null);
+  const [cur, setCur] = useState(0);
+  const [auto, setAuto] = useState(true);
+  const [hover, setHover] = useState(false);
+  const [inView, setInView] = useState(false);
   const [still] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const [progress, setProgress] = useState(still ? 1 : 0);          // 0~1, 레일이 찬 비율
-  const [active, setActive] = useState(still ? steps.length - 1 : -1); // 켜진 마지막 단계
 
   useEffect(() => {
-    const list = listRef.current;
-    if (!list || still) return;
-    const update = () => {
-      const mark = window.innerHeight * 0.6;          // 화면 60% 지점을 기준선으로
-      const nodes = [...list.querySelectorAll('.proc-node')].map(n => {
-        const r = n.getBoundingClientRect();
-        return r.top + r.height / 2;
-      });
-      const first = nodes[0];
-      const last = nodes[nodes.length - 1];
-      const p = Math.min(Math.max((mark - first) / (last - first), 0), 1);
-      setProgress(p);
-      setActive(nodes.reduce((a, y, i) => (y <= mark ? i : a), -1));
-    };
-    const onScroll = () => update();
-    const first = setTimeout(update, 0);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      clearTimeout(first);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, [still]);
+    const el = boxRef.current;
+    if (!el || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!auto || hover || !inView || still) return;
+    const id = setInterval(() => setCur(c => (c + 1) % steps.length), 4000);
+    return () => clearInterval(id);
+  }, [auto, hover, inView, still, steps.length]);
+
+  const go = i => { setAuto(false); setCur((i + steps.length) % steps.length); };
+  const onKey = e => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+  };
+  const s = steps[cur];
+  const no = i => String(i + 1).padStart(2, '0');
 
   return (
-    <ol ref={listRef} className="proc relative" style={{ '--proc': progress }}>
-      <span aria-hidden="true" className="proc-rail" />
-      <span aria-hidden="true" className="proc-fill" />
-      {steps.map((s, i) => (
-        <li key={s.t} className={`proc-step ${i <= active ? 'is-on' : ''}`}>
-          <span aria-hidden="true" className="proc-node" />
-          <span aria-hidden="true" className="proc-no">{String(i + 1).padStart(2, '0')}</span>
-          <div className="proc-body">
-            <h3 className="text-2xl md:text-[28px] font-bold text-ink mb-2">{s.t}</h3>
-            <p className="text-sub leading-relaxed max-w-lg">{s.d}</p>
+    <div ref={boxRef} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+      <div role="tablist" aria-label={t.proc_title} onKeyDown={onKey}
+        className="grid grid-cols-3 sm:grid-cols-6 border-b border-line">
+        {steps.map((st, i) => (
+          <button
+            key={st.t}
+            type="button"
+            role="tab"
+            id={`proc-tab-${i}`}
+            aria-selected={i === cur}
+            aria-controls="proc-panel"
+            tabIndex={i === cur ? 0 : -1}
+            onClick={() => go(i)}
+            className={`proc-tab relative text-left py-3 pr-2 transition-colors ${i === cur ? 'text-ink' : 'text-sub hover:text-ink'}`}
+          >
+            <span className={`block font-heading text-xs font-bold tabular-nums ${i === cur ? 'text-accent_deep' : ''}`}>{no(i)}</span>
+            <span className="block text-[15px] font-semibold leading-snug mt-0.5">{st.t}</span>
+            <span aria-hidden="true" className={`proc-bar ${i === cur ? 'is-on' : ''}`} />
+          </button>
+        ))}
+      </div>
+
+      <div id="proc-panel" role="tabpanel" aria-labelledby={`proc-tab-${cur}`}
+        className="mt-5 bg-white border border-line rounded-lg p-6 md:p-8 min-h-[196px]">
+        <div key={cur} className="proc-swap grid sm:grid-cols-[auto_1fr] gap-x-8 gap-y-3">
+          <span className="font-heading text-5xl md:text-6xl font-bold text-accent leading-none tabular-nums">{no(cur)}</span>
+          <div>
+            <div className="flex items-start justify-between gap-4">
+              <h3 className="text-2xl font-bold text-ink">{s.t}</h3>
+              <div className="flex gap-1.5 shrink-0">
+                {[[-1, '‹', t.proc_prev], [1, '›', t.proc_next]].map(([d, ch, label]) => (
+                  <button key={d} type="button" aria-label={label} onClick={() => go(cur + d)}
+                    className="w-8 h-8 rounded-full border border-line text-sub hover:text-ink hover:border-ink transition-colors leading-none text-lg">
+                    {ch}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="text-sub leading-relaxed mt-2 max-w-xl">{s.d}</p>
             <ul className="flex flex-wrap gap-2 mt-4">
-              {s.out.map(o => <li key={o} className="proc-chip">{o}</li>)}
+              {s.out.map(o => (
+                <li key={o} className="text-[13px] font-semibold text-ink bg-surface rounded-full px-3 py-1.5">{o}</li>
+              ))}
             </ul>
           </div>
-        </li>
-      ))}
-    </ol>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1070,13 +1104,9 @@ export default function App() {
         {/* ── 진행 방식 ─────────────────────────────────────── */}
         <section id="process" className={`${section} bg-surface`}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
-            <div className="md:col-span-4">
-              <div className="md:sticky md:top-32">
-                <SectionHead label={t.proc_label} title={t.proc_title} sub={t.proc_sub} />
-              </div>
-            </div>
-            <div className="md:col-span-8">
-              <ProcessSteps steps={t.steps} />
+            <SectionHead label={t.proc_label} title={t.proc_title} sub={t.proc_sub} />
+            <div className="reveal md:col-span-8">
+              <ProcessSteps steps={t.steps} t={t} />
             </div>
           </div>
         </section>
