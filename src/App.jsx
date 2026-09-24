@@ -160,13 +160,6 @@ const T = {
       { name: '대학 · 학교', items: ['송호대학교', '순천대학교', '순천제일대학교', '호남제일고등학교', '전주덕진중학교', '익산남성중학교'] },
       { name: '기업 · 교육기관', items: ['핵심인재개발원', '신기술교육원', '(주)한터', '(주)큐라이트'] },
     ],
-    col_title: '칼럼 연재 — 로컬M 「로컬시대와 새파트너 AI」',
-    columns: [
-      { t: 'AI시대, 우리 지역은 검색되고 있습니까?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
-      { t: '맡길까, 직접 할까… 작은 카페를 알리는 세 가지 방법', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4405' },
-      { t: '사흘 만에 사라진 AI, 통제권은 누구에게 있었나', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
-    ],
-    col_read: '읽기',
 
     contact_label: '출강 문의',
     contact_title: '어떤 교육이 필요하신가요?',
@@ -341,13 +334,6 @@ const T = {
       { name: 'Universities · Schools', items: ['Songho University', 'Sunchon National University', 'Suncheon Jeil University', 'Honam Jeil High School', 'Jeonju Deokjin Middle School', 'Iksan Namseong Middle School'] },
       { name: 'Companies · Training', items: ['Core Talent Development Institute', 'New Tech Training Institute', 'Hanteo Inc.', 'Qlight Inc.'] },
     ],
-    col_title: 'Column in LocalM — "The Local Era and Its New Partner, AI"',
-    columns: [
-      { t: 'In the AI era, is your region searchable?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
-      { t: 'Outsource or DIY? Three ways to market a small café', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4405' },
-      { t: 'The AI that vanished in three days — who held the control?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
-    ],
-    col_read: 'Read',
 
     contact_label: 'Contact',
     contact_title: 'What training do you need?',
@@ -1087,14 +1073,14 @@ export default function App() {
               </div>
             </div>
 
-            <div className="md:col-start-5 md:col-span-8 mt-6">
+            <div className="md:col-span-12 mt-10">
               <div className="reveal flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-8">
                 <h3 className="text-2xl font-bold text-ink">{t.rec_title}</h3>
                 <p className="text-sm text-sub">{t.rec_note}</p>
               </div>
-              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-10">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
                 {t.org_groups.map((g, i) => (
-                  <div key={g.name} className="reveal" style={{ '--d': `${(i % 2) * 90}ms` }}>
+                  <div key={g.name} className="reveal" style={{ '--d': `${i * 90}ms` }}>
                     <p className="text-sm font-semibold text-ink pb-3 border-b border-ink mb-3">
                       {g.name} <span className="text-sub font-normal tabular-nums">{g.items.length}</span>
                     </p>
@@ -1103,19 +1089,6 @@ export default function App() {
                     </ul>
                   </div>
                 ))}
-              </div>
-              <div className="reveal mt-16">
-                <p className="text-sm font-semibold text-ink mb-4">{t.col_title}</p>
-                <ul className="border-t border-line">
-                  {t.columns.map(c => (
-                    <li key={c.u} className="border-b border-line">
-                      <a href={c.u} target="_blank" rel="noreferrer" className="flex items-baseline justify-between gap-6 py-4 group">
-                        <span className="text-ink font-medium group-hover:text-accent_deep transition-colors">{c.t}</span>
-                        <span className="shrink-0 text-sm text-sub">{t.col_read} <span className="arrow">↗</span></span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </div>
