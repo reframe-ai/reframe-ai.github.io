@@ -750,11 +750,13 @@ export default function App() {
                   </div>
                 ))}
               </dl>
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid xl:grid-cols-3 gap-4">
                 {t.values.map((v, i) => (
                   <div key={v.title} className="reveal" style={{ '--d': `${i * 100}ms` }}>
-                    <h3 className="text-xl font-bold text-ink mb-3">{v.title}</h3>
-                    <p className="text-sub leading-relaxed">{v.desc}</p>
+                    <div className="h-full bg-white border border-line rounded-lg p-7 grid sm:grid-cols-[180px_1fr] xl:block gap-x-8 gap-y-3 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(29,31,36,.07)]">
+                      <h3 className="text-xl font-bold text-ink xl:mb-3">{v.title}</h3>
+                      <p className="text-sub leading-relaxed">{v.desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>
