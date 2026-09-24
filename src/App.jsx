@@ -81,7 +81,7 @@ const T = {
     ],
 
     exp_label: '기관 교육',
-    exp_title: '설계부터 콘텐츠,\n맞춤형 교육',
+    exp_title: '설계부터 콘텐츠,\n실습형 교육',
     exp_sub: '공공기관·기업·학교·평생학습관을 찾아가,\n실습 중심 AI 교육을 운영합니다.',
     exp: [
       { title: '맞춤형 교육 설계', desc: '평생교육·HRD 석사와 직업능력훈련교사의 전문성으로, 대상·목적·환경에 맞는 교육과정을 설계합니다.' },
@@ -259,7 +259,7 @@ const T = {
     ],
 
     exp_label: 'Institutional training',
-    exp_title: 'From design to content,\ntailored training',
+    exp_title: 'From design to content,\nhands-on training',
     exp_sub: 'We visit public institutions, companies, schools and learning centers to run hands-on AI training.',
     exp: [
       { title: 'Tailored curriculum design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we design programs for each audience, goal and setting." },
