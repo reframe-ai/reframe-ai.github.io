@@ -21,7 +21,7 @@ const T = {
     nav: [
       { href: '#about', label: '회사 소개' },
       { href: '#business', label: '사업 영역' },
-      { href: '#company', label: '회사 개요' },
+      { href: '#company', label: '연혁' },
       { href: '#education', label: '기관 교육' },
       { href: '#ceo', label: '대표 소개' },
     ],
@@ -68,22 +68,13 @@ const T = {
       { name: '리프레임평생교육원', desc: '개인 학습자가 전주에서 직접 만나 배우는 교육시설. 디지털 역량부터 일과 지역의 배움까지.', status: '개원 준비 중' },
     ],
 
-    co_label: '회사 개요',
+    co_label: '연혁',
     co_title: '현장에서 시작해, 법인이 되었습니다',
-    co_facts: [
-      { k: '상호', v: '주식회사 리프레임 (Re:Frame Inc.)' },
-      { k: '대표', v: '박선례' },
-      { k: '설립', v: '2026년 8월' },
-      { k: '소재지', v: '전북특별자치도 전주시 덕진구 솔내로 128, 3층' },
-      { k: '사업 분야', v: '교육 서비스 · 평생교육 · 교육 미디어' },
-    ],
-    co_bizno: '사업자등록번호',
-    hist_title: '연혁',
     hist_tag_ceo: '대표 이력',
     hist_tag_co: '법인',
     history: [
       { y: `${TEACHING_SINCE}`, t: '미디어 교육으로 강의 시작', who: 'ceo' },
-      { y: '2023', t: 'AI 교육 본격화 — 공공기관·기업·학교·평생학습관 출강, 400시간+', who: 'ceo' },
+      { y: '2023', t: 'AI 교육 본격화 — 공공기관·기업·학교·평생학습관 출강 400시간 이상', who: 'ceo' },
       { y: '2026.08', t: '주식회사 리프레임 설립 (전주)', who: 'co' },
       { y: NEWS_DATE, t: '인터넷 매체 Re:frame News 창간', who: 'co' },
       { y: '2026', t: '리프레임평생교육원 개원 준비', who: 'co' },
@@ -212,7 +203,7 @@ const T = {
     nav: [
       { href: '#about', label: 'About' },
       { href: '#business', label: 'What we do' },
-      { href: '#company', label: 'Company' },
+      { href: '#company', label: 'History' },
       { href: '#education', label: 'Training' },
       { href: '#ceo', label: 'Founder' },
     ],
@@ -259,17 +250,8 @@ const T = {
       { name: 'Re:Frame Lifelong Learning Center', desc: 'An in-person learning center in Jeonju for individual learners.', status: 'Opening soon' },
     ],
 
-    co_label: 'Company',
+    co_label: 'History',
     co_title: 'Born in the classroom, now a company',
-    co_facts: [
-      { k: 'Name', v: 'Re:Frame Inc. (주식회사 리프레임)' },
-      { k: 'CEO', v: 'Park Sun-rye' },
-      { k: 'Founded', v: 'August 2026' },
-      { k: 'Address', v: '3F, 128 Solnae-ro, Deokjin-gu, Jeonju, Jeonbuk' },
-      { k: 'Business', v: 'Education services · Lifelong learning · Education media' },
-    ],
-    co_bizno: 'Business reg. no.',
-    hist_title: 'History',
     hist_tag_ceo: 'Founder',
     hist_tag_co: 'Company',
     history: [
@@ -797,26 +779,11 @@ export default function App() {
         <section id="company" className={`${section} bg-surface`}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
             <SectionHead label={t.co_label} title={t.co_title} />
-            <div className="md:col-span-8 grid lg:grid-cols-2 gap-12">
-              <dl className="reveal border-t border-ink">
-                {t.co_facts.map(f => (
-                  <div key={f.k} className="grid grid-cols-[88px_1fr] gap-4 py-3.5 border-b border-line">
-                    <dt className="text-sm text-sub pt-0.5">{f.k}</dt>
-                    <dd className="text-ink">{f.v}</dd>
-                  </div>
-                ))}
-                {COMPANY.bizNo && (
-                  <div className="grid grid-cols-[88px_1fr] gap-4 py-3.5 border-b border-line">
-                    <dt className="text-sm text-sub pt-0.5">{t.co_bizno}</dt>
-                    <dd className="text-ink tabular-nums">{COMPANY.bizNo}</dd>
-                  </div>
-                )}
-              </dl>
-              <div className="reveal" style={{ '--d': '100ms' }}>
-                <p className="text-sm font-semibold text-ink pb-3 border-b border-ink">{t.hist_title}</p>
-                <ol>
+            <div className="md:col-span-8">
+              <div className="reveal">
+                <ol className="border-t border-ink">
                   {t.history.map(h => (
-                    <li key={h.y + h.t} className="grid grid-cols-[72px_1fr] gap-4 py-3.5 border-b border-line">
+                    <li key={h.y + h.t} className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 py-4 border-b border-line">
                       <span className={`font-heading font-bold tabular-nums ${h.who === 'co' ? 'text-ink' : 'text-sub'}`}>{h.y}</span>
                       <span>
                         <span className={`inline-block text-[11px] font-semibold rounded px-1.5 py-0.5 mr-2 align-[2px] ${h.who === 'co' ? 'bg-accent_tint text-accent_deep' : 'bg-white text-sub border border-line'}`}>
