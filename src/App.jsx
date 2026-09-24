@@ -605,7 +605,7 @@ function History({ t }) {
               <span key={k} aria-hidden="true" className={`absolute left-[11px] border-l-2 ${seg.cls}`} style={seg.style} />
             ))}
             {r.heading ? (
-              <p className={`text-sm font-bold tracking-wide ${r.who === 'co' ? 'text-ink' : 'text-sub'}`}>{r.heading}</p>
+              <p className={`text-base font-bold tracking-wide ${r.who === 'co' ? 'text-ink' : 'text-sub'}`}>{r.heading}</p>
             ) : (
               <>
                 <span aria-hidden="true" className={`absolute top-[22px] rounded-full ${
@@ -675,8 +675,8 @@ function ProcessSteps({ steps, t }) {
             onClick={() => go(i)}
             className={`proc-tab relative text-left py-3 pr-2 transition-colors ${i === cur ? 'text-ink' : 'text-sub hover:text-ink'}`}
           >
-            <span className={`block font-heading text-xs font-bold tabular-nums ${i === cur ? 'text-accent_deep' : ''}`}>{no(i)}</span>
-            <span className="block text-[15px] font-semibold leading-snug mt-0.5">{st.t}</span>
+            <span className={`block font-heading text-sm font-bold tabular-nums ${i === cur ? 'text-accent_deep' : ''}`}>{no(i)}</span>
+            <span className="block text-base font-semibold leading-snug mt-0.5">{st.t}</span>
             <span aria-hidden="true" className={`proc-bar ${i === cur ? 'is-on' : ''}`} />
           </button>
         ))}
@@ -701,7 +701,7 @@ function ProcessSteps({ steps, t }) {
             <p className="text-sub leading-relaxed mt-2 max-w-xl">{s.d}</p>
             <ul className="flex flex-wrap gap-2 mt-4">
               {s.out.map(o => (
-                <li key={o} className="text-[13px] font-semibold text-ink bg-surface rounded-full px-3 py-1.5">{o}</li>
+                <li key={o} className="text-sm font-semibold text-ink bg-surface rounded-full px-3 py-1.5">{o}</li>
               ))}
             </ul>
           </div>
@@ -743,7 +743,7 @@ function ProgramItem({ item }) {
         onClick={() => setOpen(o => !o)}
         className="w-full flex items-baseline gap-4 py-4 text-left group"
       >
-        <span className="text-xs font-semibold text-sub tabular-nums w-6 shrink-0">{item.n}</span>
+        <span className="text-sm font-semibold text-sub tabular-nums w-6 shrink-0">{item.n}</span>
         <span className="flex-1 text-[17px] font-semibold text-ink group-hover:text-accent_deep transition-colors">{item.title}</span>
         <span className={`text-sub text-xl leading-none transition-transform duration-300 ${open ? 'rotate-45' : ''}`} aria-hidden="true">+</span>
       </button>
@@ -771,7 +771,7 @@ function ContactForm({ t, lang }) {
   }
 
   const input = 'w-full bg-white border border-line rounded-md px-4 py-3 text-base text-ink placeholder:text-sub/60 focus:outline-none focus:border-ink transition-colors';
-  const label = 'block text-sm font-semibold text-ink mb-1.5';
+  const label = 'block text-base font-semibold text-ink mb-1.5';
   const req = <span className="text-accent_deep" aria-hidden="true"> *</span>;
 
   return (
@@ -834,7 +834,7 @@ function ContactForm({ t, lang }) {
       </div>
       <div className="sm:col-span-2 flex items-start gap-3">
         <input id="f-consent" type="checkbox" name="consent" value="동의" required className="mt-1 w-4 h-4 accent-ink" />
-        <label htmlFor="f-consent" className="text-sm text-ink">
+        <label htmlFor="f-consent" className="text-base text-ink">
           {f.consent}{req}{' '}
           <a href="/privacy.html" target="_blank" rel="noreferrer" className="underline underline-offset-2 text-sub hover:text-ink">{f.consent_link}</a>
         </label>
@@ -979,7 +979,7 @@ export default function App() {
               <dl className="reveal grid grid-cols-3 gap-6 border-t border-line pt-6 mb-16">
                 {t.about_facts.map(f => (
                   <div key={f.k}>
-                    <dt className="text-sm text-sub mb-1">{f.k}</dt>
+                    <dt className="text-base text-sub mb-1">{f.k}</dt>
                     <dd className="text-base sm:text-lg md:text-xl font-semibold text-ink">{f.v}</dd>
                   </div>
                 ))}
@@ -1009,8 +1009,8 @@ export default function App() {
                     <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2 mb-3">
                       <h3 className="text-2xl font-bold text-ink">{b.name}</h3>
                       {b.status
-                        ? <span className="shrink-0 text-xs font-semibold text-sub border border-line rounded-full px-3 py-1">{b.status}</span>
-                        : <span className="shrink-0 text-sm font-semibold text-accent_deep pt-1.5">{b.cta} <span className="arrow">{b.external ? '↗' : '→'}</span></span>}
+                        ? <span className="shrink-0 text-sm font-semibold text-sub border border-line rounded-full px-3 py-1">{b.status}</span>
+                        : <span className="shrink-0 text-base font-semibold text-accent_deep pt-1.5">{b.cta} <span className="arrow">{b.external ? '↗' : '→'}</span></span>}
                     </div>
                     <p className="text-sub leading-relaxed max-w-xl">{b.desc}</p>
                   </>
@@ -1061,7 +1061,7 @@ export default function App() {
             <div className="md:col-span-8 grid lg:grid-cols-2 gap-x-10 gap-y-14">
               {t.groups.map((g, gi) => (
                 <div key={g.label} className="reveal" style={{ '--d': `${(gi % 2) * 100}ms` }}>
-                  <p className="text-xs font-semibold tracking-[0.12em] text-sub mb-2">{g.label}</p>
+                  <p className="text-sm font-semibold tracking-[0.12em] text-sub mb-2">{g.label}</p>
                   <h3 className="text-2xl font-bold text-ink mb-2">{g.name}</h3>
                   <p className="text-sub mb-5">{g.gdesc}</p>
                   <ul className="border-b border-line">
@@ -1082,13 +1082,13 @@ export default function App() {
                 {t.formats.map((f, i) => (
                   <div key={f.name} className="reveal grid sm:grid-cols-12 gap-2 sm:gap-6 py-6 border-b border-line" style={{ '--d': `${i * 80}ms` }}>
                     <h3 className="sm:col-span-3 text-xl font-bold text-ink">{f.name}</h3>
-                    <p className="sm:col-span-3 text-sm font-semibold text-accent_deep sm:pt-1.5 tabular-nums">{f.spec}</p>
+                    <p className="sm:col-span-3 text-base font-semibold text-accent_deep sm:pt-1.5 tabular-nums">{f.spec}</p>
                     <p className="sm:col-span-6 text-sub leading-relaxed">{f.desc}</p>
                   </div>
                 ))}
               </div>
               <div className="reveal mt-10 bg-surface rounded-lg p-7">
-                <p className="text-sm font-semibold text-ink mb-4">{t.fmt_common_title}</p>
+                <p className="text-base font-semibold text-ink mb-4">{t.fmt_common_title}</p>
                 <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2.5">
                   {t.fmt_common.map(c => (
                     <li key={c} className="flex gap-3 text-sub">
@@ -1130,20 +1130,20 @@ export default function App() {
                 <h3 className="text-3xl font-bold text-ink">{t.inst_name}</h3>
                 <p className="text-accent_deep font-semibold mt-1 mb-6">{t.inst_role}</p>
                 <p className="text-ink"><span className="font-semibold">{t.univ}</span> — {t.univ_sub}</p>
-                <p className="text-sub text-sm mt-1">{t.thesis}</p>
+                <p className="text-sub text-base mt-1">{t.thesis}</p>
                 <p className="text-sub mt-3">{t.bg}</p>
                 <div className="border-t border-line mt-6 pt-5">
-                  <p className="text-sm font-semibold text-ink mb-2">{t.certs_label}</p>
-                  <p className="text-sub text-[15px] leading-relaxed">{t.certs.join(' · ')}</p>
+                  <p className="text-base font-semibold text-ink mb-2">{t.certs_label}</p>
+                  <p className="text-sub text-base leading-relaxed">{t.certs.join(' · ')}</p>
                 </div>
                 <div className="border-t border-line mt-5 pt-5">
-                  <p className="text-sm font-semibold text-ink mb-2">{t.book_label}</p>
-                  <p className="text-sub text-[15px]">{t.book}</p>
+                  <p className="text-base font-semibold text-ink mb-2">{t.book_label}</p>
+                  <p className="text-sub text-base">{t.book}</p>
                 </div>
                 <dl className="grid grid-cols-3 border-t border-ink mt-8">
                   {t.stats.map((st, i) => (
                     <div key={st.l} className={`pt-4 flex flex-col-reverse ${i > 0 ? 'pl-4 border-l border-line' : ''}`}>
-                      <dt className="text-xs sm:text-sm text-sub mt-1">{st.l}</dt>
+                      <dt className="text-base sm:text-base text-sub mt-1">{st.l}</dt>
                       <dd className="font-heading text-3xl md:text-4xl font-bold text-ink">
                         <CountUp to={st.n ?? ORG_COUNT} />{st.suffix}
                       </dd>
@@ -1153,7 +1153,7 @@ export default function App() {
                 <div className="flex flex-wrap gap-2 mt-8">
                   {t.links.map(l => (
                     <a key={l.href} href={l.href} target="_blank" rel="noreferrer"
-                      className="text-sm border border-line rounded-md px-3.5 py-2 text-sub hover:text-ink hover:border-ink transition-colors">
+                      className="text-base border border-line rounded-md px-3.5 py-2 text-sub hover:text-ink hover:border-ink transition-colors">
                       {l.label} <span className="arrow">↗</span>
                     </a>
                   ))}
@@ -1164,12 +1164,12 @@ export default function App() {
             <div className="md:col-span-12 mt-10">
               <div className="reveal flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-8">
                 <h3 className="text-2xl font-bold text-ink">{t.rec_title}</h3>
-                <p className="text-sm text-sub">{t.rec_note}</p>
+                <p className="text-base text-sub">{t.rec_note}</p>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
                 {t.org_groups.map((g, i) => (
                   <div key={g.name} className="reveal" style={{ '--d': `${i * 90}ms` }}>
-                    <p className="text-sm font-semibold text-ink pb-3 border-b border-ink mb-3">
+                    <p className="text-base font-semibold text-ink pb-3 border-b border-ink mb-3">
                       {g.name} <span className="text-sub font-normal tabular-nums">{g.items.length}</span>
                     </p>
                     <ul className="space-y-1.5 text-sub">
@@ -1190,21 +1190,21 @@ export default function App() {
               <SectionHead label={t.contact_label} title={t.contact_title} sub={t.contact_sub} />
               <dl className="reveal mt-10 space-y-5">
                 <div>
-                  <dt className="text-sm text-sub">{t.contact_mail}</dt>
+                  <dt className="text-base text-sub">{t.contact_mail}</dt>
                   <dd className="text-lg font-semibold text-ink select-all">{COMPANY.email}</dd>
                 </div>
                 {COMPANY.phone && (
                   <div>
-                    <dt className="text-sm text-sub">{t.contact_phone}</dt>
+                    <dt className="text-base text-sub">{t.contact_phone}</dt>
                     <dd className="text-lg font-semibold text-ink">{COMPANY.phone}</dd>
                   </div>
                 )}
                 <div>
-                  <dt className="text-sm text-sub">{t.contact_addr}</dt>
+                  <dt className="text-base text-sub">{t.contact_addr}</dt>
                   <dd className="text-ink">{lang === 'ko' ? COMPANY.address : COMPANY.address_en}</dd>
                 </div>
               </dl>
-              <p className="reveal text-sm text-accent_deep font-semibold mt-8">{t.tax_note}</p>
+              <p className="reveal text-base text-accent_deep font-semibold mt-8">{t.tax_note}</p>
             </div>
             <div className="reveal md:col-span-8" style={{ '--d': '100ms' }}>
               <ContactForm t={t} lang={lang} />
