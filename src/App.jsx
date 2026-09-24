@@ -118,7 +118,7 @@ const T = {
     ],
 
     fmt_label: '기관 교육 · 운영 형태',
-    fmt_title: '기관 상황에 맞는 단위로',
+    fmt_title: '기관 상황에 맞춤',
     formats: [
       { name: '특강', spec: '1회 · 2~3시간', desc: '조직 전체의 AI 이해와 인식 전환. 입문 대상, 워크숍·연수 프로그램에 적합' },
       { name: '단기 과정', spec: '3~5회 · 회당 2~3시간', desc: '실무 도구를 손에 익히는 실습 과정. 부서·직무별 구성' },
@@ -294,7 +294,7 @@ const T = {
     ],
 
     fmt_label: 'Training · Formats',
-    fmt_title: 'Sized to your organization',
+    fmt_title: 'Tailored to your organization',
     formats: [
       { name: 'Special lecture', spec: '1 session · 2–3 hrs', desc: 'Organization-wide AI awareness. Ideal for workshops and staff training days' },
       { name: 'Short course', spec: '3–5 sessions · 2–3 hrs each', desc: 'Hands-on practice with real work tools, by team or role' },
