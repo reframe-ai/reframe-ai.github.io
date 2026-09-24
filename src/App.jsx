@@ -70,12 +70,11 @@ const T = {
 
     co_label: '연혁',
     co_title: '현장에서 시작해, 법인이 되었습니다',
-    hist_tag_ceo: '대표 이력',
-    hist_tag_co: '법인',
+    hist_groups: { ceo: '대표의 현장', co: '주식회사 리프레임' },
     history: [
       { y: `${TEACHING_SINCE}`, t: '미디어 교육으로 강의 시작', who: 'ceo' },
-      { y: '2023', t: 'AI 교육 본격화 — 공공기관·기업·학교·평생학습관 출강 400시간 이상', who: 'ceo' },
-      { y: '2026.08', t: '주식회사 리프레임 설립 (전주)', who: 'co' },
+      { y: '2023~', t: 'AI 교육 본격화 — 공공기관·기업·학교·평생학습관 출강 400시간 이상', who: 'ceo' },
+      { y: '2026.08', t: '주식회사 리프레임 설립 (전주)', who: 'co', start: true },
       { y: NEWS_DATE, t: '인터넷 매체 Re:frame News 창간', who: 'co' },
       { y: '2026', t: '리프레임평생교육원 개원 준비', who: 'co' },
     ],
@@ -252,12 +251,11 @@ const T = {
 
     co_label: 'History',
     co_title: 'Born in the classroom, now a company',
-    hist_tag_ceo: 'Founder',
-    hist_tag_co: 'Company',
+    hist_groups: { ceo: "Founder's journey", co: 'Re:Frame Inc.' },
     history: [
       { y: `${TEACHING_SINCE}`, t: 'Began teaching in media education', who: 'ceo' },
-      { y: '2023', t: 'Focus on AI education — 400+ hours at public institutions, companies, schools', who: 'ceo' },
-      { y: '2026.08', t: 'Re:Frame Inc. founded in Jeonju', who: 'co' },
+      { y: '2023~', t: 'Focus on AI education — 400+ hours at public institutions, companies, schools', who: 'ceo' },
+      { y: '2026.08', t: 'Re:Frame Inc. founded in Jeonju', who: 'co', start: true },
       { y: NEWS_DATE, t: 'Launched Re:frame News', who: 'co' },
       { y: '2026', t: 'Preparing the Re:Frame Lifelong Learning Center', who: 'co' },
     ],
@@ -456,6 +454,57 @@ function Journey({ t }) {
         </ol>
       </div>
     </figure>
+  );
+}
+
+// ── 연혁 — 대표 이력(점선)에서 법인(실선)으로 이어지는 세로선 ─────
+// 구간 제목 행을 끼워 넣고, 행마다 제 몫의 선 조각을 그린다.
+// 법인 설립 이전 조각은 점선, 설립부터는 실선.
+function History({ t }) {
+  const rows = [];
+  t.history.forEach((h, i) => {
+    const prev = t.history[i - 1];
+    if (!prev || prev.who !== h.who) rows.push({ heading: t.hist_groups[h.who], who: h.who, first: !prev });
+    rows.push(h);
+  });
+  const lastIdx = rows.length - 1;
+  const startIdx = rows.findIndex(r => r.start);
+
+  return (
+    <ol className="relative">
+      {rows.map((r, i) => {
+        const dashed = 'border-sub/50 border-dashed';
+        const solid = 'border-ink border-solid';
+        const afterFirstHeading = rows[i - 1]?.first;
+        // 행마다 [위 조각: 윗변→점] + [아래 조각: 점→아랫변]. 점 중심 = 28px
+        const top = r.heading
+          ? (r.first ? null : { style: { top: 0, bottom: 0 }, cls: dashed })
+          : afterFirstHeading ? null : { style: { top: 0, height: '28px' }, cls: i <= startIdx ? dashed : solid };
+        const bottom = r.heading || i === lastIdx ? null
+          : { style: { top: '28px', bottom: 0 }, cls: i >= startIdx ? solid : dashed };
+        return (
+          <li key={r.heading ?? r.y + r.t} className={`relative pl-10 ${r.heading ? 'pt-8 first:pt-0 pb-1' : 'py-4'}`}>
+            {[top, bottom].filter(Boolean).map((seg, k) => (
+              <span key={k} aria-hidden="true" className={`absolute left-[11px] border-l-2 ${seg.cls}`} style={seg.style} />
+            ))}
+            {r.heading ? (
+              <p className={`text-sm font-bold tracking-wide ${r.who === 'co' ? 'text-ink' : 'text-sub'}`}>{r.heading}</p>
+            ) : (
+              <>
+                <span aria-hidden="true" className={`absolute top-[22px] rounded-full ${
+                  r.start ? 'left-[4px] w-4 h-4 bg-accent'
+                  : r.who === 'co' ? 'left-[6px] w-3 h-3 bg-ink'
+                  : 'left-[6px] w-3 h-3 bg-white border-2 border-sub/60'}`} />
+                <div className="grid grid-cols-[80px_1fr] md:grid-cols-[110px_1fr] gap-4">
+                  <span className={`font-heading font-bold tabular-nums ${r.who === 'co' ? 'text-ink' : 'text-sub'}`}>{r.y}</span>
+                  <span className={r.start ? 'text-ink font-semibold' : r.who === 'co' ? 'text-ink' : 'text-sub'}>{r.t}</span>
+                </div>
+              </>
+            )}
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -781,19 +830,7 @@ export default function App() {
             <SectionHead label={t.co_label} title={t.co_title} />
             <div className="md:col-span-8">
               <div className="reveal">
-                <ol className="border-t border-ink">
-                  {t.history.map(h => (
-                    <li key={h.y + h.t} className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 py-4 border-b border-line">
-                      <span className={`font-heading font-bold tabular-nums ${h.who === 'co' ? 'text-ink' : 'text-sub'}`}>{h.y}</span>
-                      <span>
-                        <span className={`inline-block text-[11px] font-semibold rounded px-1.5 py-0.5 mr-2 align-[2px] ${h.who === 'co' ? 'bg-accent_tint text-accent_deep' : 'bg-white text-sub border border-line'}`}>
-                          {h.who === 'co' ? t.hist_tag_co : t.hist_tag_ceo}
-                        </span>
-                        <span className={h.who === 'co' ? 'text-ink' : 'text-sub'}>{h.t}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ol>
+                <History t={t} />
               </div>
             </div>
           </div>

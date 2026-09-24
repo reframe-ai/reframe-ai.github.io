@@ -132,9 +132,9 @@ a:focus-visible .arrow {
 }
 
 /* ── 첫 화면 인포그래픽 — 배움의 여정 ────────────────────────── */
-/* 구슬이 7초마다 길을 따라 이동하며, 지나가는 노드를 차례로 주황색으로 켠다.
-   노드 i에 닿는 시점 = 5% + i × 18.75% (선형 이동, 80%에 끝 노드 도착) */
-:root { --journey-cycle: 7s; --journey-start: 3s; }
+/* 구슬이 9초마다 길을 따라 이동하며, 노드마다 잠깐 멈추고 그 노드를 주황색으로 켠다.
+   노드 i 도착 = 4% + i × 20%, 각 노드에서 6% 동안 머묾. 96~100%에 모두 흰색으로 복귀 */
+:root { --journey-cycle: 9s; --journey-start: 3s; }
 
 .journey {
     margin: 0;
@@ -195,30 +195,30 @@ a:focus-visible .arrow {
 @keyframes node-in { to { transform: scale(1); } }
 
 @keyframes lit-0 {
-    0%, 4.5%   { background: #FFFFFF; border-color: #1D1F24; }
-    5%, 93%    { background: #F4581C; border-color: #F4581C; }
+    0%, 3.9%   { background: #FFFFFF; border-color: #1D1F24; }
+    4%, 96%    { background: #F4581C; border-color: #F4581C; }
     100%       { background: #FFFFFF; border-color: #1D1F24; }
 }
 @keyframes lit-1 {
-    0%, 23.25% { background: #FFFFFF; border-color: #1D1F24; }
-    23.75%, 93% { background: #F4581C; border-color: #F4581C; }
+    0%, 23.9%  { background: #FFFFFF; border-color: #1D1F24; }
+    24%, 96%   { background: #F4581C; border-color: #F4581C; }
     100%       { background: #FFFFFF; border-color: #1D1F24; }
 }
 @keyframes lit-2 {
-    0%, 42%    { background: #FFFFFF; border-color: #1D1F24; }
-    42.5%, 93% { background: #F4581C; border-color: #F4581C; }
+    0%, 43.9%  { background: #FFFFFF; border-color: #1D1F24; }
+    44%, 96%   { background: #F4581C; border-color: #F4581C; }
     100%       { background: #FFFFFF; border-color: #1D1F24; }
 }
 @keyframes lit-3 {
-    0%, 60.75% { background: #FFFFFF; border-color: #1D1F24; }
-    61.25%, 93% { background: #F4581C; border-color: #F4581C; }
+    0%, 63.9%  { background: #FFFFFF; border-color: #1D1F24; }
+    64%, 96%   { background: #F4581C; border-color: #F4581C; }
     100%       { background: #FFFFFF; border-color: #1D1F24; }
 }
 @keyframes lit-4 {
-    0%, 79.5%  { background: #FFFFFF; border-color: #1D1F24; box-shadow: 0 0 0 0 rgba(244, 88, 28, 0); }
-    80%        { background: #F4581C; border-color: #F4581C; box-shadow: 0 0 0 0 rgba(244, 88, 28, .4); }
-    90%        { box-shadow: 0 0 0 14px rgba(244, 88, 28, 0); }
-    93%        { background: #F4581C; border-color: #F4581C; }
+    0%, 83.9%  { background: #FFFFFF; border-color: #1D1F24; box-shadow: 0 0 0 0 rgba(244, 88, 28, 0); }
+    84%        { background: #F4581C; border-color: #F4581C; box-shadow: 0 0 0 0 rgba(244, 88, 28, .4); }
+    93%        { box-shadow: 0 0 0 14px rgba(244, 88, 28, 0); }
+    96%        { background: #F4581C; border-color: #F4581C; }
     100%       { background: #FFFFFF; border-color: #1D1F24; box-shadow: 0 0 0 0 rgba(244, 88, 28, 0); }
 }
 
@@ -240,8 +240,8 @@ a:focus-visible .arrow {
     animation: end-title var(--journey-cycle) linear var(--journey-start) infinite;
 }
 @keyframes end-title {
-    0%, 79.5% { color: #1D1F24; }
-    80%, 93%  { color: #C93E0C; }
+    0%, 83.9% { color: #1D1F24; }
+    84%, 96%  { color: #C93E0C; }
     100%      { color: #1D1F24; }
 }
 .journey-desc { font-size: 14px; color: #5E6168; }
@@ -278,9 +278,12 @@ a:focus-visible .arrow {
 }
 @keyframes run-y {
     0%        { top: 0;    opacity: 0; }
-    5%        { top: 0;    opacity: 1; }
-    80%       { top: 100%; opacity: 1; }
-    84%, 100% { top: 100%; opacity: 0; }
+    4%, 10%   { top: 0;    opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+    24%, 30%  { top: 25%;  animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+    44%, 50%  { top: 50%;  animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+    64%, 70%  { top: 75%;  animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+    84%       { top: 100%; opacity: 1; }
+    90%, 100% { top: 100%; opacity: 0; }
 }
 
 /* 가로 흐름 (태블릿·PC) */
@@ -321,9 +324,12 @@ a:focus-visible .arrow {
     }
     @keyframes run-x {
         0%        { left: 0;    opacity: 0; }
-        5%        { left: 0;    opacity: 1; }
-        80%       { left: 100%; opacity: 1; }
-        84%, 100% { left: 100%; opacity: 0; }
+        4%, 10%   { left: 0;    opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+        24%, 30%  { left: 25%;  animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+        44%, 50%  { left: 50%;  animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+        64%, 70%  { left: 75%;  animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+        84%       { left: 100%; opacity: 1; }
+        90%, 100% { left: 100%; opacity: 0; }
     }
     .journey-title { font-size: 20px; }
 }
