@@ -1058,19 +1058,19 @@ export default function App() {
         {/* ── 대표 강사 ─────────────────────────────────────── */}
         <section id="ceo" className={section}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
-            <SectionHead label={t.inst_label} />
-            <div className="md:col-span-8 grid sm:grid-cols-12 gap-8">
-              <div className="reveal sm:col-span-4">
-                <div className="overflow-hidden rounded-lg aspect-[3/4] bg-surface max-w-[280px]">
-                  <img
-                    src={`${import.meta.env.BASE_URL}profile_seonrye_tall.jpg`}
-                    alt={t.inst_name}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top"
-                  />
-                </div>
+            <div className="md:col-span-4">
+              <SectionHead label={t.inst_label} />
+              <div className="reveal mt-2 overflow-hidden rounded-lg aspect-[3/4] bg-surface max-w-[280px]" style={{ '--d': '80ms' }}>
+                <img
+                  src={`${import.meta.env.BASE_URL}profile_seonrye_tall.jpg`}
+                  alt={t.inst_name}
+                  loading="lazy"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
-              <div className="reveal sm:col-span-8" style={{ '--d': '100ms' }}>
+            </div>
+            <div className="md:col-span-8">
+              <div className="reveal" style={{ '--d': '100ms' }}>
                 <h3 className="text-3xl font-bold text-ink">{t.inst_name}</h3>
                 <p className="text-accent_deep font-semibold mt-1 mb-6">{t.inst_role}</p>
                 <p className="text-ink"><span className="font-semibold">{t.univ}</span> — {t.univ_sub}</p>
