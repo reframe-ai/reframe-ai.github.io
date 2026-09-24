@@ -471,7 +471,7 @@ function Wordmark({ className = '' }) {
 function SectionHead({ label, title, sub }) {
   return (
     <div className="reveal md:col-span-4">
-      <p className="text-sm font-semibold text-accent_deep mb-3">{label}</p>
+      <p className="text-base md:text-lg font-bold text-accent_deep mb-3 md:mb-4">{label}</p>
       {title && <h2 className="text-3xl md:text-4xl font-bold leading-[1.2] text-ink">{title}</h2>}
       {sub && <p className="text-sub mt-4 leading-relaxed">{sub}</p>}
     </div>
@@ -684,7 +684,7 @@ export default function App() {
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className="pt-28 md:pt-36 pb-20 md:pb-28">
           <div className={container}>
-            <p className="fade-in text-sm font-semibold text-sub mb-6 md:mb-8">{t.hero_eyebrow}</p>
+            <p className="fade-in text-base md:text-lg font-semibold text-sub mb-5 md:mb-7">{t.hero_eyebrow}</p>
             <h1 key={lang} className="text-[40px] leading-[1.14] sm:text-6xl md:text-7xl xl:text-[88px] font-bold text-ink">
               {t.hero_lines.map((line, i) => (
                 <span key={i} className="line-mask">
