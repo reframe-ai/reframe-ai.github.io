@@ -130,3 +130,170 @@ a:focus-visible .arrow {
     .btn-fill, .arrow, .fold { transition: none; }
     html { scroll-behavior: auto; }
 }
+
+/* ── 첫 화면 인포그래픽 — 배움의 여정 ────────────────────────── */
+.journey {
+    margin: 0;
+    background: #F4F4F1;
+    border-radius: 8px;
+    padding: 28px 24px 32px;
+}
+.journey-cap {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5E6168;
+    margin-bottom: 28px;
+    animation: fade-in .8s var(--ease-out) both;
+    animation-delay: 700ms;
+}
+.journey-track { position: relative; }
+.journey-list {
+    display: grid;
+    gap: 26px;
+    padding-left: 40px;
+}
+.journey-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fade-in .7s var(--ease-out) forwards;
+    animation-delay: calc(1000ms + var(--i) * 320ms);
+}
+.journey-node {
+    position: absolute;
+    left: -40px;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid #1D1F24;
+    transform: scale(0);
+    animation: node-in .5s var(--ease-out) forwards;
+    animation-delay: calc(950ms + var(--i) * 320ms);
+}
+.journey-step.is-end .journey-node {
+    width: 24px;
+    height: 24px;
+    left: -43px;
+    top: 0;
+    background: #F4581C;
+    border-color: #F4581C;
+    box-shadow: 0 0 0 0 rgba(244, 88, 28, .35);
+    animation: node-in .5s var(--ease-out) forwards, glow 2.4s ease-out 3.4s 2;
+}
+@keyframes node-in { to { transform: scale(1); } }
+@keyframes glow {
+    0%   { box-shadow: 0 0 0 0 rgba(244, 88, 28, .35); }
+    100% { box-shadow: 0 0 0 14px rgba(244, 88, 28, 0); }
+}
+.journey-no {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    color: #5E6168;
+    font-variant-numeric: tabular-nums;
+}
+.journey-title {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 700;
+    color: #1D1F24;
+    letter-spacing: -0.01em;
+}
+.journey-step.is-end .journey-title { color: #C93E0C; }
+.journey-desc { font-size: 14px; color: #5E6168; }
+
+/* 세로 선 (휴대폰) */
+.journey-line {
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    bottom: 44px;
+    width: 2px;
+}
+.journey-line-fill {
+    position: absolute;
+    inset: 0;
+    background: #1D1F24;
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: draw-y 1.8s cubic-bezier(.45, 0, .2, 1) forwards;
+    animation-delay: 800ms;
+}
+@keyframes draw-y { to { transform: scaleY(1); } }
+.journey-runner {
+    position: absolute;
+    left: -3px;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #F4581C;
+    opacity: 0;
+    animation: run-y 6s ease-in-out infinite;
+    animation-delay: 3.4s;
+}
+@keyframes run-y {
+    0%   { top: 0;    opacity: 0; }
+    8%   { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* 가로 흐름 (태블릿·PC) */
+@media (min-width: 768px) {
+    .journey {
+        aspect-ratio: 2000 / 479;
+        padding: 36px 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .journey-cap { margin-bottom: 36px; }
+    .journey-list {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 16px;
+        padding-left: 0;
+        padding-top: 42px;
+    }
+    .journey-node { left: 0; top: -42px; }
+    .journey-step.is-end .journey-node { left: -3px; top: -45px; }
+    .journey-line {
+        left: 9px;
+        top: 8px;
+        bottom: auto;
+        width: calc(80% + 16px);
+        height: 2px;
+    }
+    .journey-line-fill {
+        transform: scaleX(0);
+        transform-origin: left;
+        animation-name: draw-x;
+    }
+    @keyframes draw-x { to { transform: scaleX(1); } }
+    .journey-runner {
+        top: -3px;
+        left: 0;
+        animation-name: run-x;
+    }
+    @keyframes run-x {
+        0%   { left: 0;    opacity: 0; }
+        8%   { opacity: 1; }
+        85%  { opacity: 1; }
+        100% { left: 100%; opacity: 0; }
+    }
+    .journey-title { font-size: 20px; }
+}
+@media (min-width: 1280px) {
+    .journey-title { font-size: 22px; }
+    .journey-desc { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .journey-cap, .journey-step, .journey-node, .journey-line-fill { animation: none; opacity: 1; transform: none; }
+    .journey-runner { display: none; }
+}

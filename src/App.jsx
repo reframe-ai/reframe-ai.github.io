@@ -33,7 +33,14 @@ const T = {
     hero_sub: 'AI가 바꾸는 세상에서, 누구나 자기 속도로 배우고 새로운 가능성을 열 수 있는 교육을 만듭니다.',
     hero_cta1: '출강 문의하기',
     hero_cta2: '교육 분야 보기',
-    hero_photo_alt: '성인 학습자들이 노트북으로 AI 실습을 하는 강의실',
+    journey_cap: '배움이 가능성이 되는 길',
+    journey: [
+      { t: '처음 만나기', d: 'AI 리터러시 · 디지털 기초' },
+      { t: '일에 쓰기', d: '업무 활용 · 데이터 · 자동화' },
+      { t: '직접 만들기', d: '바이브코딩 · 에이전트 · 콘텐츠' },
+      { t: '가르치고 나누기', d: '강사 양성 · 지역 프로젝트' },
+      { t: '새로운 가능성', d: '자기 속도로, 삶과 일에서', end: true },
+    ],
     stats: [
       { n: TEACHING_YEARS, suffix: '년', l: `강의 경력 (${TEACHING_SINCE}~)` },
       { n: 400, suffix: '+', l: 'AI 교육 시간 (2023~)' },
@@ -217,7 +224,14 @@ const T = {
     hero_sub: 'In a world reshaped by AI, we build education that lets anyone learn at their own pace and open new possibilities.',
     hero_cta1: 'Request a lecture',
     hero_cta2: 'See programs',
-    hero_photo_alt: 'Adult learners practicing AI tools on laptops in a classroom',
+    journey_cap: 'How learning becomes possibility',
+    journey: [
+      { t: 'First encounter', d: 'AI literacy · digital basics' },
+      { t: 'Use it at work', d: 'Work tasks · data · automation' },
+      { t: 'Build your own', d: 'Vibe coding · agents · content' },
+      { t: 'Teach & share', d: 'Trainer programs · local projects' },
+      { t: 'New possibilities', d: 'At your own pace, in life and work', end: true },
+    ],
     stats: [
       { n: TEACHING_YEARS, suffix: ' yrs', l: `Teaching (since ${TEACHING_SINCE})` },
       { n: 400, suffix: '+', l: 'AI lecture hours (2023~)' },
@@ -436,6 +450,31 @@ function CountUp({ to }) {
   }, [to]);
 
   return <span ref={ref} className="tabular-nums">{val}</span>;
+}
+
+// ── 첫 화면 인포그래픽 — 배움의 여정 ───────────────────────────
+function Journey({ t }) {
+  return (
+    <figure className="journey" aria-label={t.journey_cap}>
+      <figcaption className="journey-cap">{t.journey_cap}</figcaption>
+      <div className="journey-track">
+        <div className="journey-line" aria-hidden="true">
+          <span className="journey-line-fill" />
+          <span className="journey-runner" />
+        </div>
+        <ol className="journey-list">
+          {t.journey.map((s, i) => (
+            <li key={s.t} className={`journey-step ${s.end ? 'is-end' : ''}`} style={{ '--i': i }}>
+              <span className="journey-node" aria-hidden="true" />
+              {!s.end && <span className="journey-no">{String(i + 1).padStart(2, '0')}</span>}
+              <strong className="journey-title">{s.t}</strong>
+              <span className="journey-desc">{s.d}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </figure>
+  );
 }
 
 // ── 워드마크 — 콜론만 주황색 ───────────────────────────────────
@@ -661,10 +700,7 @@ export default function App() {
       <main id="top">
 
         {/* ── HERO ─────────────────────────────────────────── */}
-        <section
-          className="pt-28 md:pt-36"
-          style={{ background: 'linear-gradient(to bottom, #FFFFFF calc(100% - 22%), #F4F4F1 calc(100% - 22%))' }}
-        >
+        <section className="pt-28 md:pt-36 pb-20 md:pb-28">
           <div className={container}>
             <p className="fade-in text-sm font-semibold text-sub mb-6 md:mb-8">{t.hero_eyebrow}</p>
             <h1 key={lang} className="text-[40px] leading-[1.14] sm:text-6xl md:text-7xl xl:text-[88px] font-bold text-ink">
@@ -692,15 +728,8 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="photo-in mt-12 md:mt-16 mx-auto max-w-[1600px] md:px-10">
-            <div className="overflow-hidden md:rounded-lg h-[56vw] max-h-[640px] min-h-[260px] bg-surface">
-              <img
-                src={`${import.meta.env.BASE_URL}hero/hero-3.jpg`}
-                alt={t.hero_photo_alt}
-                className="parallax w-full h-full object-cover object-[50%_40%]"
-                fetchPriority="high"
-              />
-            </div>
+          <div className={`${container} mt-12 md:mt-16`}>
+            <Journey t={t} />
           </div>
         </section>
 
