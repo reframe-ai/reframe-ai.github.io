@@ -62,7 +62,7 @@ const T = {
     ],
 
     biz_label: '사업 영역',
-    biz_title: '교육을 중심으로, 세 갈래로 일합니다',
+    biz_title: '리프레임 3대 영역',
     biz: [
       { name: '기관 교육', desc: '공공기관·기업·학교·평생학습관 출강, 교육과정 설계와 컨설팅, 교재·실습 콘텐츠 개발', link: '#programs', cta: '교육 분야 보기' },
       { name: 'Re:frame News', desc: '교육자와 평생학습을 위한 인터넷 매체. AI 활용, 교육 정책, 지역의 배움 소식을 전합니다.', link: NEWS_URL, cta: '매체 바로가기', external: true },
@@ -70,7 +70,7 @@ const T = {
     ],
 
     co_label: '연혁',
-    co_title: '현장에서 시작해, 법인이 되었습니다',
+    co_title: '현장에서 법인까지',
     hist_groups: { ceo: '대표의 현장', co: '주식회사 리프레임' },
     history: [
       { y: `${TEACHING_SINCE}`, t: '미디어 교육으로 강의 시작', who: 'ceo' },
@@ -129,13 +129,14 @@ const T = {
 
     proc_label: '기관 교육 · 진행 방식',
     proc_title: '문의에서 결과보고까지',
+    proc_sub: '처음 연락부터 교육이 끝난 뒤의 보고까지, 담당자가 준비할 것을 줄여 드립니다.',
     steps: [
-      { t: '문의', d: '문의 폼이나 메일로 기관과 희망 교육을 알려 주세요.' },
-      { t: '사전 협의', d: '대상, 인원, 목적, 장소와 장비(PC실 여부)를 확인합니다.' },
-      { t: '커리큘럼 제안', d: '차시별 구성과 강사 이력을 담은 제안서를 드립니다. 내부 결재 자료로 쓰실 수 있습니다.' },
-      { t: '계약', d: '법인 명의로 계약하고 세금계산서를 발행합니다.' },
-      { t: '교육 운영', d: '교안과 실습 자료를 제공하고, 수준에 맞춰 속도를 조절합니다.' },
-      { t: '결과보고', d: '출석과 만족도, 현장 기록을 담은 결과보고서를 드립니다.' },
+      { t: '문의', d: '문의 폼이나 메일로 기관과 희망 교육을 알려 주세요.', out: ['문의 폼', '메일'] },
+      { t: '사전 협의', d: '대상, 인원, 목적, 장소와 장비(PC실 여부)를 확인합니다.', out: ['대상 · 인원', '장소 · 장비'] },
+      { t: '커리큘럼 제안', d: '차시별 구성과 강사 이력을 담은 제안서를 드립니다. 내부 결재 자료로 쓰실 수 있습니다.', out: ['차시별 구성안', '강사 이력서'] },
+      { t: '계약', d: '법인 명의로 계약하고 세금계산서를 발행합니다.', out: ['법인 계약', '세금계산서'] },
+      { t: '교육 운영', d: '교안과 실습 자료를 제공하고, 수준에 맞춰 속도를 조절합니다.', out: ['교안', '실습 자료'] },
+      { t: '결과보고', d: '출석과 만족도, 현장 기록을 담은 결과보고서를 드립니다.', out: ['출석 · 만족도', '결과보고서'] },
     ],
 
     inst_label: '대표 소개',
@@ -237,7 +238,7 @@ const T = {
     ],
 
     biz_label: 'What we do',
-    biz_title: 'Education at the center, in three ways',
+    biz_title: "Re:Frame's three areas",
     biz: [
       { name: 'Institutional training', desc: 'On-site lectures for public institutions, companies, schools and learning centers; curriculum design and consulting; learning materials.', link: '#programs', cta: 'See programs' },
       { name: 'Re:frame News', desc: 'An online publication for educators and lifelong learning — AI in practice, education policy, local learning news.', link: NEWS_URL, cta: 'Visit', external: true },
@@ -245,7 +246,7 @@ const T = {
     ],
 
     co_label: 'History',
-    co_title: 'Born in the classroom, now a company',
+    co_title: 'From the classroom to a company',
     hist_groups: { ceo: "Founder's journey", co: 'Re:Frame Inc.' },
     history: [
       { y: `${TEACHING_SINCE}`, t: 'Began teaching in media education', who: 'ceo' },
@@ -304,13 +305,14 @@ const T = {
 
     proc_label: 'Training · Process',
     proc_title: 'From inquiry to final report',
+    proc_sub: 'From the first call to the final report, we keep your preparation to a minimum.',
     steps: [
-      { t: 'Inquiry', d: 'Tell us about your organization and the training you need.' },
-      { t: 'Consultation', d: 'We confirm audience, group size, goals, venue and equipment.' },
-      { t: 'Proposal', d: 'You receive a session-by-session curriculum and instructor profile for internal approval.' },
-      { t: 'Contract', d: 'Signed with Re:Frame Inc.; tax invoice issued.' },
-      { t: 'Delivery', d: 'Materials provided; pace adjusted to learners.' },
-      { t: 'Final report', d: 'Attendance, satisfaction and field notes in one report.' },
+      { t: 'Inquiry', d: 'Tell us about your organization and the training you need.', out: ['Form', 'Email'] },
+      { t: 'Consultation', d: 'We confirm audience, group size, goals, venue and equipment.', out: ['Audience · size', 'Venue · equipment'] },
+      { t: 'Proposal', d: 'You receive a session-by-session curriculum and instructor profile for internal approval.', out: ['Session plan', 'Instructor profile'] },
+      { t: 'Contract', d: 'Signed with Re:Frame Inc.; tax invoice issued.', out: ['Corporate contract', 'Tax invoice'] },
+      { t: 'Delivery', d: 'Materials provided; pace adjusted to learners.', out: ['Slides', 'Practice materials'] },
+      { t: 'Final report', d: 'Attendance, satisfaction and field notes in one report.', out: ['Attendance · survey', 'Final report'] },
     ],
 
     inst_label: 'Founder',
@@ -619,21 +621,61 @@ function History({ t }) {
   );
 }
 
-// ── 진행 방식 아이콘 — 화면에 들어오면 선이 그려짐 (pathLength=100) ───
-const STEP_ICONS = [
-  // 문의
-  <><rect x="3" y="5" width="18" height="14" rx="2" pathLength="100" /><path d="m3.5 7 8.5 6 8.5-6" pathLength="100" /></>,
-  // 사전 협의
-  <><path d="M20 12a8 8 0 0 1-11.3 7.3L4 20.5l1.2-4.4A8 8 0 1 1 20 12Z" pathLength="100" /><path d="M8.5 10.5h7M8.5 14h4.5" pathLength="100" /></>,
-  // 커리큘럼 제안
-  <><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z" pathLength="100" /><path d="M14 3v5h5M9 13h6M9 17h4" pathLength="100" /></>,
-  // 계약
-  <><path d="M14.5 4.5l5 5L9 20H4v-5Z" pathLength="100" /><path d="M12.5 6.5l5 5M3 21h18" pathLength="100" /></>,
-  // 교육 운영
-  <><path d="M3 4h18M5 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4" pathLength="100" /><path d="M12 15v3M8 21l4-3 4 3" pathLength="100" /></>,
-  // 결과보고
-  <><path d="M3 20h18" pathLength="100" /><path d="M6 20v-7M11 20V5M16 20v-10" pathLength="100" /><path d="m5 9 5-4 5 3 5-4" pathLength="100" /></>,
-];
+
+// ── 진행 방식 — 스크롤에 따라 레일이 차오르고, 닿은 단계가 켜짐 ─────
+function ProcessSteps({ steps }) {
+  const listRef = useRef(null);
+  // 동작 줄이기 설정이면 처음부터 모두 켠 상태로
+  const [still] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [progress, setProgress] = useState(still ? 1 : 0);          // 0~1, 레일이 찬 비율
+  const [active, setActive] = useState(still ? steps.length - 1 : -1); // 켜진 마지막 단계
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list || still) return;
+    const update = () => {
+      const mark = window.innerHeight * 0.6;          // 화면 60% 지점을 기준선으로
+      const nodes = [...list.querySelectorAll('.proc-node')].map(n => {
+        const r = n.getBoundingClientRect();
+        return r.top + r.height / 2;
+      });
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      const p = Math.min(Math.max((mark - first) / (last - first), 0), 1);
+      setProgress(p);
+      setActive(nodes.reduce((a, y, i) => (y <= mark ? i : a), -1));
+    };
+    const onScroll = () => update();
+    const first = setTimeout(update, 0);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      clearTimeout(first);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [still]);
+
+  return (
+    <ol ref={listRef} className="proc relative" style={{ '--proc': progress }}>
+      <span aria-hidden="true" className="proc-rail" />
+      <span aria-hidden="true" className="proc-fill" />
+      {steps.map((s, i) => (
+        <li key={s.t} className={`proc-step ${i <= active ? 'is-on' : ''}`}>
+          <span aria-hidden="true" className="proc-node" />
+          <span aria-hidden="true" className="proc-no">{String(i + 1).padStart(2, '0')}</span>
+          <div className="proc-body">
+            <h3 className="text-2xl md:text-[28px] font-bold text-ink mb-2">{s.t}</h3>
+            <p className="text-sub leading-relaxed max-w-lg">{s.d}</p>
+            <ul className="flex flex-wrap gap-2 mt-4">
+              {s.out.map(o => <li key={o} className="proc-chip">{o}</li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
 
 // ── 워드마크 — 콜론만 주황색 ───────────────────────────────────
 function Wordmark({ className = '' }) {
@@ -1028,30 +1070,14 @@ export default function App() {
         {/* ── 진행 방식 ─────────────────────────────────────── */}
         <section id="process" className={`${section} bg-surface`}>
           <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
-            <SectionHead label={t.proc_label} title={t.proc_title} />
-            <ol className="md:col-span-12 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 xl:gap-5">
-              {t.steps.map((s, i) => (
-                <li key={s.t} className="reveal relative" style={{ '--d': `${i * 90}ms` }}>
-                  <div className="h-full bg-white border border-line rounded-lg p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(29,31,36,.07)]">
-                    <div className="flex items-start justify-between mb-6">
-                      <span className="w-14 h-14 rounded-lg bg-accent_tint text-accent_deep flex items-center justify-center">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="step-icon w-7 h-7" aria-hidden="true">
-                          {STEP_ICONS[i]}
-                        </svg>
-                      </span>
-                      <span className="font-heading text-2xl font-bold text-line tabular-nums leading-none">{String(i + 1).padStart(2, '0')}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-ink mb-2">{s.t}</h3>
-                    <p className="text-sub text-[15px] leading-relaxed">{s.d}</p>
-                  </div>
-                  {i < t.steps.length - 1 && (
-                    <span aria-hidden="true" className={`step-arrow hidden ${i % 3 !== 2 ? 'lg:flex' : ''} xl:flex`}>
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3"><path d="M6 3l5 5-5 5" /></svg>
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ol>
+            <div className="md:col-span-4">
+              <div className="md:sticky md:top-32">
+                <SectionHead label={t.proc_label} title={t.proc_title} sub={t.proc_sub} />
+              </div>
+            </div>
+            <div className="md:col-span-8">
+              <ProcessSteps steps={t.steps} />
+            </div>
           </div>
         </section>
 
