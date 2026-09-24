@@ -29,7 +29,7 @@ const T = {
     menu: '메뉴',
 
     hero_eyebrow: '주식회사 리프레임 · 교육 전문기업',
-    hero_lines: [['새로운 시대의 가능성은,'], [{ em: '배움' }, '에서 열립니다.']],
+    hero_lines: [['새로운 시대의 가능성,'], [{ em: '배움' }, '에서 열립니다.']],
     hero_sub: 'AI가 바꾸는 세상에서, 누구나 자기 속도로 배우고 새로운 가능성을 열 수 있는 교육을 만듭니다.',
     hero_cta1: '출강 문의하기',
     hero_cta2: '교육 분야 보기',
@@ -81,7 +81,7 @@ const T = {
 
     exp_label: '기관 교육',
     exp_title: '설계부터 콘텐츠, 현장까지',
-    exp_sub: '공공기관·기업·학교·평생학습관을 찾아가, 실습 중심 AI 교육을 운영합니다.',
+    exp_sub: '공공기관·기업·학교·평생학습관을 찾아가,\n실습 중심 AI 교육을 운영합니다.',
     exp: [
       { title: '맞춤형 교육 설계', desc: '평생교육·HRD 석사와 직업능력훈련교사의 전문성으로, 대상·목적·환경에 맞는 교육과정을 설계합니다.' },
       { title: 'AI 콘텐츠 개발', desc: '빠르게 변화하는 AI 환경을 반영해 교재와 실습 자료, 커리큘럼을 직접 기획하고 개발합니다.' },
@@ -434,10 +434,32 @@ function CountUp({ to }) {
 
 // ── 첫 화면 인포그래픽 — 배움의 여정 ───────────────────────────
 function Journey({ t }) {
+  const trackRef = useRef(null);
+
+  // 노드 중심이 선의 시작점에서 몇 px 떨어져 있는지 재서 --p0~--p4로 넘긴다.
+  // 구슬 애니메이션이 이 값으로 "테두리에 닿는 지점"을 계산한다.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const measure = () => {
+      const line = track.querySelector('.journey-line').getBoundingClientRect();
+      const horizontal = window.matchMedia('(min-width: 768px)').matches;
+      track.querySelectorAll('.journey-node').forEach((node, i) => {
+        const r = node.getBoundingClientRect();
+        const c = horizontal ? r.left + r.width / 2 - line.left : r.top + r.height / 2 - line.top;
+        track.style.setProperty(`--p${i}`, `${c.toFixed(1)}px`);
+      });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(track);
+    return () => ro.disconnect();
+  }, [t]);
+
   return (
     <figure className="journey" aria-label={t.journey_cap}>
       <figcaption className="journey-cap">{t.journey_cap}</figcaption>
-      <div className="journey-track">
+      <div className="journey-track" ref={trackRef}>
         <div className="journey-line" aria-hidden="true">
           <span className="journey-line-fill" />
           <span className="journey-runner" />
@@ -522,7 +544,7 @@ function SectionHead({ label, title, sub }) {
     <div className="reveal md:col-span-4">
       <p className="text-base md:text-lg font-bold text-accent_deep mb-3 md:mb-4">{label}</p>
       {title && <h2 className="text-3xl md:text-4xl font-bold leading-[1.2] text-ink">{title}</h2>}
-      {sub && <p className="text-sub mt-4 leading-relaxed">{sub}</p>}
+      {sub && <p className="text-sub mt-4 leading-relaxed whitespace-pre-line">{sub}</p>}
     </div>
   );
 }
