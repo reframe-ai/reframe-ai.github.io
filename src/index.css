@@ -2,56 +2,131 @@
 @config "../tailwind.config.mjs";
 
 :root {
-    --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --font-heading: "Paperlogy", "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", sans-serif;
+    --font-body: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+    --font-heading: "Paperlogy", "Pretendard", "Apple SD Gothic Neo", sans-serif;
+    --ease-out: cubic-bezier(.2, .7, .1, 1);
+}
+
+html {
+    scroll-padding-top: 80px;
 }
 
 body {
     font-family: var(--font-body);
+    background: #FFFFFF;
+    color: #1D1F24;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4,
+h1, h2, h3,
 .font-heading {
     font-family: var(--font-heading);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
 }
 
-/* 히어로 배경 슬라이드 — 미세 확대·이동 (Ken Burns) */
-@keyframes kenburns {
-    0%   { transform: scale(1.05) translate(0%, 0%); }
-    100% { transform: scale(1.13) translate(-1.2%, 0.8%); }
+:focus-visible {
+    outline: 2px solid #C93E0C;
+    outline-offset: 3px;
 }
 
-.hero-slide {
-    animation: kenburns 16s ease-in-out infinite alternate;
-    will-change: transform;
+/* ── 등장 효과 — 스크롤로 화면에 들어올 때 한 번만 ─────────── */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+    transition-delay: var(--d, 0ms);
+}
+.js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ── 첫 화면 제목 — 줄 단위로 올라오며 나타남 ──────────────── */
+.line-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: .08em;
+}
+.line-mask > span {
+    display: block;
+    animation: line-up .9s var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
+}
+@keyframes line-up {
+    from { transform: translateY(105%); }
+    to   { transform: none; }
+}
+
+.fade-in {
+    animation: fade-in 1s var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
+}
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.photo-in {
+    animation: photo-in 1.4s var(--ease-out) both;
+    animation-delay: 250ms;
+}
+@keyframes photo-in {
+    from { opacity: 0; transform: scale(1.04); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* 사진이 글보다 조금 느리게 움직이는 깊이감 (지원 브라우저만) */
+@supports (animation-timeline: view()) {
+    .parallax {
+        animation: parallax linear both;
+        animation-timeline: view();
+    }
+    @keyframes parallax {
+        from { transform: translateY(-4%) scale(1.08); }
+        to   { transform: translateY(4%) scale(1.08); }
+    }
+}
+
+/* ── 버튼 — 배경이 왼쪽부터 채워지고 화살표가 이동 ─────────── */
+.btn-fill {
+    background-image: linear-gradient(#C93E0C, #C93E0C);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size .45s var(--ease-out), color .3s, border-color .3s;
+}
+.btn-fill:hover,
+.btn-fill:focus-visible {
+    background-size: 100% 100%;
+    border-color: #C93E0C;
+}
+.arrow {
+    display: inline-block;
+    transition: transform .3s var(--ease-out);
+}
+a:hover .arrow,
+button:hover .arrow,
+a:focus-visible .arrow {
+    transform: translateX(4px);
+}
+
+/* ── 펼침 목록 ────────────────────────────────────────────── */
+.fold {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .45s var(--ease-out);
+}
+.fold.open {
+    grid-template-rows: 1fr;
+}
+.fold > div {
+    overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hero-slide { animation: none; }
-}
-
-details>summary {
-    list-style: none;
-}
-
-details>summary::-webkit-details-marker {
-    display: none;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #FBF8F2;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #C93E0C;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #F4581C;
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .line-mask > span, .fade-in, .photo-in, .parallax { animation: none; }
+    .btn-fill, .arrow, .fold { transition: none; }
+    html { scroll-behavior: auto; }
 }

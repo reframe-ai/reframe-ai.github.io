@@ -1,1005 +1,947 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 
+// ── 회사 기본 정보 — 값이 비어 있으면 화면에 표시하지 않음 ─────────
+const COMPANY = {
+  email: 'so@re-frame.kr',
+  address: '전북특별자치도 전주시 덕진구 솔내로 128, 3층',
+  address_en: '3F, 128 Solnae-ro, Deokjin-gu, Jeonju, Jeonbuk, Korea',
+  bizNo: '',   // 사업자등록번호 — 받으면 입력
+  phone: '',   // 대표 전화 — 받으면 입력
+};
+
+const NEWS_URL = 'https://re-frame.kr';
+
 // ── 번역 텍스트 ────────────────────────────────────────────────
 const T = {
   ko: {
-    nav: { about: '소개', areas: '강의 분야', education: '교육 과정', instructors: '강사 소개', contact: '문의하기' },
-    badge: 'AI 교육 전문 Re:Frame',
-    h1: 'AI와 함께,',
-    h2_accent: '가능성을',
-    h2_rest: ' 열다.',
-    sub: '천천히, 제대로 배우는 AI 교육 —\nRe:Frame은 도구 사용법을 넘어 AI와 함께 생각하고 만드는 힘을 키웁니다.\n처음 배우는 시니어부터 실무에 적용하려는 직장인까지,\n학습자의 눈높이에 맞춘 실습 중심 AI 교육을 설계하고 운영합니다.',
-    cta1: '강의 분야 보기',
-    cta2: '강사진 보기',
-    cta3: '강의 문의하기',
-    about_title: 'About Re:Frame',
-    about_head1: '배움의 프레임을 다시 짜는',
-    about_head2: 'AI 교육 전문기업',
-    company_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 그리고 기술을 읽고 소통하는 문해력을 바탕으로 누구나 자기 속도로 익힐 수 있는 AI 교육을 기획·개발합니다. 또한 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대 배움의 새로운 프레임을 제시합니다.',
+    nav: [
+      { href: '#about', label: '회사 소개' },
+      { href: '#business', label: '사업 영역' },
+      { href: '#programs', label: '교육 분야' },
+      { href: '#process', label: '진행 방식' },
+      { href: '#instructor', label: '대표 강사' },
+      { href: '#record', label: '실적' },
+    ],
+    nav_cta: '출강 문의',
+    menu: '메뉴',
+
+    hero_eyebrow: '주식회사 리프레임 · AI 교육 전문기업',
+    hero_lines: ['AI 시대,', '배움의 틀을', '다시 짭니다.'],
+    hero_sub: '공공기관·기업·학교·평생학습 현장에서, 성인이 자기 속도로 익히는 실습 중심 AI 교육을 설계하고 운영합니다.',
+    hero_cta1: '출강 문의하기',
+    hero_cta2: '교육 분야 보기',
+    hero_photo_alt: '성인 학습자들이 노트북으로 AI 실습을 하는 강의실',
+    stats: [
+      { n: 10, suffix: '년+', l: '강의 경력' },
+      { n: 400, suffix: '+', l: 'AI 교육 시간 (2023~)' },
+      { n: null, suffix: '곳', l: '출강 기관' },
+      { n: 14, suffix: '개', l: '강의 분야' },
+    ],
+    stats_note: '대표 강사 박선례 기준',
+
+    about_label: '회사 소개',
+    about_meaning: '새로운 시대에 맞게, 생각과 가치의 틀을 다시 짭니다.',
+    about_p: '(주)리프레임은 지역과 함께 성장하려는 마음, 성인의 배움에 대한 믿음, 기술을 읽고 소통하는 문해력을 바탕으로 누구나 자기 속도로 익힐 수 있는 AI 교육을 기획·개발합니다. 공공기관·기업·평생교육기관과 함께 실습 중심의 교육을 운영하며, AI 시대 배움의 새로운 프레임을 제시합니다.',
     about_facts: [
       { k: '교육 철학', v: '자기주도 · 평생학습' },
       { k: '주요 활동 지역', v: '전북 · 전남' },
+      { k: '본사', v: '전주' },
     ],
-    about_values: [
-      { icon: 'region', title: '지역과 함께 성장합니다', desc: '전북에 뿌리를 두고 활동합니다. AI 시대에 지역이 소외되지 않도록, 배움의 기회를 지역 곳곳으로 넓힙니다.' },
-      { icon: 'adult', title: '성인의 배움을 믿습니다', desc: '늦은 배움은 없습니다. 중장년·시니어도 자기 속도로 익힐 수 있도록, 성인 학습의 원리로 교육을 설계합니다.' },
-      { icon: 'literacy', title: '문해력과 소통을 중심에 둡니다', desc: '도구 사용법을 넘어 기술을 읽고, 판단하고, 소통하는 힘 — AI 리터러시가 모든 수업의 바탕입니다.' },
+    values: [
+      { title: '지역과 함께 성장합니다', desc: '전북에 뿌리를 두고 활동합니다. AI 시대에 지역이 소외되지 않도록, 배움의 기회를 지역 곳곳으로 넓힙니다.' },
+      { title: '성인의 배움을 믿습니다', desc: '늦은 배움은 없습니다. 중장년·시니어도 자기 속도로 익힐 수 있도록, 성인 학습의 원리로 교육을 설계합니다.' },
+      { title: '문해력과 소통을 중심에 둡니다', desc: '도구 사용법을 넘어 기술을 읽고, 판단하고, 소통하는 힘 — AI 리터러시가 모든 수업의 바탕입니다.' },
     ],
-    exp_badge: "Re:Frame's expertise",
-    exp_head1: '배움과 AI를 잇는',
-    exp_head2: '세 가지 전문 역량',
-    exp_sub: '설계부터 콘텐츠, 현장까지 — 교육 전 과정을 아우르는 전문성으로 학습자와 현장에 꼭 맞는 교육을 만듭니다.',
-    exp_items: [
-      { n: '01', label: 'EDUCATION', icon: 'grad', title: '맞춤형 교육 설계', desc: '평생교육·HRD 석사와 직업능력훈련교사의 전문성으로, 대상·목적·환경에 맞는 교육과정을 정교하게 설계합니다.' },
-      { n: '02', label: 'AI·CONTENT', icon: 'content', title: 'AI 콘텐츠 개발', desc: '빠르게 변화하는 AI 환경을 반영해 교재와 실습 자료, 커리큘럼을 직접 기획하고 개발합니다.' },
-      { n: '03', label: 'EXPERIENCE', icon: 'field', title: 'AI 교육 현장경험', desc: '2023년부터 공공기관·기업·평생교육 현장에서 400시간 이상 — 강의실에서 검증된 방법으로 가르칩니다.' },
+
+    biz_label: '사업 영역',
+    biz_title: '교육을 중심으로, 세 갈래로 일합니다',
+    biz: [
+      { name: '기관 교육', desc: '공공기관·기업·학교·평생학습관 출강, 교육과정 설계와 컨설팅, 교재·실습 콘텐츠 개발', link: '#programs', cta: '교육 분야 보기' },
+      { name: 'Re:frame News', desc: '교육자와 평생학습을 위한 인터넷 매체. AI 활용, 교육 정책, 지역의 배움 소식을 전합니다.', link: NEWS_URL, cta: '매체 바로가기', external: true },
+      { name: '리프레임평생교육원', desc: '개인 학습자가 전주에서 직접 만나 배우는 교육시설. 디지털 역량부터 일과 지역의 배움까지.', status: '개원 준비 중' },
     ],
-    stats: [
-      { n: '10년+', l: '강의 경력' },
-      { n: '400+', l: 'AI 교육 시간 (2023~)' },
-      { n: '25+', l: '출강 기관' },
-      { n: '14개', l: '강의 분야' },
+
+    exp_label: '전문 역량',
+    exp_title: '설계부터 콘텐츠, 현장까지',
+    exp: [
+      { title: '맞춤형 교육 설계', desc: '평생교육·HRD 석사와 직업능력훈련교사의 전문성으로, 대상·목적·환경에 맞는 교육과정을 설계합니다.' },
+      { title: 'AI 콘텐츠 개발', desc: '빠르게 변화하는 AI 환경을 반영해 교재와 실습 자료, 커리큘럼을 직접 기획하고 개발합니다.' },
+      { title: 'AI 교육 현장경험', desc: '2023년부터 공공기관·기업·평생교육 현장에서 400시간 이상 — 강의실에서 검증된 방법으로 가르칩니다.' },
     ],
-    stats_note: '대표 강사 박선례 기준',
-    bg1_1: '음악학 학사 · 필름스코어링 전공',
-    bg1_2: '라디오·영상 기획·촬영·제작 실무 15년',
-    univ: '전북대학교 교육대학원',
-    univ_sub: '평생교육 및 HRD 전공 (석사)',
-    thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
-    certs: ['한국기술교육대학교 AI특화인재양성교육 - AI서비스개발 수료', 'AICE(AI 활용능력) BASIC', 'NCS 강사', '직업능력훈련교사(영상분야)', '디지털 튜터', 'Google Workspace for Education Fundamentals', '평생교육사 2급', '사회복지사 1급'],
-    book: '『AI야, 안녕!』 — 초등학교 저학년을 위한 AI수업 교재 (공저 · 기획 · 집필 · 편집)',
-    role_now: '(주)리프레임 Re:Frame 대표 · 한국평생교육HRD진흥협회 AI교육부장',
-    tags: ['생성형 AI 업무 활용', '바이브코딩', 'AI 콘텐츠 제작', 'AI 리터러시 · 저작권'],
-    quote_card: ['도구를 익히고,', 'AI와 함께 생각하는 힘을', '키웁니다.', '사용하는 것이 시작이라면,', '협업은 완성입니다.'],
-    areas_title: '강의 분야',
-    areas_sub: '14개 분야 · 4개 영역 — 기관과 대상에 맞춰 조합해 과정을 설계합니다',
-    areas_cta: '강의 신청하기',
-    areas_groups: [
-      { id: 'A', label: 'WORK', icon: 'work', name: 'AI 업무 실무', gdesc: '문서 작성부터 데이터 분석까지, 내 업무에 바로 쓰는 AI 실무 과정입니다.', items: [
+
+    prog_label: '교육 분야',
+    prog_title: '4개 영역, 14개 분야',
+    prog_sub: '기관과 대상에 맞춰 분야를 조합해 과정을 설계합니다. 분야를 누르면 내용이 펼쳐집니다.',
+    groups: [
+      { label: 'WORK', name: 'AI 업무 실무', gdesc: '문서 작성부터 데이터 분석까지, 내 업무에 바로 쓰는 AI', items: [
         { n: '01', title: '생성형 AI 업무 활용', desc: '사업계획서 · 보고서 · 공문 · 보도자료 초안, 회의록 요약과 업무 메일까지 행정 문서에 바로 적용' },
         { n: '02', title: '프롬프트 엔지니어링', desc: '4단계 질문법(배경 · 목적 · 요청 · 출력형식)으로 프롬프트를 설계하고 반복 개선' },
         { n: '03', title: 'AI 데이터 분석 · 시각화', desc: '엑셀 · 구글시트 데이터 정리와 AI 분석, 차트 · 대시보드 시각화' },
         { n: '04', title: '노코드 업무 자동화', desc: '코딩 없이 반복 업무 흐름을 설계하고 문서 · 메일 · 데이터 수집을 자동화' },
       ]},
-      { id: 'B', label: 'BUILD', icon: 'content', name: '개발 · 자동화 · 플랫폼', gdesc: '코딩 없이 웹앱과 에이전트를 만들고, AI 플랫폼을 깊이 있게 다룹니다.', items: [
+      { label: 'BUILD', name: '개발 · 자동화 · 플랫폼', gdesc: '코딩 없이 웹앱과 에이전트를 만들고, AI 플랫폼을 깊이 있게', items: [
         { n: '05', title: '바이브코딩 (웹/앱 만들기)', desc: '코딩 지식 없이 대화형 AI(Claude)로 웹앱을 기획 → 제작 → 배포까지' },
         { n: '06', title: 'AI 에이전트 구축 · 활용', desc: '업무 목적별 맞춤 AI 에이전트를 설계하고 반복 업무를 위임' },
         { n: '07', title: 'Google AI 워크스페이스 활용', desc: 'Gemini · NotebookLM과 Google 드라이브 · 시트 · 문서 · 폼 연동 업무' },
         { n: '08', title: 'Claude 마스터', desc: '데스크톱 설치 · Claude Cowork · Claude Code · 스킬 · MCP · 디자인 활용' },
       ]},
-      { id: 'C', label: 'CREATE', icon: 'video', name: '콘텐츠 · 영상 제작', gdesc: '카드뉴스부터 영상까지, 기획 → 제작 전 과정을 AI와 함께 완성합니다.', items: [
+      { label: 'CREATE', name: '콘텐츠 · 영상', gdesc: '카드뉴스부터 영상까지, 기획에서 완성까지 AI와 함께', items: [
         { n: '09', title: 'AI 콘텐츠 제작', desc: '카드뉴스 · 포스터 · 안내문 등 홍보 콘텐츠를 AI 도구로 기획부터 제작까지' },
         { n: '10', title: '쇼츠영상 제작', desc: '스마트폰과 AI 도구로 숏폼 영상을 기획 · 촬영 · 편집하고 채널에 올리기까지' },
         { n: '11', title: 'AI 영상 제작 (기획 → 편집)', desc: '15년 영상 실무의 노하우 — 프리미어와 AI 도구로 기획 · 촬영 · 편집 전 과정을 배웁니다' },
       ]},
-      { id: 'D', label: 'TEACH', icon: 'grad', name: '리터러시 · 교육 전문', gdesc: '기술을 올바르게 읽고 쓰는 힘, 그리고 가르치는 전문성을 기릅니다.', items: [
+      { label: 'TEACH', name: '리터러시 · 교육 전문', gdesc: '기술을 올바르게 읽고 쓰는 힘, 그리고 가르치는 전문성', items: [
         { n: '12', title: 'AI 리터러시 · 윤리 · 저작권', desc: '민감정보 입력 기준, AI 생성물 저작권, 가짜정보 구별과 교차 검증' },
         { n: '13', title: 'AI 활용 글쓰기 · 학습', desc: 'AI와 함께하는 글쓰기와 자료 조사, 스스로 검증하며 배우는 자기주도 학습법' },
         { n: '14', title: 'AI 강사 양성', desc: 'AI 교육 강사를 위한 커리큘럼 설계와 실습 운영 노하우 — 강사 역량 강화 과정' },
       ]},
     ],
-    edu_title: '맞춤형 AI 활용 교육 과정',
-    edu_sub: '대상과 목적에 맞는 단계별 AI 교육',
-    b1_title: '생성형 AI 입문', b1_target: '입문자·시니어', b1_tag: 'AI가 친구처럼 느껴지게.', b1_desc: 'ChatGPT 기초, 프롬프팅, 실생활 활용',
-    b2_title: '생성형 AI 활용 (실습)', b2_target: '직장인·크리에이터', b2_tag: '내 일의 혁신 파트너.', b2_desc: '문서 작성, 데이터 분석, 콘텐츠 제작', b2_badge: '인기 ⭐',
-    b3_title: 'AI 리터러시 (윤리)', b3_target: '학생·시민', b3_tag: '기술을 올바르게 쓰는 힘.', b3_desc: '윤리, 저작권, 딥페이크',
-    ops: '📌 1~10회 기관 맞춤 설계 · 이론+실습+토론 병행 · PC/모바일 모두 가능 · 난이도 조절 가능',
-    sig_badge: '시그니처',
-    sig_title: 'AI로 나만의 작품을 만듭니다.',
-    sig_desc: '음악·영상을 전공한 강사가 설계한 AI 창작 과정입니다.\n이미지 · 영상 · 음악을 직접 만들며\nAI를 창작 도구로 익힙니다.',
-    sig_cta: '나만의 기록 만들기',
-    vibe_title: '바이브코딩',
-    vibe_sub: '코딩 몰라도 OK. AI와 함께 웹/앱 만들기.',
-    vibe_new: '신규',
-    v1_title: '입문 과정', v1_desc: '코딩 몰라도 만들 수 있는 것들',
-    v1_items: ['Google AI Studio로 나만의 챗봇 만들기', 'Codex로 간단한 웹페이지 만들기', 'Claude Code로 포트폴리오 사이트 제작', 'Git & Vercel로 내 사이트 세상에 공개하기'],
-    v2_title: '심화 과정', v2_desc: '실전 업무에 AI를 연결하기',
-    v2_items: ['반복 업무 자동화 (데이터 수집, 보고서 자동 생성)', '데이터베이스 연결 (Supabase)', '나만의 AI 에이전트 만들기', 'MCP 서버 연결로 외부 서비스 연동'],
-    v3_title: '맞춤 커리큘럼', v3_desc: '기관·단체 대상 맞춤 설계',
-    v3_items: ['대상·목적에 맞는 커리큘럼 설계', '기관 환경에 맞춘 실습 구성', '회차·난이도·인원 자유 조정', '교육 후 성과 리포트 제공'],
-    q_title: '처음엔 저도 부담스러웠어요',
-    q_body: 'AI라는 단어 자체가 낯설고 어색했던 때가 있었어요.\n하지만 하나씩 시도하면서,\n이건 사람과 AI의 진짜 협업이라는 걸 깨달았습니다.',
-    q_quote: '"이 길을 직접 걸어왔기에, 제가 경험한 그대로를 가르칩니다."',
-    q_name: '',
-    inst_title: '대표 강사',
-    inst_sub: '현장에서 검증된 대표 강사가 직접 강의합니다',
-    inst1_name: '박선례', inst1_role: '대표 · 생성형 AI 활용 교육 전문 강사',
-    inst2_name: '박선미', inst2_role: '전문 강사 · 미디어 리터러시 & 영상 교육',
-    inst2_desc: '2008년부터 17년간 미디어센터와 학교 현장에서 다양한 계층을 만나온 베테랑 강사입니다. 전라북도교육청 미디어 리터러시 강사로 청소년 미디어 교육을 이끌고 있으며, 단편영화 연출 경험을 살린 생생한 영상 교육을 진행합니다.',
-    inst2_certs: ['원광대학교 사범대학 일어교육과', '중등교원 2급 정교사', '미디어 리터러시 강사 · 전북특별자치도교육청', '익산공공영상미디어센터 미디어교육 강사 (2008~)', '디지털튜터 지도사'],
-    trust_title: '칼럼 & 출강 실적',
-    trust_sub: '대표 강사가 걸어온 길이 곧 리프레임의 교육 역량입니다',
-    col_badge: '로컬M 칼럼 연재',
-    col_name: '「로컬시대와 새파트너 AI」',
-    col_desc: '지역의 눈으로 AI를 씁니다.',
-    col_read: '칼럼 읽기',
+
+    fmt_label: '운영 형태',
+    fmt_title: '기관 상황에 맞는 단위로',
+    formats: [
+      { name: '특강', spec: '1회 · 2~3시간', desc: '조직 전체의 AI 이해와 인식 전환. 입문 대상, 워크숍·연수 프로그램에 적합' },
+      { name: '단기 과정', spec: '3~5회 · 회당 2~3시간', desc: '실무 도구를 손에 익히는 실습 과정. 부서·직무별 구성' },
+      { name: '심화 과정', spec: '6~10회 · 프로젝트형', desc: '내 업무에 맞는 결과물을 직접 완성. 자동화·바이브코딩·강사 양성에 적합' },
+    ],
+    fmt_common_title: '모든 과정에 기본 제공',
+    fmt_common: ['대상 맞춤 교안과 실습 자료', 'PC실 · 노트북 · 모바일 환경 모두 가능', '출석 · 만족도를 담은 결과보고서', '법인 계약 · 세금계산서 발행'],
+
+    proc_label: '진행 방식',
+    proc_title: '문의에서 결과보고까지',
+    steps: [
+      { t: '문의', d: '문의 폼이나 메일로 기관과 희망 교육을 알려 주세요.' },
+      { t: '사전 협의', d: '대상, 인원, 목적, 장소와 장비(PC실 여부)를 확인합니다.' },
+      { t: '커리큘럼 제안', d: '차시별 구성과 강사 이력을 담은 제안서를 드립니다. 내부 결재 자료로 쓰실 수 있습니다.' },
+      { t: '계약', d: '법인 명의로 계약하고 세금계산서를 발행합니다.' },
+      { t: '교육 운영', d: '교안과 실습 자료를 제공하고, 수준에 맞춰 속도를 조절합니다.' },
+      { t: '결과보고', d: '출석과 만족도, 현장 기록을 담은 결과보고서를 드립니다.' },
+    ],
+
+    inst_label: '대표 강사',
+    inst_name: '박선례',
+    inst_role: '(주)리프레임 대표 · 생성형 AI 활용 교육 전문 강사',
+    univ: '전북대학교 교육대학원',
+    univ_sub: '평생교육 및 HRD 전공 (석사)',
+    thesis: '「디지털 리터러시 교육에서 중장년 여성의 학습동기와 학업적 열의의 관계」',
+    bg: '음악학 학사 · 필름스코어링 전공 · 라디오·영상 기획·촬영·제작 실무 15년',
+    certs_label: '자격 · 수료',
+    certs: ['한국기술교육대학교 AI특화인재양성교육 - AI서비스개발 수료', 'AICE(AI 활용능력) BASIC', 'NCS 강사', '직업능력훈련교사(영상분야)', '디지털 튜터', 'Google Workspace for Education Fundamentals', '평생교육사 2급', '사회복지사 1급'],
+    book_label: '저서',
+    book: '『AI야, 안녕!』 — 초등학교 저학년을 위한 AI수업 교재 (공저 · 기획 · 집필 · 편집)',
+    links: [
+      { label: '스레드 @slowsoyang', href: 'https://www.threads.net/@slowsoyang' },
+      { label: '네이버 블로그', href: 'https://blog.naver.com/frameview-' },
+    ],
+
+    rec_label: '실적',
+    rec_title: '출강 기관',
+    org_groups: [
+      { name: '공공기관', items: ['국민연금공단', '한국남동발전', '전북지방조달청', '전북문화관광재단', '전북평생교육장학진흥원', '순창군청'] },
+      { name: '평생학습 · 지역', items: ['한국평생교육HRD진흥협회', '전북시민대학', '익산시평생학습관', '전주시평생학습관', '순창군평생학습관', '완주군귀농귀촌센터', '진안청년센터', '고창청소년문화센터'] },
+      { name: '대학 · 학교', items: ['송호대학교', '순천대학교', '순천제일대학교', '호남제일고등학교', '전주덕진중학교', '익산남성중학교'] },
+      { name: '기업 · 교육기관', items: ['핵심인재개발원', '신기술교육원', '(주)한터', '(주)큐라이트'] },
+    ],
+    col_title: '칼럼 연재 — 로컬M 「로컬시대와 새파트너 AI」',
     columns: [
       { t: 'AI시대, 우리 지역은 검색되고 있습니까?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
       { t: '맡길까, 직접 할까… 작은 카페를 알리는 세 가지 방법', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4405' },
       { t: '사흘 만에 사라진 AI, 통제권은 누구에게 있었나', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
     ],
-    orgs_title: '출강기관',
-    orgs: ['국민연금공단', '한국남동발전', '전북지방조달청', '전북문화관광재단', '전북평생교육장학진흥원', '한국평생교육HRD진흥협회', '송호대학교', '순천대학교', '순천제일대학교', '전북시민대학', '익산시평생학습관', '전주시평생학습관', '순창군청', '순창군평생학습관', '완주군귀농귀촌센터', '진안청년센터', '고창청소년문화센터', '호남제일고등학교', '전주덕진중학교', '익산남성중학교', '핵심인재개발원', '신기술교육원', '(주)한터', '(주)큐라이트'],
-    footer_title: '함께 기술을',
-    footer_title2: ' 하세요.',
-    footer_sub: '강의 문의는 신청 폼 또는 이메일로 연락해주세요.',
+    col_read: '읽기',
+
+    contact_label: '출강 문의',
+    contact_title: '어떤 교육이 필요하신가요?',
+    contact_sub: '기관과 대상, 희망 일정을 알려 주시면 영업일 기준 2일 안에 연락드립니다.',
+    contact_mail: '메일',
+    contact_addr: '주소',
+    contact_phone: '전화',
     tax_note: '기관 · 단체 계약 및 세금계산서 발행이 가능합니다.',
-    biz1: '(주)리프레임 · 대표 박선례',
-    biz2: '사업자등록번호 · 소재지 표기 준비 중 · pianossun@naver.com',
-    copy: '© 2026 (주)리프레임 Re:Frame. All rights reserved.',
+    form: {
+      org: '기관 · 단체명', org_ph: '예: ○○평생학습관',
+      name: '담당자 이름', phone: '연락처', email: '이메일 (선택)',
+      target: '교육 대상', target_opts: ['공무원 · 공공기관 직원', '기업 임직원', '교사 · 강사', '중장년 · 시니어', '청소년', '일반 시민', '기타'],
+      people: '예상 인원', people_ph: '예: 20명',
+      course: '희망 분야', course_custom: '맞춤 과정 상담',
+      schedule: '희망 일정', schedule_ph: '예: 11월 중, 주 1회',
+      place: '교육 장소', place_ph: '예: 기관 PC실',
+      message: '기타 요청사항', message_ph: '교육 목적, 참가자 수준, 준비된 장비 등',
+      select: '선택해 주세요',
+      consent: '개인정보 수집·이용에 동의합니다.', consent_link: '내용 보기',
+      submit: '문의 보내기', sending: '보내는 중…',
+      done_title: '문의가 접수되었습니다.', done_sub: '영업일 기준 2일 안에 연락드리겠습니다.',
+    },
+
+    footer_company: '주식회사 리프레임',
+    footer_ceo: '대표 박선례',
+    footer_biz: '사업자등록번호',
+    footer_privacy: '개인정보처리방침',
+    footer_family: '함께 운영하는 곳',
+    copy: '© 2026 주식회사 리프레임 Re:Frame',
   },
+
   en: {
-    nav: { about: 'About', areas: 'Lecture Areas', education: 'Curriculum', instructors: 'Instructor', contact: 'Contact' },
-    badge: 'AI Education Experts · Re:Frame',
-    h1: 'Opening possibilities,',
-    h2_accent: 'together',
-    h2_rest: ' with AI.',
-    sub: 'Slow, steady, real AI education —\nRe:Frame builds the power to think and create with AI, beyond tool skills.\nFrom first-time seniors to working professionals,\nwe design and run hands-on AI education tailored to every learner.',
-    cta1: 'Lecture Areas',
-    cta2: 'Meet the Instructors',
-    cta3: 'Request a Lecture',
-    about_title: 'About Re:Frame',
-    about_head1: 'Reframing how we learn —',
-    about_head2: 'an AI education company',
-    company_p: 'Re:Frame Inc. builds AI education anyone can learn at their own pace — grounded in our commitment to the region, our belief in adult learning, and literacy that helps people read and communicate with technology. Working with public institutions, companies and lifelong-learning centers, we run hands-on programs and propose a new frame for learning in the AI era.',
-    about_facts: [
-      { k: 'Teaching philosophy', v: 'Self-directed · Lifelong learning' },
-      { k: 'Main service area', v: 'Jeonbuk · Jeonnam' },
+    nav: [
+      { href: '#about', label: 'About' },
+      { href: '#business', label: 'What we do' },
+      { href: '#programs', label: 'Programs' },
+      { href: '#process', label: 'Process' },
+      { href: '#instructor', label: 'Instructor' },
+      { href: '#record', label: 'Track record' },
     ],
-    about_values: [
-      { icon: 'region', title: 'Growing with our region', desc: 'Rooted in Jeonbuk, we bring learning opportunities to every corner of the region — so no community is left behind in the AI era.' },
-      { icon: 'adult', title: 'We believe in adult learning', desc: 'It is never too late to learn. We design education on adult-learning principles so mid-lifers and seniors can learn at their own pace.' },
-      { icon: 'literacy', title: 'Literacy and communication first', desc: 'Beyond tool skills — the power to read, judge and communicate with technology. AI literacy grounds every class.' },
-    ],
-    exp_badge: "Re:Frame's expertise",
-    exp_head1: 'Three core competencies',
-    exp_head2: 'connecting learning and AI',
-    exp_sub: 'From design to content to the classroom — expertise across the whole journey of education.',
-    exp_items: [
-      { n: '01', label: 'EDUCATION', icon: 'grad', title: 'Tailored curriculum design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we design programs that fit each audience, goal and environment." },
-      { n: '02', label: 'AI·CONTENT', icon: 'content', title: 'AI content development', desc: 'We plan and develop textbooks, hands-on materials and curricula that keep pace with the fast-changing AI landscape.' },
-      { n: '03', label: 'EXPERIENCE', icon: 'field', title: 'Proven classroom experience', desc: 'Over 400 hours since 2023 at public institutions, companies and lifelong-learning centers — we teach only what we have verified in real classrooms.' },
-    ],
+    nav_cta: 'Contact',
+    menu: 'Menu',
+
+    hero_eyebrow: 'Re:Frame Inc. · AI education',
+    hero_lines: ['Reframing', 'how we learn', 'in the AI era.'],
+    hero_sub: 'We design and run hands-on AI education that adults can learn at their own pace — for public institutions, companies, schools and lifelong-learning centers.',
+    hero_cta1: 'Request a lecture',
+    hero_cta2: 'See programs',
+    hero_photo_alt: 'Adult learners practicing AI tools on laptops in a classroom',
     stats: [
-      { n: '10+ yrs', l: 'Teaching experience' },
-      { n: '400+', l: 'AI lecture hours (2023~)' },
-      { n: '25+', l: 'Organizations served' },
-      { n: '14', l: 'Lecture areas' },
+      { n: 10, suffix: '+ yrs', l: 'Teaching experience' },
+      { n: 400, suffix: '+', l: 'AI lecture hours (2023~)' },
+      { n: null, suffix: '', l: 'Organizations served' },
+      { n: 14, suffix: '', l: 'Lecture areas' },
     ],
     stats_note: 'Based on lead instructor Park Sun-rye',
-    bg1_1: 'B.A. in Music · Film Scoring',
-    bg1_2: '15 years in radio & video production',
-    univ: 'Jeonbuk National University Graduate School of Education',
-    univ_sub: 'Lifelong Education & HRD (M.Ed.)',
-    thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
-    certs: ['AI Specialist Program - AI Service Development (KOREATECH)', 'AICE Basic (KT)', 'NCS Instructor', 'Vocational Training Teacher (Video)', 'Digital Tutor', 'Google Workspace for Education Fundamentals', 'Lifelong Educator Lv.2', 'Social Worker Lv.1'],
-    book: '"Hello, AI!" — an AI textbook for lower elementary (co-author · planning · writing · editing)',
-    role_now: 'CEO, Re:Frame Inc. · Head of AI Education, Korea Lifelong Education & HRD Association',
-    tags: ['Gen AI at Work', 'Vibe Coding', 'AI Content Creation', 'AI Literacy · Copyright'],
-    quote_card: ['Learn the tools,', 'build the thinking', 'to collaborate with AI.', 'If using it is the start,', 'collaboration is the finish.'],
-    areas_title: 'Lecture Areas',
-    areas_sub: '14 areas in 4 tracks — combined and tailored to each organization and audience',
-    areas_cta: 'Request a Lecture',
-    areas_groups: [
-      { id: 'A', label: 'WORK', icon: 'work', name: 'Gen AI at Work', gdesc: 'AI you can use at work right away — from documents to data analysis.', items: [
+
+    about_label: 'About',
+    about_meaning: 'Reframing thinking and values for a new era.',
+    about_p: 'Re:Frame Inc. builds AI education anyone can learn at their own pace — grounded in our commitment to the region, our belief in adult learning, and literacy that helps people read and communicate with technology. Working with public institutions, companies and lifelong-learning centers, we run hands-on programs and propose a new frame for learning in the AI era.',
+    about_facts: [
+      { k: 'Philosophy', v: 'Self-directed · Lifelong' },
+      { k: 'Main area', v: 'Jeonbuk · Jeonnam' },
+      { k: 'Head office', v: 'Jeonju' },
+    ],
+    values: [
+      { title: 'Growing with our region', desc: 'Rooted in Jeonbuk, we bring learning opportunities to every corner of the region — so no community is left behind in the AI era.' },
+      { title: 'We believe in adult learning', desc: 'It is never too late to learn. We design on adult-learning principles so mid-lifers and seniors can learn at their own pace.' },
+      { title: 'Literacy and communication first', desc: 'Beyond tool skills — the power to read, judge and communicate with technology. AI literacy grounds every class.' },
+    ],
+
+    biz_label: 'What we do',
+    biz_title: 'Education at the center, in three ways',
+    biz: [
+      { name: 'Institutional training', desc: 'On-site lectures for public institutions, companies, schools and learning centers; curriculum design and consulting; learning materials.', link: '#programs', cta: 'See programs' },
+      { name: 'Re:frame News', desc: 'An online publication for educators and lifelong learning — AI in practice, education policy, local learning news.', link: NEWS_URL, cta: 'Visit', external: true },
+      { name: 'Re:Frame Lifelong Learning Center', desc: 'An in-person learning center in Jeonju for individual learners.', status: 'Opening soon' },
+    ],
+
+    exp_label: 'Expertise',
+    exp_title: 'From design to content to the classroom',
+    exp: [
+      { title: 'Tailored curriculum design', desc: "With a master's in lifelong education & HRD and a certified vocational training teacher, we design programs for each audience, goal and setting." },
+      { title: 'AI content development', desc: 'We plan and develop textbooks, hands-on materials and curricula that keep pace with the fast-changing AI landscape.' },
+      { title: 'Proven classroom experience', desc: 'Over 400 hours since 2023 at public institutions, companies and lifelong-learning centers.' },
+    ],
+
+    prog_label: 'Programs',
+    prog_title: '4 tracks, 14 areas',
+    prog_sub: 'Combined and tailored to each organization and audience. Select an area to see details.',
+    groups: [
+      { label: 'WORK', name: 'Gen AI at Work', gdesc: 'AI you can use at work right away', items: [
         { n: '01', title: 'Gen AI for Work', desc: 'Drafts of plans, reports, official letters and press releases; meeting summaries and emails' },
         { n: '02', title: 'Prompt Engineering', desc: 'Design prompts with the 4-step method (context · goal · request · format) and iterate' },
         { n: '03', title: 'AI Data Analysis · Visualization', desc: 'Clean Excel / Google Sheets data with AI, build charts and dashboards' },
         { n: '04', title: 'No-code Automation', desc: 'Design repetitive workflows without code; automate documents, email and data collection' },
       ]},
-      { id: 'B', label: 'BUILD', icon: 'content', name: 'Build · Automate · Platforms', gdesc: 'Build web apps and agents without code, and master AI platforms in depth.', items: [
+      { label: 'BUILD', name: 'Build · Automate · Platforms', gdesc: 'Build web apps and agents without code', items: [
         { n: '05', title: 'Vibe Coding (Web/App)', desc: 'Plan → build → deploy a web app with conversational AI (Claude), no coding background' },
         { n: '06', title: 'AI Agents', desc: 'Design purpose-built AI agents and delegate repetitive work' },
         { n: '07', title: 'Google AI Workspace', desc: 'Gemini · NotebookLM with Google Drive · Sheets · Docs · Forms' },
         { n: '08', title: 'Claude Master', desc: 'Desktop setup · Claude Cowork · Claude Code · skills · MCP · design' },
       ]},
-      { id: 'C', label: 'CREATE', icon: 'video', name: 'Content · Video Production', gdesc: 'From card news to full videos — planning to production, together with AI.', items: [
+      { label: 'CREATE', name: 'Content · Video', gdesc: 'From card news to video, planned and made with AI', items: [
         { n: '09', title: 'AI Content Creation', desc: 'Card news, posters and notices — plan and produce promotional content with AI tools' },
-        { n: '10', title: 'Short-form Video', desc: 'Plan, shoot and edit short-form videos with a smartphone and AI tools, up to publishing' },
-        { n: '11', title: 'AI Video Production (Plan → Edit)', desc: '15 years of production know-how — the full workflow with Premiere and AI tools' },
+        { n: '10', title: 'Short-form Video', desc: 'Plan, shoot and edit short-form videos with a smartphone and AI tools' },
+        { n: '11', title: 'AI Video Production', desc: '15 years of production know-how — the full workflow with Premiere and AI tools' },
       ]},
-      { id: 'D', label: 'TEACH', icon: 'grad', name: 'Literacy · Teaching', gdesc: 'The power to use technology responsibly — and the expertise to teach it.', items: [
+      { label: 'TEACH', name: 'Literacy · Teaching', gdesc: 'Using technology responsibly — and teaching it', items: [
         { n: '12', title: 'AI Literacy · Ethics · Copyright', desc: 'Sensitive-data rules, copyright of AI output, spotting and cross-checking misinformation' },
         { n: '13', title: 'Writing & Learning with AI', desc: 'Writing and research with AI; self-directed learning through verification' },
-        { n: '14', title: 'Train the AI Trainer', desc: 'Curriculum design and hands-on facilitation know-how for AI education instructors' },
+        { n: '14', title: 'Train the AI Trainer', desc: 'Curriculum design and hands-on facilitation for AI education instructors' },
       ]},
     ],
-    edu_title: 'Tailored AI Education Programs',
-    edu_sub: 'Step-by-step AI education for every goal and audience',
-    b1_title: 'Understanding Gen AI (Basic)', b1_target: 'Beginners · Seniors', b1_tag: 'Make AI feel like a friend.', b1_desc: 'ChatGPT basics, prompting, everyday use',
-    b2_title: 'Using Gen AI (Hands-on)', b2_target: 'Workers · Creators', b2_tag: 'Your innovation partner.', b2_desc: 'Writing, data analysis, content creation', b2_badge: 'Popular ⭐',
-    b3_title: 'AI Literacy (Ethics)', b3_target: 'Students · Citizens', b3_tag: 'Use technology responsibly.', b3_desc: 'Ethics, copyright, deepfakes',
-    ops: '📌 1–10 sessions, institution-tailored · Theory + practice + discussion · PC & mobile · Adjustable difficulty',
-    sig_badge: 'Signature',
-    sig_title: 'Create your own work with AI.',
-    sig_desc: 'An AI creative course designed by an instructor trained in music and video.\nMake images, video and music yourself —\nand learn AI as a creative tool.',
-    sig_cta: 'Start Your Story',
-    vibe_title: 'Vibe Coding',
-    vibe_sub: "No coding skills needed. Build web/apps with AI.",
-    vibe_new: 'New',
-    v1_title: 'Intro Course', v1_desc: 'Build with zero coding experience',
-    v1_items: ['Build a chatbot with Google AI Studio', 'Create a webpage with Codex', 'Build a portfolio site with Claude Code', 'Publish your site with Git & Vercel'],
-    v2_title: 'Advanced Course', v2_desc: 'Connect AI to real work',
-    v2_items: ['Automate repetitive tasks (data collection, report generation)', 'Database integration (Supabase)', 'Build your own AI agent', 'Connect external services via MCP server'],
-    v3_title: 'Custom Curriculum', v3_desc: 'Tailored for organizations & groups',
-    v3_items: ['Curriculum designed for your audience & goals', 'Hands-on labs adapted to your environment', 'Flexible sessions, difficulty & group size', 'Post-training performance report'],
-    q_title: 'I was once overwhelmed too',
-    q_body: 'There was a time when even the word "AI" felt foreign and strange.\nBut as I tried things one by one,\nI realized — this is what true human-AI collaboration looks like.',
-    q_quote: '"Because I walked this path myself, I teach exactly what I experienced."',
-    q_name: '',
-    inst_title: 'Lead Instructor',
-    inst_sub: 'Field-proven, taught directly by our lead instructor',
-    inst1_name: 'Park Sun-rye', inst1_role: 'CEO · Generative AI Education Specialist',
-    inst2_name: 'Park Seon-mi', inst2_role: 'Instructor · Media Literacy & Video Education',
-    inst2_desc: 'A veteran educator with 17 years of experience (since 2008) at media centers and schools. Currently a media literacy instructor for the Jeonbuk Office of Education, she brings her background in short-film directing to vivid, hands-on video education.',
-    inst2_certs: ['B.A. in Japanese Education, Wonkwang University', 'Secondary School Teacher Certificate Lv.2', 'Media Literacy Instructor · Jeonbuk Office of Education', 'Media Educator, Iksan Public Media Center (2008~)', 'Certified Digital Tutor'],
-    trust_title: 'Column & Track Record',
-    trust_sub: "Our lead instructor's journey is Re:Frame's teaching capability",
-    col_badge: 'LocalM Column',
-    col_name: '"The Local Era and Its New Partner, AI"',
-    col_desc: 'Our CEO\u2019s column in LocalM — writing about AI through a local lens.',
-    col_read: 'Read',
+
+    fmt_label: 'Formats',
+    fmt_title: 'Sized to your organization',
+    formats: [
+      { name: 'Special lecture', spec: '1 session · 2–3 hrs', desc: 'Organization-wide AI awareness. Ideal for workshops and staff training days' },
+      { name: 'Short course', spec: '3–5 sessions · 2–3 hrs each', desc: 'Hands-on practice with real work tools, by team or role' },
+      { name: 'Advanced course', spec: '6–10 sessions · project-based', desc: 'Learners build their own deliverables. Suits automation, vibe coding, trainer programs' },
+    ],
+    fmt_common_title: 'Included in every program',
+    fmt_common: ['Tailored slides and practice materials', 'PC lab, laptop or mobile setups', 'Final report with attendance and satisfaction', 'Corporate contract and tax invoice'],
+
+    proc_label: 'Process',
+    proc_title: 'From inquiry to final report',
+    steps: [
+      { t: 'Inquiry', d: 'Tell us about your organization and the training you need.' },
+      { t: 'Consultation', d: 'We confirm audience, group size, goals, venue and equipment.' },
+      { t: 'Proposal', d: 'You receive a session-by-session curriculum and instructor profile for internal approval.' },
+      { t: 'Contract', d: 'Signed with Re:Frame Inc.; tax invoice issued.' },
+      { t: 'Delivery', d: 'Materials provided; pace adjusted to learners.' },
+      { t: 'Final report', d: 'Attendance, satisfaction and field notes in one report.' },
+    ],
+
+    inst_label: 'Lead instructor',
+    inst_name: 'Park Sun-rye',
+    inst_role: 'CEO, Re:Frame Inc. · Generative AI education specialist',
+    univ: 'Jeonbuk National University Graduate School of Education',
+    univ_sub: 'Lifelong Education & HRD (M.Ed.)',
+    thesis: '"The Relationship between Learning Motivation and Academic Engagement of Middle-Aged Women in Digital Literacy Education"',
+    bg: 'B.A. in Music · Film Scoring · 15 years in radio & video production',
+    certs_label: 'Certifications',
+    certs: ['AI Specialist Program - AI Service Development (KOREATECH)', 'AICE Basic (KT)', 'NCS Instructor', 'Vocational Training Teacher (Video)', 'Digital Tutor', 'Google Workspace for Education Fundamentals', 'Lifelong Educator Lv.2', 'Social Worker Lv.1'],
+    book_label: 'Book',
+    book: '"Hello, AI!" — an AI textbook for lower elementary (co-author · planning · writing · editing)',
+    links: [
+      { label: 'Threads @slowsoyang', href: 'https://www.threads.net/@slowsoyang' },
+      { label: 'Naver Blog', href: 'https://blog.naver.com/frameview-' },
+    ],
+
+    rec_label: 'Track record',
+    rec_title: 'Organizations served',
+    org_groups: [
+      { name: 'Public institutions', items: ['National Pension Service', 'Korea South-East Power', 'Jeonbuk Regional Procurement Office', 'Jeonbuk Culture & Tourism Foundation', 'Jeonbuk Lifelong Education Institute', 'Sunchang County Office'] },
+      { name: 'Lifelong learning · Local', items: ['Korea Lifelong Education & HRD Association', 'Jeonbuk Citizen University', 'Iksan Lifelong Learning Center', 'Jeonju Lifelong Learning Center', 'Sunchang Lifelong Learning Center', 'Wanju Return-to-Farm Center', 'Jinan Youth Center', 'Gochang Youth Culture Center'] },
+      { name: 'Universities · Schools', items: ['Songho University', 'Sunchon National University', 'Suncheon Jeil University', 'Honam Jeil High School', 'Jeonju Deokjin Middle School', 'Iksan Namseong Middle School'] },
+      { name: 'Companies · Training', items: ['Core Talent Development Institute', 'New Tech Training Institute', 'Hanteo Inc.', 'Qlight Inc.'] },
+    ],
+    col_title: 'Column in LocalM — "The Local Era and Its New Partner, AI"',
     columns: [
       { t: 'In the AI era, is your region searchable?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4481' },
       { t: 'Outsource or DIY? Three ways to market a small café', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4405' },
       { t: 'The AI that vanished in three days — who held the control?', u: 'https://localm.kr/bbs/board.php?bo_table=news&wr_id=4367' },
     ],
-    orgs_title: 'Client Organizations',
-    orgs: ['National Pension Service', 'Korea South-East Power', 'Jeonbuk Regional Procurement Office', 'Jeonbuk Culture & Tourism Foundation', 'Jeonbuk Lifelong Education Institute', 'Korea Lifelong Education & HRD Association', 'Songho University', 'Sunchon National University', 'Suncheon Jeil University', 'Jeonbuk Citizen University', 'Iksan Lifelong Learning Center', 'Jeonju Lifelong Learning Center', 'Sunchang County Office', 'Sunchang Lifelong Learning Center', 'Wanju Return-to-Farm Center', 'Jinan Youth Center', 'Gochang Youth Culture Center', 'Honam Jeil High School', 'Jeonju Deokjin Middle School', 'Iksan Namseong Middle School', 'Core Talent Development Institute', 'New Tech Training Institute', 'Hanteo Inc.', 'Qlight Inc.'],
-    footer_title: "Let's Re:",
-    footer_title2: 'Frame technology together.',
-    footer_sub: 'For inquiries, please use the form or email.',
+    col_read: 'Read',
+
+    contact_label: 'Contact',
+    contact_title: 'What training do you need?',
+    contact_sub: 'Tell us about your organization, audience and schedule. We reply within two business days.',
+    contact_mail: 'Email',
+    contact_addr: 'Address',
+    contact_phone: 'Phone',
     tax_note: 'Institutional contracts and tax invoices available.',
-    biz1: 'Re:Frame Inc. · CEO Park Sun-rye',
-    biz2: 'Business registration & address coming soon · pianossun@naver.com',
-    copy: '© 2026 Re:Frame Inc. All rights reserved.',
+    form: {
+      org: 'Organization', org_ph: 'e.g. Learning Center',
+      name: 'Contact name', phone: 'Phone', email: 'Email (optional)',
+      target: 'Audience', target_opts: ['Public servants · Public institutions', 'Company employees', 'Teachers · Instructors', 'Mid-life · Seniors', 'Youth', 'General public', 'Other'],
+      people: 'Group size', people_ph: 'e.g. 20',
+      course: 'Area of interest', course_custom: 'Custom program',
+      schedule: 'Preferred schedule', schedule_ph: 'e.g. November, weekly',
+      place: 'Venue', place_ph: 'e.g. our PC lab',
+      message: 'Notes', message_ph: 'Goals, learner level, available equipment',
+      select: 'Select',
+      consent: 'I agree to the collection and use of personal information.', consent_link: 'Details',
+      submit: 'Send inquiry', sending: 'Sending…',
+      done_title: 'Your inquiry has been received.', done_sub: 'We will contact you within two business days.',
+    },
+
+    footer_company: 'Re:Frame Inc.',
+    footer_ceo: 'CEO Park Sun-rye',
+    footer_biz: 'Business reg. no.',
+    footer_privacy: 'Privacy policy',
+    footer_family: 'Also by Re:Frame',
+    copy: '© 2026 Re:Frame Inc.',
   },
 };
 
-// ── 네트워크 캔버스 배경 ───────────────────────────────────────
-function NetworkCanvas() {
-  const canvasRef = useRef(null);
+const ORG_COUNT = T.ko.org_groups.reduce((a, g) => a + g.items.length, 0);
+
+// ── 공통 훅: 화면에 들어오면 .is-in 추가 (한 번만) ──────────────
+function useReveal(dep) {
+  useEffect(() => {
+    document.documentElement.classList.add('js');
+    const els = document.querySelectorAll('.reveal:not(.is-in)');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-in'));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+    els.forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, [dep]);
+}
+
+// ── 숫자가 0부터 세어 올라감 (한 번만) ──────────────────────────
+function CountUp({ to }) {
+  const ref = useRef(null);
+  const [val, setVal] = useState(to);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animId;
+    const el = ref.current;
+    if (!el || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const tick = now => {
+        const p = Math.min((now - start) / 1200, 1);
+        setVal(Math.round(to * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    }, { threshold: 0.6 });
+    io.observe(el);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+  }, [to]);
 
-    const resize = () => {
-      canvas.width = canvas.parentElement.offsetWidth;
-      canvas.height = canvas.parentElement.offsetHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
+  return <span ref={ref} className="tabular-nums">{val}</span>;
+}
 
-    const isMobile = window.innerWidth < 768;
-    const dotCount = isMobile ? 20 : 55;
-    const dotSpeed = isMobile ? 0.2 : 0.4;
-    const dotSize = isMobile ? 2 : 2.5;
-    const dotSizeRange = isMobile ? 2 : 4;
-    const linkDist = isMobile ? 140 : 220;
-    const lineAlpha = isMobile ? 0.1 : 0.18;
-
-    const dots = Array.from({ length: dotCount }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * dotSpeed,
-      vy: (Math.random() - 0.5) * dotSpeed,
-      r: Math.random() * dotSizeRange + dotSize,
-    }));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      dots.forEach(d => {
-        d.x += d.vx;
-        d.y += d.vy;
-        if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
-        if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
-      });
-
-      for (let i = 0; i < dots.length; i++) {
-        for (let j = i + 1; j < dots.length; j++) {
-          const dx = dots[i].x - dots[j].x;
-          const dy = dots[i].y - dots[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < linkDist) {
-            ctx.beginPath();
-            ctx.moveTo(dots[i].x, dots[i].y);
-            ctx.lineTo(dots[j].x, dots[j].y);
-            ctx.strokeStyle = `rgba(244, 88, 28, ${lineAlpha * (1 - dist / linkDist)})`;
-            ctx.lineWidth = isMobile ? 0.5 : 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-
-      dots.forEach(d => {
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(244, 88, 28, 0.30)';
-        ctx.fill();
-      });
-
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
+// ── 워드마크 — 콜론만 주황색 ───────────────────────────────────
+function Wordmark({ className = '' }) {
   return (
-    <canvas
-      ref={canvasRef}
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
-    />
+    <span className={`font-heading font-bold tracking-tight ${className}`}>
+      Re<span className="text-accent">:</span>Frame
+    </span>
   );
 }
 
-// ── 히어로 애니메이션 태그 ─────────────────────────────────────
-const WORDS = ['실습 중심', '맞춤교육', '리터러시', '바이브 코딩'];
-
-// ── 가치·역량 카드 아이콘 ──────────────────────────────────────
-const VALUE_ICONS = {
-  region: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
-    </svg>
-  ),
-  adult: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <circle cx="9" cy="7" r="4" /><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2" />
-      <circle cx="17.5" cy="8" r="3" /><path d="M22 21v-1.5a4 4 0 0 0-3-3.9" />
-    </svg>
-  ),
-  literacy: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2Z" /><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z" />
-    </svg>
-  ),
-  grad: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <path d="M22 9 12 4 2 9l10 5Z" /><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5" /><path d="M22 9v5" />
-    </svg>
-  ),
-  content: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <path d="m12 2 9 5-9 5-9-5Z" /><path d="m3 12 9 5 9-5" /><path d="m3 17 9 5 9-5" />
-    </svg>
-  ),
-  field: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <path d="M3 4h18" /><path d="M5 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4" />
-      <path d="M12 15v3" /><path d="M8 21l4-3 4 3" />
-    </svg>
-  ),
-  work: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><path d="M3 13h18" />
-    </svg>
-  ),
-  video: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-      <rect x="2" y="5" width="14" height="14" rx="2" /><path d="m22 8-6 4 6 4Z" />
-    </svg>
-  ),
-};
-
-// ── 히어로 배경 슬라이드쇼 (디졸브 전환 + Ken Burns) ────────────
-const HERO_IMAGES = ['hero/hero-1.jpg', 'hero/hero-2.jpg', 'hero/hero-3.jpg', 'hero/hero-4.jpg', 'hero/hero-5.jpg', 'hero/hero-6.jpg'];
-
-function HeroSlideshow() {
-  const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIdx(i => (i + 1) % HERO_IMAGES.length);
-    }, 7000);
-    return () => clearInterval(timer);
-  }, []);
-
+function SectionHead({ label, title, sub }) {
   return (
-    <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-      {HERO_IMAGES.map((src, i) => (
-        <img
-          key={src}
-          src={`${import.meta.env.BASE_URL}${src}`}
-          alt=""
-          className={`hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-[1800ms] ease-in-out ${
-            i === idx ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-      ))}
-      {/* 다크 오버레이 — 텍스트 가독성 확보 */}
-      <div className="absolute inset-0 bg-gradient-to-r from-bg_dark/95 via-bg_dark/85 to-bg_dark/65" />
+    <div className="reveal md:col-span-4">
+      <p className="text-sm font-semibold text-accent_deep mb-3">{label}</p>
+      {title && <h2 className="text-3xl md:text-4xl font-bold leading-[1.2] text-ink">{title}</h2>}
+      {sub && <p className="text-sub mt-4 leading-relaxed">{sub}</p>}
     </div>
   );
 }
 
-// ── 강의 신청 폼 ──────────────────────────────────────────────
-function ContactForm({ lang }) {
+// ── 교육 분야 한 줄 — 누르면 설명이 펼쳐짐 ───────────────────────
+function ProgramItem({ item }) {
+  const [open, setOpen] = useState(false);
+  const id = `prog-${item.n}`;
+  return (
+    <li className="border-t border-line">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-baseline gap-4 py-4 text-left group"
+      >
+        <span className="text-xs font-semibold text-sub tabular-nums w-6 shrink-0">{item.n}</span>
+        <span className="flex-1 text-[17px] font-semibold text-ink group-hover:text-accent_deep transition-colors">{item.title}</span>
+        <span className={`text-sub text-xl leading-none transition-transform duration-300 ${open ? 'rotate-45' : ''}`} aria-hidden="true">+</span>
+      </button>
+      <div id={id} className={`fold ${open ? 'open' : ''}`}>
+        <div>
+          <p className="pl-10 pr-8 pb-5 text-sub leading-relaxed">{item.desc}</p>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+// ── 출강 문의 폼 ──────────────────────────────────────────────
+function ContactForm({ t, lang }) {
   const [state, handleSubmit] = useForm('maqkjojj');
+  const f = t.form;
 
   if (state.succeeded) {
     return (
-      <div className="bg-[#3A3733] rounded-2xl p-8 text-center">
-        <div className="text-4xl mb-4">✅</div>
-        <p className="text-white font-bold text-lg mb-2">
-          {lang === 'ko' ? '신청이 완료되었습니다!' : 'Application submitted!'}
-        </p>
-        <p className="text-[#888] text-sm">
-          {lang === 'ko' ? '빠른 시일 내에 연락드리겠습니다.' : 'We will contact you soon.'}
-        </p>
+      <div className="border border-line rounded-lg p-10 bg-surface" role="status">
+        <p className="font-heading text-2xl font-bold text-ink mb-2">{f.done_title}</p>
+        <p className="text-sub">{f.done_sub}</p>
       </div>
     );
   }
 
-  const inputClass = "w-full bg-[#3A3733] border border-white/30 rounded-xl px-4 py-3 text-white text-base placeholder-white/40 focus:outline-none focus:border-accent transition";
-  const labelClass = "text-white/70 text-sm font-medium mb-1.5 block";
+  const input = 'w-full bg-white border border-line rounded-md px-4 py-3 text-base text-ink placeholder:text-sub/60 focus:outline-none focus:border-ink transition-colors';
+  const label = 'block text-sm font-semibold text-ink mb-1.5';
+  const req = <span className="text-accent_deep" aria-hidden="true"> *</span>;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <p className="text-white font-bold text-lg mb-2">
-        {lang === 'ko' ? '강의 신청하기' : 'Request a Lecture'}
-      </p>
-      <div>
-        <label className={labelClass}>{lang === 'ko' ? '기관/단체명' : 'Organization'}</label>
-        <input type="text" name="organization" required className={inputClass}
-          placeholder={lang === 'ko' ? '예: ○○평생학습관' : 'e.g. Learning Center'} />
+    <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-x-4 gap-y-5">
+      <input type="hidden" name="_language" value={lang} />
+      <div className="sm:col-span-2">
+        <label htmlFor="f-org" className={label}>{f.org}{req}</label>
+        <input id="f-org" type="text" name="organization" required className={input} placeholder={f.org_ph} />
         <ValidationError field="organization" errors={state.errors} />
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className={labelClass}>{lang === 'ko' ? '담당자 이름' : 'Contact Name'}</label>
-          <input type="text" name="name" required className={inputClass} />
-          <ValidationError field="name" errors={state.errors} />
-        </div>
-        <div>
-          <label className={labelClass}>{lang === 'ko' ? '연락처' : 'Phone'}</label>
-          <input type="tel" name="phone" required className={inputClass}
-            placeholder="010-0000-0000" />
-          <ValidationError field="phone" errors={state.errors} />
-        </div>
+      <div>
+        <label htmlFor="f-name" className={label}>{f.name}{req}</label>
+        <input id="f-name" type="text" name="name" required autoComplete="name" className={input} />
+        <ValidationError field="name" errors={state.errors} />
       </div>
       <div>
-        <label className={labelClass}>{lang === 'ko' ? '희망 교육 과정' : 'Preferred Course'}</label>
-        <select name="course" required className={inputClass}>
-          <option value="">{lang === 'ko' ? '선택해주세요' : 'Select'}</option>
-          {T[lang].areas_groups.flatMap(g => g.items).map(item => (
+        <label htmlFor="f-phone" className={label}>{f.phone}{req}</label>
+        <input id="f-phone" type="tel" name="phone" required autoComplete="tel" className={input} placeholder="010-0000-0000" />
+        <ValidationError field="phone" errors={state.errors} />
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor="f-email" className={label}>{f.email}</label>
+        <input id="f-email" type="email" name="email" autoComplete="email" className={input} />
+        <ValidationError field="email" errors={state.errors} />
+      </div>
+      <div>
+        <label htmlFor="f-target" className={label}>{f.target}{req}</label>
+        <select id="f-target" name="target" required className={input} defaultValue="">
+          <option value="" disabled>{f.select}</option>
+          {f.target_opts.map(o => <option key={o} value={o}>{o}</option>)}
+        </select>
+      </div>
+      <div>
+        <label htmlFor="f-people" className={label}>{f.people}</label>
+        <input id="f-people" type="text" name="people" className={input} placeholder={f.people_ph} />
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor="f-course" className={label}>{f.course}{req}</label>
+        <select id="f-course" name="course" required className={input} defaultValue="">
+          <option value="" disabled>{f.select}</option>
+          {t.groups.flatMap(g => g.items).map(item => (
             <option key={item.n} value={`${item.n} ${item.title}`}>{item.n} {item.title}</option>
           ))}
-          <option value="시그니처 과정 (AI 영상제작의 모든 것)">{lang === 'ko' ? '시그니처 과정 (AI 영상제작의 모든 것)' : 'Signature (AI Video Production)'}</option>
-          <option value="맞춤 커리큘럼">{lang === 'ko' ? '맞춤 커리큘럼' : 'Custom Curriculum'}</option>
+          <option value={f.course_custom}>{f.course_custom}</option>
         </select>
         <ValidationError field="course" errors={state.errors} />
       </div>
       <div>
-        <label className={labelClass}>{lang === 'ko' ? '희망 일정' : 'Preferred Schedule'}</label>
-        <input type="text" name="schedule" className={inputClass}
-          placeholder={lang === 'ko' ? '예: 2026년 7월 중, 주 2회' : 'e.g. July 2026, twice a week'} />
+        <label htmlFor="f-schedule" className={label}>{f.schedule}</label>
+        <input id="f-schedule" type="text" name="schedule" className={input} placeholder={f.schedule_ph} />
       </div>
       <div>
-        <label className={labelClass}>{lang === 'ko' ? '기타 요청사항' : 'Additional Notes'}</label>
-        <textarea name="message" rows="3" className={inputClass}
-          placeholder={lang === 'ko' ? '인원수, 환경, 특별 요청 등' : 'Group size, environment, etc.'} />
+        <label htmlFor="f-place" className={label}>{f.place}</label>
+        <input id="f-place" type="text" name="place" className={input} placeholder={f.place_ph} />
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor="f-message" className={label}>{f.message}</label>
+        <textarea id="f-message" name="message" rows="4" className={input} placeholder={f.message_ph} />
         <ValidationError field="message" errors={state.errors} />
       </div>
-      <button
-        type="submit"
-        disabled={state.submitting}
-        className="w-full bg-accent text-white py-3 rounded-full font-semibold hover:bg-accent_deep transition disabled:opacity-50"
-      >
-        {state.submitting
-          ? (lang === 'ko' ? '전송 중...' : 'Sending...')
-          : (lang === 'ko' ? '강의 신청하기' : 'Submit Request')}
-      </button>
+      <div className="sm:col-span-2 flex items-start gap-3">
+        <input id="f-consent" type="checkbox" name="consent" value="동의" required className="mt-1 w-4 h-4 accent-ink" />
+        <label htmlFor="f-consent" className="text-sm text-ink">
+          {f.consent}{req}{' '}
+          <a href="/privacy.html" target="_blank" rel="noreferrer" className="underline underline-offset-2 text-sub hover:text-ink">{f.consent_link}</a>
+        </label>
+      </div>
+      <div className="sm:col-span-2">
+        <button
+          type="submit"
+          disabled={state.submitting}
+          className="btn-fill w-full sm:w-auto bg-ink text-white border border-ink px-8 py-3.5 rounded-md font-semibold disabled:opacity-50"
+        >
+          {state.submitting ? f.sending : <>{f.submit} <span className="arrow">→</span></>}
+        </button>
+      </div>
     </form>
   );
 }
 
 export default function App() {
-  const [wordIdx, setWordIdx] = useState(0);
   const [lang, setLang] = useState('ko');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const t = T[lang];
 
+  useReveal(lang);
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      setWordIdx(i => (i + 1) % WORDS.length);
-    }, 4000);
-    return () => clearInterval(timer);
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const container = 'max-w-[1240px] mx-auto px-5 md:px-10';
+  const section = 'py-20 md:py-28';
+
   return (
-    <div
-      className="bg-bg_cream text-main antialiased"
-      style={{ fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif" }}
-    >
+    <div className="bg-white text-ink">
 
       {/* ── NAV ─────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg_dark/90 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 py-3 xl:py-4 flex items-center justify-between">
-          <a href="#" className="font-heading text-xl xl:text-2xl font-bold tracking-tight text-white">
-            Re<span className="text-accent">:</span>Frame
+      <header className={`fixed top-0 inset-x-0 z-50 backdrop-blur-md transition-shadow ${menuOpen ? 'bg-white shadow-[0_8px_24px_rgba(29,31,36,.08)]' : 'bg-white/90'} ${scrolled ? 'shadow-[0_1px_0_#E3E4E0]' : ''}`}>
+        <div className={`${container} h-16 md:h-[72px] flex items-center justify-between gap-6`}>
+          <a href="#top" aria-label="Re:Frame">
+            <Wordmark className="text-2xl text-ink" />
           </a>
-          <div className="flex items-center gap-5">
-            <ul className="hidden md:flex items-center gap-7 xl:gap-8 text-sm xl:text-[15px] font-medium text-white/70">
-              <li><a href="#about"       className="hover:text-accent transition">{t.nav.about}</a></li>
-              <li><a href="#areas"       className="hover:text-accent transition">{t.nav.areas}</a></li>
-              <li><a href="#education"   className="hover:text-accent transition">{t.nav.education}</a></li>
-              <li><a href="#instructors" className="hover:text-accent transition">{t.nav.instructors}</a></li>
+          <nav aria-label="주 메뉴" className="hidden lg:block">
+            <ul className="flex items-center gap-8 text-[15px] font-medium text-sub">
+              {t.nav.map(n => (
+                <li key={n.href}><a href={n.href} className="hover:text-ink transition-colors">{n.label}</a></li>
+              ))}
             </ul>
-            <a
-              href="#contact"
-              className="hidden sm:inline-block bg-accent text-white text-[13px] xl:text-sm font-semibold px-4 py-1.5 xl:px-5 xl:py-2 rounded-full hover:bg-accent_deep transition"
-            >
-              {t.nav.contact}
+          </nav>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a href="#contact" className="btn-fill whitespace-nowrap bg-ink text-white border border-ink text-sm font-semibold px-3 sm:px-4 py-2 rounded-md">
+              {t.nav_cta}
             </a>
-            <div className="flex items-center gap-1 border-l border-white/15 pl-4">
-              <button
-                onClick={() => setLang('ko')}
-                className={`text-xs font-bold px-3 py-1.5 rounded-full transition ${lang === 'ko' ? 'bg-white text-main' : 'text-white/50 hover:bg-white/10'}`}
-              >KR</button>
-              <button
-                onClick={() => setLang('en')}
-                className={`text-xs font-bold px-3 py-1.5 rounded-full transition ${lang === 'en' ? 'bg-white text-main' : 'text-white/50 hover:bg-white/10'}`}
-              >EN</button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex flex-col bg-bg_dark overflow-hidden">
-        {/* 배경 슬라이드쇼 */}
-        <HeroSlideshow />
-        {/* 격자 패턴 */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-60"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px)',
-            backgroundSize: '56px 56px',
-          }}
-        />
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 flex-1 flex flex-col justify-between pt-32 xl:pt-36 pb-10 xl:pb-12 animate-fade-in">
-          <div>
-
-          {/* 배지 */}
-          <div className="inline-flex items-center gap-1.5 border border-accent/50 text-[#F79A6E] text-xs xl:text-sm font-medium px-3 py-1 xl:px-4 xl:py-1.5 rounded-full mb-5">
-            ✦ {t.badge}
-          </div>
-
-          {/* 헤드라인 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-2 text-white">
-            {t.h1}
-          </h1>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[84px] font-black leading-[1.1] mb-6 text-white">
-            <span className="text-accent">{t.h2_accent}</span>{t.h2_rest}
-          </h2>
-          {/* 애니메이션 태그 목록 */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {WORDS.map((word, i) => (
-              <span
-                key={word}
-                className={`text-[11px] xl:text-xs font-medium px-2.5 py-0.5 xl:px-3 xl:py-1 rounded-full transition-all duration-500 ${
-                  i === wordIdx
-                    ? 'bg-accent text-white scale-105'
-                    : 'bg-white/10 text-white/40'
-                }`}
-              >
-                {word}
-              </span>
-            ))}
-          </div>
-
-          <p className="text-[#B8B2AC] text-sm md:text-base xl:text-lg 2xl:text-xl mb-8 max-w-2xl xl:max-w-3xl whitespace-pre-line">
-            {t.sub}
-          </p>
-
-          {/* CTA 버튼 */}
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="#areas"
-              className="bg-accent text-white text-sm xl:text-base px-5 py-2 xl:px-7 xl:py-3 rounded-full font-semibold hover:bg-accent_deep transition shadow-sm"
-            >
-              {t.cta1} →
-            </a>
-            <a
-              href="#contact"
-              className="border border-white/40 text-white text-sm xl:text-base px-5 py-2 xl:px-7 xl:py-3 rounded-full font-semibold hover:bg-white hover:text-main transition"
-            >
-              {t.cta3}
-            </a>
-          </div>
-
-          </div>
-
-          {/* 지표 바 — 하단 고정 */}
-          <div className="mt-10 max-w-2xl xl:max-w-3xl">
-            <p className="text-white/40 text-xs xl:text-sm mb-2">{t.stats_note}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 bg-white/5 backdrop-blur-sm rounded-xl px-4 py-4">
-              {t.stats.map((s, i) => (
-                <div key={s.l} className={`text-center px-3 ${i > 0 ? 'sm:border-l sm:border-white/10' : ''}`}>
-                  <p className="font-heading font-black text-accent text-[22px] xl:text-3xl leading-none mb-1 xl:mb-1.5 whitespace-nowrap">{s.n}</p>
-                  <p className="text-white/60 text-xs xl:text-sm">{s.l}</p>
-                </div>
+            <div className="flex text-xs font-semibold" role="group" aria-label="Language">
+              {['ko', 'en'].map(l => (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => setLang(l)}
+                  aria-pressed={lang === l}
+                  className={`px-2 py-2 transition-colors ${lang === l ? 'text-ink' : 'text-sub/60 hover:text-ink'}`}
+                >{l === 'ko' ? 'KR' : 'EN'}</button>
               ))}
             </div>
+            <button
+              type="button"
+              className="lg:hidden w-10 h-10 -mr-2 flex flex-col items-center justify-center gap-1.5"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={t.menu}
+              onClick={() => setMenuOpen(o => !o)}
+            >
+              <span className={`block w-5 h-[1.5px] bg-ink transition-transform ${menuOpen ? 'translate-y-[3.75px] rotate-45' : ''}`} />
+              <span className={`block w-5 h-[1.5px] bg-ink transition-transform ${menuOpen ? '-translate-y-[3.75px] -rotate-45' : ''}`} />
+            </button>
           </div>
         </div>
-      </section>
-
-      {/* ── 소개 (ABOUT) ──────────────────────────────────────── */}
-      <section id="about" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-12 md:gap-16">
-
-          {/* 왼쪽: 배지 + 헤드라인 + 소개문 + 팩트 카드 */}
+        <div id="mobile-menu" className={`lg:hidden fold ${menuOpen ? 'open' : ''}`}>
           <div>
-            <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-6">
-              {t.about_title}
-            </span>
-            <h2 className="text-3xl md:text-[2.5rem] xl:text-5xl font-black text-main leading-[1.28] mb-6">
-              {t.about_head1}<br />{t.about_head2}
-            </h2>
-            <p className="text-sub text-base md:text-lg xl:text-xl leading-relaxed mb-10">
-              {t.company_p}
-            </p>
-            <div className="grid grid-cols-5 gap-4">
-              {t.about_facts.map((f, i) => (
-                <div key={f.k} className={`bg-white border border-main/8 rounded-2xl px-6 py-6 ${i === 0 ? 'col-span-3' : 'col-span-2'}`}>
-                  <p className="text-sub text-sm mb-2">{f.k}</p>
-                  <p className="text-main text-lg md:text-xl xl:text-2xl font-bold leading-snug break-keep">{f.v}</p>
-                </div>
+            <ul className={`${container} pb-4 border-b border-line`}>
+              {t.nav.map(n => (
+                <li key={n.href}>
+                  <a href={n.href} onClick={() => setMenuOpen(false)} className="block py-3 text-lg font-medium border-t border-line">{n.label}</a>
+                </li>
               ))}
-            </div>
-          </div>
-
-          {/* 오른쪽: 가치 카드 3개 — 좌측 하단 라인에 정렬 */}
-          <div className="flex flex-col justify-between gap-5">
-            {t.about_values.map(v => (
-              <div key={v.title} className="bg-white border border-main/8 rounded-2xl p-7 flex gap-5 items-start shadow-sm">
-                <span className="w-12 h-12 rounded-xl bg-accent_tint text-accent_deep flex items-center justify-center shrink-0">
-                  {VALUE_ICONS[v.icon]}
-                </span>
-                <div>
-                  <h3 className="text-lg xl:text-xl xl:text-2xl font-bold text-main mb-1.5">{v.title}</h3>
-                  <p className="text-sub text-sm xl:text-[15px] leading-relaxed">{v.desc}</p>
-                </div>
-              </div>
-            ))}
+            </ul>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* ── 전문 역량 (EXPERTISE) ─────────────────────────────── */}
-      <section className="py-16 md:py-20 xl:py-24 bg-card_bg">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="text-center mb-10 xl:mb-14">
-            <span className="inline-block bg-accent_tint text-accent_deep text-sm font-bold px-4 py-1.5 rounded-full mb-5">
-              {t.exp_badge}
-            </span>
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-black text-main leading-[1.3] mb-4">
-              {t.exp_head1}<br />{t.exp_head2}
-            </h2>
-            <p className="text-sub xl:text-lg break-keep">{t.exp_sub}</p>
-          </div>
+      <main id="top">
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {t.exp_items.map(item => (
-              <div key={item.n} className="bg-white rounded-2xl p-8 shadow-sm">
-                <div className="flex items-start justify-between mb-10">
-                  <span className="w-12 h-12 rounded-xl bg-accent_tint text-accent_deep flex items-center justify-center">
-                    {VALUE_ICONS[item.icon]}
+        {/* ── HERO ─────────────────────────────────────────── */}
+        <section className="pt-28 md:pt-36 pb-16 md:pb-24">
+          <div className={`${container} grid lg:grid-cols-12 gap-10 lg:gap-12 items-center`}>
+            <div className="lg:col-span-6">
+              <p className="fade-in text-sm font-semibold text-sub mb-6">{t.hero_eyebrow}</p>
+              <h1 key={lang} className="text-[42px] leading-[1.12] sm:text-6xl lg:text-[64px] xl:text-[72px] font-bold text-ink mb-7">
+                {t.hero_lines.map((line, i) => (
+                  <span key={line} className="line-mask">
+                    <span style={{ '--d': `${120 + i * 90}ms` }}>{line}</span>
                   </span>
-                  <span className="font-heading font-black text-5xl text-accent/20 leading-none select-none">{item.n}</span>
-                </div>
-                <p className="text-accent_deep text-xs font-bold tracking-[0.15em] mb-2">{item.label}</p>
-                <h3 className="text-xl xl:text-2xl font-bold text-main mb-3">{item.title}</h3>
-                <p className="text-sub text-sm xl:text-[15px] leading-relaxed">{item.desc}</p>
+                ))}
+              </h1>
+              <p className="fade-in text-lg md:text-xl text-sub leading-relaxed max-w-xl mb-9" style={{ '--d': '480ms' }}>
+                {t.hero_sub}
+              </p>
+              <div className="fade-in flex flex-wrap gap-3" style={{ '--d': '600ms' }}>
+                <a href="#contact" className="btn-fill bg-ink text-white border border-ink px-6 py-3.5 rounded-md font-semibold">
+                  {t.hero_cta1} <span className="arrow">→</span>
+                </a>
+                <a href="#programs" className="border border-line text-ink px-6 py-3.5 rounded-md font-semibold hover:border-ink transition-colors">
+                  {t.hero_cta2}
+                </a>
               </div>
-            ))}
+            </div>
+            <div className="lg:col-span-6">
+              <div className="photo-in overflow-hidden rounded-lg aspect-[4/3] bg-surface">
+                <img
+                  src={`${import.meta.env.BASE_URL}hero/hero-3.jpg`}
+                  alt={t.hero_photo_alt}
+                  className="parallax w-full h-full object-cover"
+                  fetchPriority="high"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* ── 강의 분야 (11개) ───────────────────────────────────── */}
-      <section id="areas" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="text-center mb-10 xl:mb-14">
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.areas_title}</h2>
-            <p className="text-sub xl:text-lg">{t.areas_sub}</p>
+          {/* 지표 */}
+          <div className={`${container} mt-16 md:mt-20`}>
+            <dl className="grid grid-cols-2 md:grid-cols-4 gap-y-6 border-t border-line">
+              {t.stats.map((s, i) => (
+                <div key={s.l} className={`reveal pt-6 flex flex-col-reverse ${i % 2 === 1 ? 'pl-5 border-l border-line md:pl-6' : ''} ${i === 2 ? 'md:pl-6 md:border-l md:border-line' : ''}`} style={{ '--d': `${i * 80}ms` }}>
+                  <dt className="text-sm text-sub mt-1">{s.l}</dt>
+                  <dd className="font-heading text-4xl md:text-5xl font-bold text-ink">
+                    <CountUp to={s.n ?? ORG_COUNT} />{s.suffix}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="text-xs text-sub mt-5">{t.stats_note}</p>
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-            {t.areas_groups.map(g => (
-              <div key={g.id} className="bg-white rounded-2xl p-6 xl:p-7 shadow-sm border border-main/5">
-                <span className="w-12 h-12 rounded-xl bg-bg_dark text-accent flex items-center justify-center mb-4">
-                  {VALUE_ICONS[g.icon]}
-                </span>
-                <p className="text-accent_deep text-xs font-bold tracking-[0.15em] mb-1.5">{g.id} · {g.label}</p>
-                <h3 className="text-xl xl:text-[22px] font-bold text-main mb-2">{g.name}</h3>
-                <p className="text-sub text-[13px] xl:text-sm leading-relaxed mb-4">{g.gdesc}</p>
-                <ul className="space-y-2 border-t border-main/8 pt-4">
-                  {g.items.map(item => (
-                    <li key={item.n} className="flex items-start gap-2 text-sm xl:text-[15px] text-main/85 leading-snug">
-                      <span className="text-accent_deep text-xs font-bold mt-0.5 w-5 shrink-0">{item.n}</span>
-                      {item.title}
+        {/* ── 회사 소개 ─────────────────────────────────────── */}
+        <section id="about" className={`${section} bg-surface`}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.about_label} />
+            <div className="md:col-span-8">
+              <p className="reveal font-heading text-3xl md:text-[40px] font-bold leading-[1.3] text-ink mb-8">
+                <Wordmark /> — {t.about_meaning}
+              </p>
+              <p className="reveal text-lg text-sub leading-relaxed max-w-2xl mb-12">{t.about_p}</p>
+              <dl className="reveal grid grid-cols-3 gap-6 border-t border-line pt-6 mb-16">
+                {t.about_facts.map(f => (
+                  <div key={f.k}>
+                    <dt className="text-sm text-sub mb-1">{f.k}</dt>
+                    <dd className="text-base sm:text-lg md:text-xl font-semibold text-ink">{f.v}</dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="grid md:grid-cols-3 gap-8">
+                {t.values.map((v, i) => (
+                  <div key={v.title} className="reveal" style={{ '--d': `${i * 100}ms` }}>
+                    <h3 className="text-xl font-bold text-ink mb-3">{v.title}</h3>
+                    <p className="text-sub leading-relaxed">{v.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 사업 영역 ─────────────────────────────────────── */}
+        <section id="business" className={section}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.biz_label} title={t.biz_title} />
+            <div className="md:col-span-8 grid gap-4">
+              {t.biz.map((b, i) => {
+                const inner = (
+                  <>
+                    <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2 mb-3">
+                      <h3 className="text-2xl font-bold text-ink">{b.name}</h3>
+                      {b.status
+                        ? <span className="shrink-0 text-xs font-semibold text-sub border border-line rounded-full px-3 py-1">{b.status}</span>
+                        : <span className="shrink-0 text-sm font-semibold text-accent_deep pt-1.5">{b.cta} <span className="arrow">{b.external ? '↗' : '→'}</span></span>}
+                    </div>
+                    <p className="text-sub leading-relaxed max-w-xl">{b.desc}</p>
+                  </>
+                );
+                const cls = 'reveal block border border-line rounded-lg p-7 md:p-8 transition-colors';
+                return b.link ? (
+                  <a key={b.name} href={b.link} {...(b.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                    className={`${cls} hover:border-ink`} style={{ '--d': `${i * 90}ms` }}>{inner}</a>
+                ) : (
+                  <div key={b.name} className={`${cls} bg-surface/60`} style={{ '--d': `${i * 90}ms` }}>{inner}</div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 전문 역량 ─────────────────────────────────────── */}
+        <section className="pb-20 md:pb-28">
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.exp_label} title={t.exp_title} />
+            <div className="md:col-span-8 grid md:grid-cols-3 gap-8 md:gap-10">
+              {t.exp.map((e, i) => (
+                <div key={e.title} className="reveal border-t-2 border-ink pt-5" style={{ '--d': `${i * 100}ms` }}>
+                  <h3 className="text-xl font-bold text-ink mb-3">{e.title}</h3>
+                  <p className="text-sub leading-relaxed">{e.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 교육 분야 ─────────────────────────────────────── */}
+        <section id="programs" className={`${section} bg-surface`}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.prog_label} title={t.prog_title} sub={t.prog_sub} />
+            <div className="md:col-span-8 grid lg:grid-cols-2 gap-x-10 gap-y-14">
+              {t.groups.map((g, gi) => (
+                <div key={g.label} className="reveal" style={{ '--d': `${(gi % 2) * 100}ms` }}>
+                  <p className="text-xs font-semibold tracking-[0.12em] text-sub mb-2">{g.label}</p>
+                  <h3 className="text-2xl font-bold text-ink mb-2">{g.name}</h3>
+                  <p className="text-sub mb-5">{g.gdesc}</p>
+                  <ul className="border-b border-line">
+                    {g.items.map(item => <ProgramItem key={item.n} item={item} />)}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 운영 형태 ─────────────────────────────────────── */}
+        <section className={section}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.fmt_label} title={t.fmt_title} />
+            <div className="md:col-span-8">
+              <div className="border-t border-line">
+                {t.formats.map((f, i) => (
+                  <div key={f.name} className="reveal grid sm:grid-cols-12 gap-2 sm:gap-6 py-6 border-b border-line" style={{ '--d': `${i * 80}ms` }}>
+                    <h3 className="sm:col-span-3 text-xl font-bold text-ink">{f.name}</h3>
+                    <p className="sm:col-span-3 text-sm font-semibold text-accent_deep sm:pt-1.5 tabular-nums">{f.spec}</p>
+                    <p className="sm:col-span-6 text-sub leading-relaxed">{f.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="reveal mt-10 bg-surface rounded-lg p-7">
+                <p className="text-sm font-semibold text-ink mb-4">{t.fmt_common_title}</p>
+                <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2.5">
+                  {t.fmt_common.map(c => (
+                    <li key={c} className="flex gap-3 text-sub">
+                      <span className="mt-[11px] w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />{c}
                     </li>
                   ))}
                 </ul>
               </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-9">
-            <a
-              href="#contact"
-              className="inline-block bg-main text-white px-7 py-3 rounded-full font-semibold hover:bg-[#444] transition shadow-sm"
-            >
-              {t.areas_cta} →
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 교육 과정 ─────────────────────────────────────────── */}
-      <section id="education" className="py-16 md:py-20 xl:py-24 bg-card_bg">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="text-center mb-10 xl:mb-14">
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.edu_title}</h2>
-            <p className="text-sub xl:text-lg">{t.edu_sub}</p>
-          </div>
-
-          {/* B-1 / B-2 / B-3 */}
-          <div className="grid md:grid-cols-3 gap-4 mb-5">
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <p className="font-bold text-main text-lg xl:text-xl mb-1">B-1</p>
-              <h3 className="text-xl xl:text-2xl font-bold text-main mb-1">{t.b1_title}</h3>
-              <p className="text-xs xl:text-sm text-sub mb-4">{t.b1_target}</p>
-              <p className="text-accent_deep xl:text-lg font-medium italic mb-2">{t.b1_tag}</p>
-              <p className="text-sm xl:text-base text-sub">{t.b1_desc}</p>
-            </div>
-
-            <div className="bg-accent rounded-2xl p-8 shadow-md relative">
-              <span className="absolute top-4 right-4 bg-white text-accent_deep text-xs font-bold px-2.5 py-1 rounded-full">
-                {t.b2_badge}
-              </span>
-              <p className="font-bold text-white text-lg xl:text-xl mb-1">B-2</p>
-              <h3 className="text-xl xl:text-2xl font-bold text-white mb-1">{t.b2_title}</h3>
-              <p className="text-xs xl:text-sm text-white/70 mb-4">{t.b2_target}</p>
-              <p className="text-white xl:text-lg font-medium italic mb-2">{t.b2_tag}</p>
-              <p className="text-sm xl:text-base text-white/80">{t.b2_desc}</p>
-            </div>
-
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <p className="font-bold text-main text-lg xl:text-xl mb-1">B-3</p>
-              <h3 className="text-xl xl:text-2xl font-bold text-main mb-1">{t.b3_title}</h3>
-              <p className="text-xs xl:text-sm text-sub mb-4">{t.b3_target}</p>
-              <p className="text-accent_deep xl:text-lg font-medium italic mb-2">{t.b3_tag}</p>
-              <p className="text-sm xl:text-base text-sub">{t.b3_desc}</p>
             </div>
           </div>
+        </section>
 
-          {/* 운영 방식 안내 바 */}
-          <div className="bg-white rounded-xl px-8 py-4 xl:py-5 text-sm xl:text-base text-sub text-center mb-12 shadow-sm">
-            {t.ops}
-          </div>
-
-          {/* 시그니처 과정 */}
-          <div className="rounded-2xl overflow-hidden grid md:grid-cols-2 shadow-lg">
-            <div className="bg-[#2A2825] p-10 flex flex-col justify-center">
-              <span className="bg-accent text-white text-xs px-3 py-1 rounded-full font-medium w-fit mb-4">
-                {t.sig_badge}
-              </span>
-              <h3 className="text-2xl xl:text-3xl font-bold text-white mb-4">{t.sig_title}</h3>
-              <p className="text-[#AAA] text-sm xl:text-base leading-relaxed mb-6">
-                {t.sig_desc.split('\n').map((line, i) => (
-                  <React.Fragment key={i}>{line}{i < 2 && <br />}</React.Fragment>
-                ))}
-              </p>
-              <a
-                href="#contact"
-                className="bg-accent text-white px-6 py-3 rounded-full text-sm xl:text-base font-semibold w-fit hover:bg-accent_deep transition"
-              >
-                {t.sig_cta}
-              </a>
-            </div>
-            <div className="overflow-hidden">
-              <img
-                src={`${import.meta.env.BASE_URL}character-collage.png`}
-                alt="AI 창작 수업"
-                className="w-full h-full object-cover min-h-[260px]"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 바이브 코딩 ───────────────────────────────────────── */}
-      <section id="vibe" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-
-          {/* 제목 + 이미지 */}
-          <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.vibe_title}</h2>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="bg-main text-white text-xs font-semibold px-3 py-1.5 rounded-full">with Claude</span>
-                <span className="bg-accent text-white text-xs font-medium px-2.5 py-1.5 rounded-full">{t.vibe_new}</span>
-              </div>
-              <p className="text-sub">{t.vibe_sub}</p>
-            </div>
-            <div className="rounded-2xl overflow-hidden shadow-md">
-              <img
-                src={`${import.meta.env.BASE_URL}vibe-coding.jpg`}
-                alt="바이브 코딩 with Claude"
-                className="w-full h-56 object-cover"
-              />
-            </div>
-          </div>
-
-          {/* 과정 2개: 입문 · 심화 */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-accent rounded-2xl p-8 relative">
-              <span className="absolute top-4 right-4 bg-white text-accent_deep text-xs font-bold px-2.5 py-1 rounded-full">FEATURED</span>
-              <div className="text-white text-2xl xl:text-3xl mb-3 font-mono">&lt;&gt;</div>
-              <h3 className="text-xl xl:text-2xl font-bold text-white mb-2">{t.v1_title}</h3>
-              <p className="text-white/60 text-sm xl:text-base mb-3">{t.v1_desc}</p>
-              <ul className="space-y-1.5">
-                {t.v1_items.map(item => (
-                  <li key={item} className="text-white/80 text-sm xl:text-base flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 rounded-full bg-white/50 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <div className="text-accent text-2xl xl:text-3xl mb-3">🚀</div>
-              <h3 className="text-xl xl:text-2xl font-bold text-main mb-2">{t.v2_title}</h3>
-              <p className="text-sub/60 text-sm xl:text-base mb-3">{t.v2_desc}</p>
-              <ul className="space-y-1.5">
-                {t.v2_items.map(item => (
-                  <li key={item} className="text-sub text-sm xl:text-base flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 rounded-full bg-accent/50 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 강사진 ────────────────────────────────────────────── */}
-      <section id="instructors" className="py-16 md:py-20 xl:py-24 bg-card_bg">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="text-center mb-10 xl:mb-14">
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.inst_title}</h2>
-            <p className="text-sub xl:text-lg">{t.inst_sub}</p>
-          </div>
-
-          <div className="max-w-4xl xl:max-w-5xl mx-auto">
-            {/* 박선례 대표 */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-main/5">
-              <div className="grid grid-cols-4">
-                <div className="col-span-1 p-6 pr-0">
-                  <div className="relative h-full min-h-[240px] rounded-xl overflow-hidden">
-                    <img
-                      src={`${import.meta.env.BASE_URL}profile_seonrye_tall.jpg`}
-                      alt={t.inst1_name}
-                      className="absolute inset-0 w-full h-full object-cover object-top"
-                    />
-                  </div>
-                </div>
-                <div className="col-span-3 p-6">
-                  <h3 className="text-xl xl:text-2xl font-bold text-main">{t.inst1_name}</h3>
-                  <p className="text-accent_deep text-sm xl:text-base font-medium mb-3">{t.inst1_role}</p>
-                  <p className="text-main text-sm xl:text-base leading-snug"><span className="font-bold">{t.univ}</span> - {t.univ_sub}</p>
-                  <p className="text-sub/60 text-xs xl:text-sm mt-1 italic">{t.thesis}</p>
-                  <p className="text-sub text-sm xl:text-base mt-2">{t.bg1_1} · {t.bg1_2}</p>
-                  <p className="text-[13px] xl:text-[15px] text-main/70 leading-relaxed break-keep mt-3">
-                    {t.certs.join(' · ')}
-                  </p>
-                  <div className="bg-bg_cream rounded-xl px-4 py-3 mt-4 text-xs xl:text-sm text-main/80">
-                    <p><span className="text-accent_deep font-bold mr-2">저서</span>{t.book}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="px-6 pb-6">
-                <div className="border-t border-main/8 pt-4 flex flex-wrap gap-2">
-                  <a href="https://www.threads.net/@slowsoyang" target="_blank" rel="noreferrer"
-                    className="border border-main/15 text-main/70 text-xs xl:text-sm px-3.5 py-1.5 xl:px-4 xl:py-2 rounded-full hover:border-accent hover:text-accent transition">
-                    스레드 @slowsoyang
-                  </a>
-                  <a href="https://blog.naver.com/frameview-" target="_blank" rel="noreferrer"
-                    className="border border-main/15 text-main/70 text-xs xl:text-sm px-3.5 py-1.5 xl:px-4 xl:py-2 rounded-full hover:border-accent hover:text-accent transition">
-                    네이버 블로그
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── 칼럼 & 출강 실적 ──────────────────────────────────── */}
-      <section id="trust" className="py-16 md:py-20 xl:py-24 bg-bg_cream">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="text-center mb-10 xl:mb-14">
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold text-main mb-3">{t.trust_title}</h2>
-            <p className="text-sub xl:text-lg">{t.trust_sub}</p>
-          </div>
-
-          {/* 로컬M 칼럼 */}
-          <div className="mb-14">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">{t.col_badge}</span>
-              <h3 className="text-lg font-bold text-main">{t.col_name}</h3>
-            </div>
-            <p className="text-sub text-sm mb-5">{t.col_desc}</p>
-            <div className="grid md:grid-cols-3 gap-4">
-              {t.columns.map(c => (
-                <a key={c.u} href={c.u} target="_blank" rel="noreferrer"
-                  className="group bg-white rounded-2xl p-6 shadow-sm border border-main/5 flex flex-col justify-between gap-4 hover:border-accent/40 hover:shadow-md transition">
-                  <p className="text-main font-bold leading-snug group-hover:text-accent transition">{c.t}</p>
-                  <span className="text-accent_deep text-sm font-medium">{t.col_read} →</span>
-                </a>
+        {/* ── 진행 방식 ─────────────────────────────────────── */}
+        <section id="process" className={`${section} bg-surface`}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.proc_label} title={t.proc_title} />
+            <ol className="md:col-span-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+              {t.steps.map((s, i) => (
+                <li key={s.t} className="reveal" style={{ '--d': `${(i % 3) * 90}ms` }}>
+                  <span className="font-heading text-sm font-bold text-accent_deep tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="text-xl font-bold text-ink mt-2 mb-2 pt-3 border-t border-line">{s.t}</h3>
+                  <p className="text-sub leading-relaxed">{s.d}</p>
+                </li>
               ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ── 대표 강사 ─────────────────────────────────────── */}
+        <section id="instructor" className={section}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.inst_label} />
+            <div className="md:col-span-8 grid sm:grid-cols-12 gap-8">
+              <div className="reveal sm:col-span-4">
+                <div className="overflow-hidden rounded-lg aspect-[3/4] bg-surface max-w-[280px]">
+                  <img
+                    src={`${import.meta.env.BASE_URL}profile_seonrye_tall.jpg`}
+                    alt={t.inst_name}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+              </div>
+              <div className="reveal sm:col-span-8" style={{ '--d': '100ms' }}>
+                <h3 className="text-3xl font-bold text-ink">{t.inst_name}</h3>
+                <p className="text-accent_deep font-semibold mt-1 mb-6">{t.inst_role}</p>
+                <p className="text-ink"><span className="font-semibold">{t.univ}</span> — {t.univ_sub}</p>
+                <p className="text-sub text-sm mt-1">{t.thesis}</p>
+                <p className="text-sub mt-3">{t.bg}</p>
+                <div className="border-t border-line mt-6 pt-5">
+                  <p className="text-sm font-semibold text-ink mb-2">{t.certs_label}</p>
+                  <p className="text-sub text-[15px] leading-relaxed">{t.certs.join(' · ')}</p>
+                </div>
+                <div className="border-t border-line mt-5 pt-5">
+                  <p className="text-sm font-semibold text-ink mb-2">{t.book_label}</p>
+                  <p className="text-sub text-[15px]">{t.book}</p>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {t.links.map(l => (
+                    <a key={l.href} href={l.href} target="_blank" rel="noreferrer"
+                      className="text-sm border border-line rounded-md px-3.5 py-2 text-sub hover:text-ink hover:border-ink transition-colors">
+                      {l.label} <span className="arrow">↗</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
+        </section>
 
-          {/* 출강 기관 */}
-          <div>
-            <h3 className="text-lg font-bold text-main mb-4">{t.orgs_title}</h3>
-            <p className="text-sub/80 text-[13px] leading-relaxed break-keep">
-              {t.orgs.join(' · ')}
+        {/* ── 실적 ──────────────────────────────────────────── */}
+        <section id="record" className={`${section} bg-surface`}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <SectionHead label={t.rec_label} title={t.rec_title} />
+            <div className="md:col-span-8">
+              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-10">
+                {t.org_groups.map((g, i) => (
+                  <div key={g.name} className="reveal" style={{ '--d': `${(i % 2) * 90}ms` }}>
+                    <p className="text-sm font-semibold text-ink pb-3 border-b border-ink mb-3">
+                      {g.name} <span className="text-sub font-normal tabular-nums">{g.items.length}</span>
+                    </p>
+                    <ul className="space-y-1.5 text-sub">
+                      {g.items.map(o => <li key={o}>{o}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <div className="reveal mt-16">
+                <p className="text-sm font-semibold text-ink mb-4">{t.col_title}</p>
+                <ul className="border-t border-line">
+                  {t.columns.map(c => (
+                    <li key={c.u} className="border-b border-line">
+                      <a href={c.u} target="_blank" rel="noreferrer" className="flex items-baseline justify-between gap-6 py-4 group">
+                        <span className="text-ink font-medium group-hover:text-accent_deep transition-colors">{c.t}</span>
+                        <span className="shrink-0 text-sm text-sub">{t.col_read} <span className="arrow">↗</span></span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 출강 문의 ─────────────────────────────────────── */}
+        <section id="contact" className={section}>
+          <div className={`${container} grid md:grid-cols-12 gap-10 md:gap-12`}>
+            <div className="md:col-span-4">
+              <SectionHead label={t.contact_label} title={t.contact_title} sub={t.contact_sub} />
+              <dl className="reveal mt-10 space-y-5">
+                <div>
+                  <dt className="text-sm text-sub">{t.contact_mail}</dt>
+                  <dd className="text-lg font-semibold text-ink select-all">{COMPANY.email}</dd>
+                </div>
+                {COMPANY.phone && (
+                  <div>
+                    <dt className="text-sm text-sub">{t.contact_phone}</dt>
+                    <dd className="text-lg font-semibold text-ink">{COMPANY.phone}</dd>
+                  </div>
+                )}
+                <div>
+                  <dt className="text-sm text-sub">{t.contact_addr}</dt>
+                  <dd className="text-ink">{lang === 'ko' ? COMPANY.address : COMPANY.address_en}</dd>
+                </div>
+              </dl>
+              <p className="reveal text-sm text-accent_deep font-semibold mt-8">{t.tax_note}</p>
+            </div>
+            <div className="reveal md:col-span-8" style={{ '--d': '100ms' }}>
+              <ContactForm t={t} lang={lang} />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* ── FOOTER ───────────────────────────────────────────── */}
+      <footer className="bg-surface border-t border-line">
+        <div className={`${container} py-12 grid md:grid-cols-12 gap-8 text-sm`}>
+          <div className="md:col-span-7">
+            <Wordmark className="text-xl text-ink" />
+            <p className="text-sub mt-4 leading-relaxed">
+              {t.footer_company} · {t.footer_ceo}
+              {COMPANY.bizNo && <> · {t.footer_biz} {COMPANY.bizNo}</>}
+              <br />
+              {lang === 'ko' ? COMPANY.address : COMPANY.address_en} · {COMPANY.email}
+              {COMPANY.phone && <> · {COMPANY.phone}</>}
+            </p>
+            <p className="mt-4">
+              <a href="/privacy.html" className="font-semibold text-ink underline underline-offset-2">{t.footer_privacy}</a>
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* ── CONTACT / FOOTER ─────────────────────────────────── */}
-      <footer id="contact" className="bg-bg_dark py-16 md:py-20 xl:py-24">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
-            <div>
-              <h2 className="text-3xl font-bold text-white mb-3 leading-snug">
-                {lang === 'ko' ? (
-                  <>함께 Re<span className="text-accent">:</span>Frame</>
-                ) : (
-                  <>Let's Re<span className="text-accent">:</span>Frame</>
-                )}
-              </h2>
-              <p className="text-[#888] text-lg mt-3">{t.footer_sub}</p>
-              <p className="text-accent/90 text-sm mt-2 font-medium">{t.tax_note}</p>
-              <div className="space-y-3 mt-8">
-                <a href="mailto:pianossun@naver.com" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
-                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white text-base">✉</span>
-                  <span className="text-white font-medium text-sm">pianossun@naver.com</span>
-                </a>
-                <a href="https://reframe-daily.vercel.app" target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#3A3733] rounded-xl px-5 py-3.5 hover:bg-[#443F3B] transition">
-                  <span className="w-9 h-9 bg-accent rounded-full flex items-center justify-center text-white font-bold text-base">AI</span>
-                  <span className="text-white font-medium text-sm">{lang === 'ko' ? '오늘의 AI — 매일 업데이트되는 AI 소식' : 'AI Today — daily AI news curation'}</span>
-                </a>
-              </div>
-            </div>
-            <ContactForm lang={lang} />
-          </div>
-          <div className="border-t border-white/10 pt-8 text-center text-sm">
-            <p className="text-[#777] mb-1">{t.biz1}</p>
-            <p className="text-[#555] text-xs mb-4">{t.biz2}</p>
-            <p className="text-[#555]">{t.copy}</p>
+          <div className="md:col-span-5 md:text-right">
+            <p className="text-sub mb-2">{t.footer_family}</p>
+            <a href={NEWS_URL} target="_blank" rel="noreferrer" className="font-semibold text-ink hover:text-accent_deep">
+              Re<span className="text-accent">:</span>frame News <span className="arrow">↗</span>
+            </a>
+            <p className="text-sub mt-8">{t.copy}</p>
           </div>
         </div>
       </footer>
-
     </div>
   );
 }
