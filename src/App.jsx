@@ -7,7 +7,7 @@ const COMPANY = {
   address: '전북특별자치도 전주시 덕진구 솔내로 128, 3층',
   address_en: '3F, 128 Solnae-ro, Deokjin-gu, Jeonju, Jeonbuk, Korea',
   bizNo: '',   // 사업자등록번호 — 받으면 입력
-  phone: '',   // 대표 전화 — 받으면 입력
+  phone: '010-9607-4060',
 };
 
 const NEWS_URL = 'https://re-frame.kr';
@@ -1209,7 +1209,7 @@ export default function App() {
                 {COMPANY.phone && (
                   <div>
                     <dt className="text-base text-sub">{t.contact_phone}</dt>
-                    <dd className="text-lg font-semibold text-ink">{COMPANY.phone}</dd>
+                    <dd className="text-lg font-semibold text-ink"><a href={`tel:${COMPANY.phone.replaceAll('-', '')}`} className="hover:text-accent_deep">{COMPANY.phone}</a></dd>
                   </div>
                 )}
                 <div>
@@ -1236,7 +1236,7 @@ export default function App() {
               {COMPANY.bizNo && <> · {t.footer_biz} {COMPANY.bizNo}</>}
               <br />
               {lang === 'ko' ? COMPANY.address : COMPANY.address_en} · {COMPANY.email}
-              {COMPANY.phone && <> · {COMPANY.phone}</>}
+              {COMPANY.phone && <> · <a href={`tel:${COMPANY.phone.replaceAll('-', '')}`} className="hover:text-ink">{COMPANY.phone}</a></>}
             </p>
             <p className="mt-4">
               <a href="/privacy.html" className="font-semibold text-ink underline underline-offset-2">{t.footer_privacy}</a>
