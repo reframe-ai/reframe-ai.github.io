@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useForm, ValidationError } from '@formspree/react';
+
+// 출강 문의 폼이 보내는 곳 — 구글 시트 '리프레임 신청 접수'의 Apps Script 웹 앱 주소 (교육원 사이트와 같은 주소)
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzYUfzwLxPFShMIAR_DV0KdHTtVHLFGn66lBxDHsU2P6ZjIgjiVfU-pOtbb5fSbv10f_Q/exec';
 
 // ── 회사 기본 정보 — 값이 비어 있으면 화면에 표시하지 않음 ─────────
 const COMPANY = {
@@ -182,7 +184,7 @@ const T = {
       message: '기타 요청사항', message_ph: '교육 목적, 참가자 수준, 준비된 장비 등',
       select: '선택해 주세요',
       consent: '개인정보 수집·이용에 동의합니다.', consent_link: '내용 보기',
-      submit: '문의 보내기', sending: '보내는 중…',
+      submit: '문의 보내기', sending: '보내는 중…', failed: '전송이 되지 않았어요. 인터넷 연결을 확인하고 다시 눌러 주세요. 계속 안 되면 so@re-frame.kr로 메일 주세요.',
       done_title: '문의가 접수되었습니다.', done_sub: '영업일 기준 2일 안에 연락드리겠습니다.',
     },
 
@@ -359,7 +361,7 @@ const T = {
       message: 'Notes', message_ph: 'Goals, learner level, available equipment',
       select: 'Select',
       consent: 'I agree to the collection and use of personal information.', consent_link: 'Details',
-      submit: 'Send inquiry', sending: 'Sending…',
+      submit: 'Send inquiry', sending: 'Sending…', failed: 'Your inquiry could not be sent. Please check your connection and try again, or email so@re-frame.kr.',
       done_title: 'Your inquiry has been received.', done_sub: 'We will contact you within two business days.',
     },
 
@@ -759,8 +761,23 @@ function ProgramItem({ item }) {
 
 // ── 출강 문의 폼 ──────────────────────────────────────────────
 function ContactForm({ t, lang }) {
-  const [state, handleSubmit] = useForm('maqkjojj');
+  const [state, setState] = useState({ submitting: false, succeeded: false, failed: false });
   const f = t.form;
+
+  // 구글 시트 '리프레임 신청 접수'(탭: 법인 출강문의)로 보낸다. 스크립트 원본은 edu-website/google-apps-script/신청접수.gs
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const body = new URLSearchParams(new FormData(e.currentTarget));
+    body.set('site', 'corp');
+    body.set('_subject', `[리프레임 출강 문의] ${body.get('organization') || ''} ${body.get('name') || ''}`.trim());
+    setState({ submitting: true, succeeded: false, failed: false });
+    try {
+      await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body });
+      setState({ submitting: false, succeeded: true, failed: false });
+    } catch {
+      setState({ submitting: false, succeeded: false, failed: true });
+    }
+  };
 
   if (state.succeeded) {
     return (
@@ -781,22 +798,18 @@ function ContactForm({ t, lang }) {
       <div className="sm:col-span-2">
         <label htmlFor="f-org" className={label}>{f.org}{req}</label>
         <input id="f-org" type="text" name="organization" required className={input} placeholder={f.org_ph} />
-        <ValidationError field="organization" errors={state.errors} />
       </div>
       <div>
         <label htmlFor="f-name" className={label}>{f.name}{req}</label>
         <input id="f-name" type="text" name="name" required autoComplete="name" className={input} />
-        <ValidationError field="name" errors={state.errors} />
       </div>
       <div>
         <label htmlFor="f-phone" className={label}>{f.phone}{req}</label>
         <input id="f-phone" type="tel" name="phone" required autoComplete="tel" className={input} placeholder="010-0000-0000" />
-        <ValidationError field="phone" errors={state.errors} />
       </div>
       <div className="sm:col-span-2">
         <label htmlFor="f-email" className={label}>{f.email}</label>
         <input id="f-email" type="email" name="email" autoComplete="email" className={input} />
-        <ValidationError field="email" errors={state.errors} />
       </div>
       <div>
         <label htmlFor="f-target" className={label}>{f.target}{req}</label>
@@ -818,7 +831,6 @@ function ContactForm({ t, lang }) {
           ))}
           <option value={f.course_custom}>{f.course_custom}</option>
         </select>
-        <ValidationError field="course" errors={state.errors} />
       </div>
       <div>
         <label htmlFor="f-schedule" className={label}>{f.schedule}</label>
@@ -831,7 +843,6 @@ function ContactForm({ t, lang }) {
       <div className="sm:col-span-2">
         <label htmlFor="f-message" className={label}>{f.message}</label>
         <textarea id="f-message" name="message" rows="4" className={input} placeholder={f.message_ph} />
-        <ValidationError field="message" errors={state.errors} />
       </div>
       <div className="sm:col-span-2 flex items-start gap-3">
         <input id="f-consent" type="checkbox" name="consent" value="동의" required className="mt-1 w-4 h-4 accent-ink" />
@@ -840,6 +851,10 @@ function ContactForm({ t, lang }) {
           <a href="/privacy.html" target="_blank" rel="noreferrer" className="underline underline-offset-2 text-sub hover:text-ink">{f.consent_link}</a>
         </label>
       </div>
+      <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" aria-hidden="true" className="hidden" />
+      {state.failed && (
+        <p className="sm:col-span-2 text-base font-semibold text-accent_deep" role="alert">{f.failed}</p>
+      )}
       <div className="sm:col-span-2">
         <button
           type="submit"
