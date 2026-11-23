@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://reframe-ai.kr/sitemap.xml
+Sitemap: https://ai.re-frame.kr/sitemap.xml
