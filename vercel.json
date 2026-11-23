@@ -5,14 +5,14 @@
   "outputDirectory": "dist",
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "(www\\.)?reframe-ai\\.kr"
         }
       ],
-      "destination": "https://ai.re-frame.kr/:path*",
+      "destination": "https://ai.re-frame.kr/$1",
       "permanent": true
     }
   ]
