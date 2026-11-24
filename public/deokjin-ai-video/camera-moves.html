@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>카메라 움직임 도감</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8ECF0; --panel:#F6F8FA; --ink:#1C2433; --ink2:#4E5A6B; --line:#C5CDD6;
+  --rec:#C8332A; --grid:#D9DFE6; --tree:#5E7A57; --chip:#DDE3EA;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141920; --panel:#1C232D; --ink:#E4E9EF; --ink2:#9AA6B5; --line:#2F3946;
+    --rec:#FF6A5C; --grid:#26303C; --tree:#7FA077; --chip:#26303C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141920; --panel:#1C232D; --ink:#E4E9EF; --ink2:#9AA6B5; --line:#2F3946;
+  --rec:#FF6A5C; --grid:#26303C; --tree:#7FA077; --chip:#26303C;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;}
+button{font:inherit;color:inherit;}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--rec);outline-offset:2px;}
+.wrap{max-width:1360px;margin:0 auto;padding:28px 24px 48px;}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;margin-bottom:22px;}
+h1{font-size:30px;font-weight:700;margin:0;letter-spacing:-0.5px;}
+header p{margin:0;color:var(--ink2);font-size:15px;max-width:60ch;}
+.layout{display:grid;grid-template-columns:232px minmax(0,1fr);gap:24px;align-items:start;}
+nav{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));max-height:calc(100vh - 32px);overflow:auto;padding-right:4px;}
+.group{margin-bottom:14px;}
+.group h2{font-size:13px;font-weight:500;color:var(--ink2);margin:0 0 4px;padding-left:10px;}
+.tech{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:15px;}
+.tech span:last-child{color:var(--ink2);font-size:12px;}
+.tech:hover{background:var(--chip);}
+.tech[aria-current="true"]{background:var(--ink);color:var(--paper);}
+.tech[aria-current="true"] span:last-child{color:var(--paper);opacity:.75;}
+.stage{min-width:0;}
+.finder{position:relative;border-radius:10px;overflow:hidden;background:#000;aspect-ratio:16/9;}
+.finder canvas{display:block;width:100%;height:100%;}
+.hud{position:absolute;inset:0;pointer-events:none;color:#fff;font-size:14px;text-shadow:0 1px 2px rgba(0,0,0,.6);}
+.hud .c{position:absolute;width:26px;height:26px;border-color:rgba(255,255,255,.85);border-style:solid;border-width:0;}
+.c.tl{top:14px;left:14px;border-top-width:2px;border-left-width:2px;}
+.c.tr{top:14px;right:14px;border-top-width:2px;border-right-width:2px;}
+.c.bl{bottom:14px;left:14px;border-bottom-width:2px;border-left-width:2px;}
+.c.br{bottom:14px;right:14px;border-bottom-width:2px;border-right-width:2px;}
+.hud .cross{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;}
+.cross::before,.cross::after{content:"";position:absolute;background:rgba(255,255,255,.6);}
+.cross::before{left:8px;top:0;width:2px;height:18px;}
+.cross::after{top:8px;left:0;height:2px;width:18px;}
+.hud .tlbl{position:absolute;top:18px;left:52px;display:flex;align-items:center;gap:8px;}
+.dot{width:10px;height:10px;border-radius:50%;background:#FF4A3D;}
+.hud .trlbl{position:absolute;top:18px;right:52px;font-weight:700;}
+.hud .bllbl{position:absolute;bottom:18px;left:52px;}
+.hud .brlbl{position:absolute;bottom:18px;right:52px;}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:12px 0 18px;}
+.btn{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:7px 14px;cursor:pointer;font-size:14px;}
+.btn:hover{border-color:var(--ink2);}
+.scrub{flex:1;min-width:140px;accent-color:var(--rec);}
+.controls label{font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:6px;}
+select{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit;font-size:14px;color:var(--ink);}
+.below{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;}
+.info h3{font-size:28px;margin:0;font-weight:700;letter-spacing:-0.3px;}
+.info .en{color:var(--ink2);font-size:15px;margin:2px 0 14px;}
+.info p{margin:0 0 14px;max-width:62ch;}
+.how{border-left:3px solid var(--rec);padding:2px 0 2px 14px;}
+.how b{display:block;font-size:13px;color:var(--ink2);font-weight:500;}
+.prompt{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:16px;}
+.prompt b{display:block;font-size:13px;color:var(--ink2);font-weight:500;margin-bottom:4px;}
+.prompt code{font-family:inherit;font-size:15px;display:block;margin-bottom:10px;}
+.pair{margin-top:14px;font-size:14px;color:var(--ink2);}
+.pair button{background:none;border:0;color:var(--rec);text-decoration:underline;cursor:pointer;padding:0;font-size:14px;}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;}
+.plan b{font-size:13px;color:var(--ink2);font-weight:500;}
+.plan canvas{display:block;width:100%;aspect-ratio:1/1;margin-top:6px;}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--ink2);margin-top:6px;}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px;}
+.note{font-size:13px;color:var(--ink2);margin-top:8px;}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  nav{position:static;max-height:none;display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;}
+  .group{display:flex;align-items:center;gap:4px;margin:0;flex-shrink:0;}
+  .group h2{display:none;}
+  .tech{white-space:nowrap;background:var(--chip);}
+  .tech span:last-child{display:none;}
+  .below{grid-template-columns:1fr;}
+  .plan{max-width:420px;}
+  h1{font-size:24px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>카메라 움직임 도감</h1>
+<p>촬영기법마다 카메라의 무엇이 바뀌는지, 화면과 촬영장 평면도로 함께 봅니다. 빨간 공은 피사체입니다.</p>
+</header>
+<div class="layout">
+<nav id="nav" aria-label="촬영기법 목록"></nav>
+<main class="stage">
+<div class="finder">
+<canvas id="view" aria-label="카메라 화면"></canvas>
+<div class="hud" aria-hidden="true">
+<div class="c tl"></div><div class="c tr"></div><div class="c bl"></div><div class="c br"></div>
+<div class="cross"></div>
+<div class="tlbl"><span class="dot"></span><span id="hudName"></span></div>
+<div class="trlbl" id="hudSpeed"></div>
+<div class="bllbl" id="hudLens"></div>
+<div class="brlbl" id="hudHeight"></div>
+</div>
+</div>
+<div class="controls">
+<button class="btn" id="play" type="button">일시정지</button>
+<button class="btn" id="restart" type="button">처음부터</button>
+<input class="scrub" id="scrub" type="range" min="0" max="1000" value="0" aria-label="재생 위치">
+<label>속도 <select id="rate"><option value="0.5">0.5배</option><option value="1" selected>1배</option></select></label>
+</div>
+<div class="below">
+<section class="info" aria-live="polite">
+<h3 id="tName"></h3>
+<div class="en" id="tEn"></div>
+<p id="tWhat"></p>
+<div class="how"><b>카메라에서 바뀌는 것</b><span id="tHow"></span></div>
+<div class="prompt"><b>영상 생성 프롬프트 예시</b><code id="tPrompt"></code><button class="btn" id="copy" type="button">프롬프트 복사</button></div>
+<div class="pair" id="tPair"></div>
+<div class="note" id="tNote"></div>
+</section>
+<aside class="plan">
+<b id="planTitle">위에서 본 촬영장</b>
+<canvas id="plan" aria-label="촬영장 평면도"></canvas>
+<div class="legend"><span><i style="background:#D7382B"></i>공</span><span><i style="background:var(--ink)"></i>카메라와 시야</span><span><i style="background:var(--tree)"></i>나무</span></div>
+</aside>
+</div>
+</main>
+</div>
+</div>
+<script>
+(function(){
+const TAU=Math.PI*2, D2R=Math.PI/180;
+const ease=t=>0.5-0.5*Math.cos(Math.PI*Math.min(1,Math.max(0,t)));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function look(c,p){const dx=p.x-c.x,dy=p.y-c.y,dz=p.z-c.z;c.yaw=Math.atan2(dx,dz);c.pitch=Math.atan2(dy,Math.hypot(dx,dz));return c;}
+const B={x:0,y:0.5,z:8};
+function cam(o){return Object.assign({x:0,y:1.6,z:0,yaw:0,pitch:0,roll:0,fov:55,focus:null},o||{});}
+function envBase(s){return {sunAz:0.55,sunEl:0.45,sky:0,cloud:s*0.6,speed:"",ghost:false,hands:false};}
+function bounce(tau){let g=9.8,h=3.5,t0=Math.sqrt(2*h/g);if(tau<t0)return h-0.5*g*tau*tau;let v=0.72*g*t0,tt=tau-t0;for(let i=0;i<8;i++){const d=2*v/g;if(tt<d)return v*tt-0.5*g*tt*tt;tt-=d;v*=0.72;}return 0;}
+const noise=(s,k)=>Math.sin(s*13.1+k)*0.5+Math.sin(s*7.3+k*2.1)*0.35+Math.sin(s*23.7+k*0.7)*0.15;
+
+const T=[
+{g:"움직이지 않기",id:"static",ko:"고정 샷",en:"static shot, locked-off shot",dur:5,
+ what:"카메라를 삼각대에 고정하고 움직이지 않습니다. 화면 속 움직임은 모두 피사체의 것입니다.",
+ how:"위치, 방향, 화각이 모두 그대로입니다. 공만 왼쪽에서 오른쪽으로 움직입니다.",
+ prompt:"Static locked-off shot. A red ball rolls from frame left to frame right. The background does not move.",
+ pair:["tracking","같은 공의 움직임을 카메라가 따라가면 어떻게 달라지는지"],
+ f(t){const e=ease(t);return {c:look(cam(),B),b:{x:-3+6*e,y:0.5,z:8}};}},
+{g:"제자리 회전",id:"pan",ko:"팬",en:"pan left / right",dur:5,
+ what:"카메라 위치는 그대로 두고 고개를 좌우로 돌리듯 수평으로 회전합니다.",
+ how:"위치는 고정, 수평 방향만 왼쪽 31°에서 오른쪽 31°로 돕니다. 가까운 나무와 먼 나무가 거의 같은 속도로 흐릅니다.",
+ prompt:"Slow pan from left to right across a field. The camera stays in place.",
+ pair:["truck","옆으로 이동하는 트럭과 원근감을"],
+ f(t){const c=cam({pitch:-0.08});c.yaw=-0.55+1.1*ease(t);return {c,b:B};}},
+{g:"제자리 회전",id:"tilt",ko:"틸트",en:"tilt up / down",dur:5,
+ what:"카메라 위치는 그대로 두고 고개를 끄덕이듯 위아래로 회전합니다.",
+ how:"위치는 고정, 상하 각도만 아래에서 위로 바뀝니다. 바닥의 공에서 시작해 탑 꼭대기까지 훑어 올라갑니다.",
+ prompt:"Camera tilts up from a red ball on the ground to the top of a tall tower.",
+ pair:["pedestal","카메라가 직접 위로 올라가는 페데스탈과"],view:{side:1,cz:9,cy:6,span:26},
+ f(t){const c=cam({yaw:Math.atan2(3,18)});c.pitch=lerp(-0.16,0.62,ease(t));return {c,b:{x:1.33,y:0.5,z:8}};}},
+{g:"제자리 회전",id:"roll",ko:"롤",en:"camera roll",dur:5,
+ what:"렌즈 축을 중심으로 화면 자체가 돌아갑니다. 혼란스럽거나 어지러운 느낌을 줍니다.",
+ how:"위치와 시선 방향은 그대로, 렌즈 축 회전만 0°에서 40°로 바뀝니다. 지평선이 기울어집니다.",
+ prompt:"The camera slowly rolls clockwise and the horizon rotates.",
+ pair:["dutch","기울어진 채 멈춰 있는 더치 앵글과"],
+ f(t){const c=look(cam(),B);c.roll=0.7*ease(t);return {c,b:B};}},
+{g:"제자리 회전",id:"dutch",ko:"더치 앵글",en:"dutch angle",dur:5,
+ what:"카메라를 비스듬히 기울인 채 고정합니다. 움직임이라기보다 기울어진 구도로, 불안하고 긴장된 분위기를 만듭니다.",
+ how:"렌즈 축이 20° 기울어진 상태로 고정됩니다. 공만 움직입니다.",
+ prompt:"Dutch angle, tilted static shot. A red ball rolls across the frame.",
+ pair:["roll","화면이 실제로 돌아가는 롤과"],
+ f(t){const c=look(cam(),B);c.roll=0.35;return {c,b:{x:-3+6*ease(t),y:0.5,z:8}};}},
+{g:"제자리 회전",id:"whip",ko:"휩 팬",en:"whip pan, swish pan",dur:4,
+ what:"아주 빠르게 팬해서 화면이 번집니다. 장면과 장면을 잇는 전환에 자주 씁니다.",
+ how:"잠시 멈춰 있다가 약 0.4초 만에 수평으로 90° 돕니다. 빠른 회전이 모션 블러를 만듭니다.",
+ prompt:"Fast whip pan to the right with heavy motion blur.",
+ pair:["pan","같은 회전을 천천히 하는 팬과"],blur:true,
+ f(t){const c=look(cam(),B);const w=clamp((t-0.4)/0.1,0,1);c.yaw+=1.57*ease(w);return {c,b:B};}},
+{g:"공간 이동",id:"dolly",ko:"달리 인/아웃",en:"dolly in / out, push in / pull out",dur:6,
+ what:"카메라가 피사체를 향해 다가갔다가 다시 물러납니다. 다가가면 몰입이, 물러나면 고립감이 생깁니다.",
+ how:"화각은 그대로, 카메라 위치만 앞으로 5.5m 갔다가 돌아옵니다. 가까운 것과 먼 것의 크기 비율이 바뀝니다.",
+ prompt:"Slow dolly in toward a red ball, then dolly back out.",
+ pair:["zoom","렌즈만 확대하는 줌과"],
+ f(t){const c=cam();c.z=5.5*Math.sin(Math.PI*t);look(c,B);return {c,b:B};}},
+{g:"공간 이동",id:"truck",ko:"트럭",en:"truck left / right",dur:5,
+ what:"카메라가 방향을 유지한 채 옆으로 평행 이동합니다.",
+ how:"방향은 그대로, 위치만 왼쪽에서 오른쪽으로 8m 움직입니다. 가까운 나무는 빨리, 먼 나무는 천천히 지나갑니다(시차).",
+ prompt:"The camera trucks right, moving sideways parallel to the scene.",
+ pair:["pan","제자리에서 도는 팬과"],view:{cx:0,cz:8,span:28},
+ f(t){const c=cam({pitch:-0.08});c.x=-4+8*ease(t);return {c,b:B};}},
+{g:"공간 이동",id:"tracking",ko:"트래킹",en:"tracking shot, follow shot",dur:5,
+ what:"움직이는 피사체와 함께 이동합니다. 피사체는 화면 중앙에 머물고 배경이 흐릅니다.",
+ how:"카메라가 공과 같은 속도로 옆으로 이동하고, 방향은 바뀌지 않습니다.",
+ prompt:"Tracking shot following a red ball as it rolls to the right. The ball stays centered.",
+ pair:["static","카메라가 고정된 경우와"],view:{cx:0,cz:6,span:28},
+ f(t){const x=-6+12*t;const c=cam({pitch:-0.12});c.x=x;return {c,b:{x,y:0.5,z:8}};}},
+{g:"공간 이동",id:"pedestal",ko:"페데스탈",en:"pedestal up / down",dur:5,
+ what:"카메라가 방향을 유지한 채 수직으로 오르내립니다.",
+ how:"시선은 수평 그대로, 높이만 0.4m에서 4m로 올라갑니다.",
+ prompt:"Pedestal up: the camera rises vertically while keeping a level view.",
+ pair:["tilt","제자리에서 위를 올려다보는 틸트와"],view:{side:1,cz:6,cy:3,span:18},
+ f(t){const c=cam({pitch:0});c.y=0.4+3.6*ease(t);return {c,b:B};}},
+{g:"공간 이동",id:"crane",ko:"크레인·지브",en:"crane shot, jib shot",dur:6,
+ what:"카메라를 크게 들어 올리며 물러나 장면 전체를 내려다봅니다. 장면의 시작이나 끝에 웅장하게 씁니다.",
+ how:"높이는 0.8m에서 9m로, 위치는 뒤로 5m 물러나며, 시선은 계속 공을 향합니다. 위치와 방향이 함께 바뀝니다.",
+ prompt:"Crane shot rising up and back to reveal the whole scene from above.",
+ view:{side:1,cz:4,cy:5,span:24},
+ f(t){const e=ease(t);const c=cam();c.y=0.8+8.2*e;c.z=1-5*e;look(c,B);return {c,b:B};}},
+{g:"공간 이동",id:"orbit",ko:"아크·오비트",en:"arc shot, orbit shot",dur:8,
+ what:"피사체를 중심에 두고 그 주위를 원을 그리며 돕니다. 인물이나 제품을 입체적으로 보여 줍니다.",
+ how:"반지름 7m의 원을 따라 한 바퀴 돌며, 시선은 항상 공을 향합니다.",
+ prompt:"The camera orbits around a red ball in a smooth circular arc.",
+ pair:["bullettime","시간이 멈춘 채 도는 불릿 타임과"],view:{cx:0,cz:8,span:22},
+ f(t){const a=TAU*ease(t);const c=cam({y:1.8});c.x=B.x-7*Math.sin(a);c.z=B.z-7*Math.cos(a);look(c,B);return {c,b:B};}},
+{g:"렌즈",id:"zoom",ko:"줌 인/아웃",en:"zoom in / out",dur:5,
+ what:"카메라는 그대로 두고 렌즈의 화각만 좁힙니다. 사진을 확대하듯 평면적으로 느껴집니다.",
+ how:"위치와 방향은 고정, 화각만 55°에서 18°로 좁아집니다. 원근감은 변하지 않습니다.",
+ prompt:"Slow zoom in on a red ball. The camera does not move.",
+ pair:["dolly","카메라가 직접 다가가는 달리와"],
+ f(t){const c=look(cam(),B);c.fov=55-37*ease(t);return {c,b:B};}},
+{g:"렌즈",id:"dollyzoom",ko:"돌리 줌",en:"dolly zoom, vertigo effect",dur:6,
+ what:"다가가면서 동시에 줌 아웃합니다. 피사체 크기는 그대로인데 배경만 쭉 늘어납니다.",
+ how:"카메라가 5m 다가가는 만큼 화각을 30°에서 71°로 넓혀 공의 크기를 유지합니다.",
+ prompt:"Dolly zoom on a red ball: the background stretches while the ball stays the same size.",
+ f(t){const e=ease(t);const c=cam({y:1.0});c.z=5*e;look(c,B);const d=8-c.z;c.fov=2*Math.atan(Math.tan(15*D2R)*8/d)/D2R;return {c,b:B};}},
+{g:"렌즈",id:"rack",ko:"랙 포커스",en:"rack focus, focus pull",dur:7,
+ what:"카메라는 고정하고 초점만 앞에서 뒤로 옮깁니다. 보는 사람의 시선이 따라 움직입니다.",
+ how:"초점 거리가 3m(앞의 상자)에서 8m(공), 다시 18m(탑)로 옮겨 갑니다. 초점 밖은 흐려집니다.",
+ prompt:"Rack focus from a crate in the foreground to a red ball in the background.",
+ rack:true,
+ f(t){const c=cam({y:1.2});look(c,{x:1.2,y:1.4,z:8});const a=ease((t-0.25)/0.15),b2=ease((t-0.65)/0.15);c.focus=lerp(lerp(3.3,8,a),18,b2);return {c,b:B};}},
+{g:"장비와 시점",id:"handheld",ko:"핸드헬드",en:"handheld",dur:6,
+ what:"손으로 들고 찍어 자연스럽게 흔들립니다. 다큐멘터리나 긴박한 장면에 씁니다.",
+ how:"천천히 앞으로 걸으며 위치와 방향에 불규칙한 작은 떨림이 더해집니다.",
+ prompt:"Handheld camera with slight natural shake, walking toward a red ball.",
+ pair:["steadicam","같은 걸음을 부드럽게 만든 스테디캠과"],
+ f(t,s){const c=cam();c.z=2.5*ease(t);look(c,B);c.x+=0.03*noise(s,1);c.y+=0.03*noise(s,2);c.yaw+=0.014*noise(s,3);c.pitch+=0.012*noise(s,4);c.roll=0.015*noise(s,5);return {c,b:B};}},
+{g:"장비와 시점",id:"steadicam",ko:"스테디캠·짐벌",en:"steadicam, gimbal shot",dur:6,
+ what:"흔들림 없이 미끄러지듯 따라 걷습니다.",
+ how:"걷는 경로는 비슷하지만 떨림이 사라지고 부드러운 곡선으로 이동합니다.",
+ prompt:"Smooth steadicam shot gliding toward a red ball.",
+ pair:["handheld","흔들리는 핸드헬드와"],
+ f(t){const e=ease(t);const c=cam();c.z=2.5*e;c.x=0.8*Math.sin(Math.PI*e);look(c,B);return {c,b:B};}},
+{g:"장비와 시점",id:"drone",ko:"드론·항공",en:"drone shot, aerial shot",dur:7,
+ what:"하늘 높은 곳에서 내려다보며 날아갑니다.",
+ how:"높이 28m에서 앞으로 날며 서서히 내려오고, 시선은 아래를 향했다가 점점 들립니다.",
+ prompt:"Aerial drone shot flying forward over a forest, slowly descending.",
+ pair:["fpv","낮고 빠르게 나는 FPV와"],view:{cx:0,cz:10,span:90},
+ f(t){const e=ease(t);const c=cam();c.y=28-14*e;c.z=-25+40*e;c.pitch=-0.75+0.4*e;return {c,b:B};}},
+{g:"장비와 시점",id:"fpv",ko:"FPV",en:"FPV drone shot",dur:6,
+ what:"레이싱 드론처럼 낮고 빠르게 공간을 관통합니다.",
+ how:"높이 1~3m로 빠르게 전진하며 좌우로 휘고, 방향을 틀 때마다 기울어집니다.",
+ prompt:"FPV drone shot racing low between trees, banking through turns.",
+ pair:["drone","높이 떠서 나는 드론 샷과"],view:{cx:0,cz:28,span:80},
+ f(t){const z=-6+66*t,x=4*Math.sin(z/7),y=1.6+0.8*Math.sin(z/5);const dx=4/7*Math.cos(z/7);const c=cam({x,y,z});c.yaw=Math.atan(dx);c.pitch=-0.05;c.roll=-dx*0.55;return {c,b:B};}},
+{g:"장비와 시점",id:"pov",ko:"1인칭 시점",en:"POV shot",dur:6,
+ what:"등장인물의 눈으로 보는 화면입니다.",
+ how:"눈높이 1.7m에서 걸음에 맞춰 위아래로 출렁이고, 고개를 살짝 좌우로 돌립니다.",
+ prompt:"First-person POV shot walking toward a red ball, hands visible.",
+ f(t,s){const c=cam({y:1.7});c.z=4*ease(t);look(c,B);c.y+=0.04*Math.sin(s*9.4);c.yaw+=0.12*Math.sin(s*1.3);return {c,b:B,hands:true};}},
+{g:"시간 조작",id:"slowmo",ko:"슬로 모션",en:"slow motion",dur:8,
+ what:"시간을 늘려 짧은 순간을 오래 보여 줍니다.",
+ how:"카메라는 고정, 장면의 시간 흐름만 0.25배로 느려집니다. 공이 떨어졌다 튀어 오르는 2초가 8초가 됩니다.",
+ prompt:"Slow motion shot of a red ball bouncing, four times slower than real time.",
+ speed:"0.25×",
+ f(t,s){const c=cam({y:1.2,z:3});look(c,{x:0,y:1.5,z:8});return {c,b:{x:0,y:0.5+bounce(t*2),z:8},cloud:s*0.15};}},
+{g:"시간 조작",id:"timelapse",ko:"타임랩스",en:"time-lapse",dur:7,
+ what:"고정된 카메라로 긴 시간을 몇 초로 압축합니다.",
+ how:"카메라는 고정, 장면의 시간만 수백 배 빨라집니다. 해가 지고 구름이 빠르게 흐릅니다.",
+ prompt:"Time-lapse from a static camera: the sun sets and clouds race across the sky.",
+ pair:["hyperlapse","카메라도 함께 이동하는 하이퍼랩스와"],speed:"×600",
+ f(t){const c=cam({pitch:0.1,yaw:0.15});return {c,b:B,env:{sunAz:lerp(0.7,-0.45,t),sunEl:lerp(0.55,-0.03,t),sky:Math.pow(t,1.4),cloud:t*170}};}},
+{g:"시간 조작",id:"hyperlapse",ko:"하이퍼랩스",en:"hyperlapse",dur:7,
+ what:"카메라가 이동하면서 시간을 압축합니다.",
+ how:"카메라가 앞으로 10m 이동하는 동안 장면의 시간은 수백 배 빨라집니다.",
+ prompt:"Hyperlapse moving forward through a field while clouds race overhead.",
+ pair:["timelapse","카메라가 멈춰 있는 타임랩스와"],speed:"×300",view:{cx:0,cz:10,span:32},
+ f(t){const c=cam({pitch:0.06});c.z=10*t;c.x=0.6*Math.sin(t*3);return {c,b:{x:-1.5,y:0.5,z:16},env:{sunAz:lerp(0.7,-0.45,t),sunEl:lerp(0.55,-0.03,t),sky:Math.pow(t,1.4),cloud:t*170}};}},
+{g:"시간 조작",id:"bullettime",ko:"불릿 타임",en:"bullet time",dur:7,
+ what:"시간은 멈추고 카메라만 피사체 주위를 돕니다.",
+ how:"공중에 멈춘 공 주위를 180° 궤도로 이동합니다. 장면의 시간은 0배입니다.",
+ prompt:"Bullet time: a red ball frozen in mid-air while the camera orbits around it.",
+ pair:["orbit","시간이 흐르는 오비트와"],speed:"시간 정지",view:{cx:0,cz:8,span:20},
+ f(t){const a=lerp(-1.6,1.6,ease(t));const b={x:0,y:2.2,z:8};const c=cam({y:2.4});c.x=b.x-6*Math.sin(a);c.z=b.z-6*Math.cos(a);look(c,b);return {c,b,ghost:true,cloud:0};}}
+];
+
+/* ---------- world ---------- */
+const COL={ground:[167,181,142],trunk:[107,85,65],leaf:[79,107,74],crate:[201,164,106],tower:[139,147,161],bld:[154,163,175],bld2:[176,160,140]};
+const faces=[];const L=norm({x:0.45,y:0.8,z:-0.35});
+function norm(v){const l=Math.hypot(v.x,v.y,v.z)||1;return {x:v.x/l,y:v.y/l,z:v.z/l};}
+function sub(a,b){return {x:a.x-b.x,y:a.y-b.y,z:a.z-b.z};}
+function cross(a,b){return {x:a.y*b.z-a.z*b.y,y:a.z*b.x-a.x*b.z,z:a.x*b.y-a.y*b.x};}
+function dot(a,b){return a.x*b.x+a.y*b.y+a.z*b.z;}
+function addFace(pts,col,center,tag){const c={x:0,y:0,z:0};pts.forEach(p=>{c.x+=p.x;c.y+=p.y;c.z+=p.z;});c.x/=pts.length;c.y/=pts.length;c.z/=pts.length;
+ let n=norm(cross(sub(pts[1],pts[0]),sub(pts[2],pts[0])));if(dot(n,sub(c,center))<0)n={x:-n.x,y:-n.y,z:-n.z};
+ const k=0.62+0.38*Math.max(0,dot(n,L));faces.push({pts,c,n,col:col.map(v=>v*k),tag});}
+function box(x,z,w,h,d,col,y0,tag){y0=y0||0;const X=[x-w/2,x+w/2],Y=[y0,y0+h],Z=[z-d/2,z+d/2];const P=(i,j,k)=>({x:X[i],y:Y[j],z:Z[k]});const ctr={x,y:y0+h/2,z};
+ addFace([P(0,1,0),P(1,1,0),P(1,1,1),P(0,1,1)],col,ctr,tag);
+ addFace([P(0,0,0),P(1,0,0),P(1,1,0),P(0,1,0)],col,ctr,tag);
+ addFace([P(0,0,1),P(1,0,1),P(1,1,1),P(0,1,1)],col,ctr,tag);
+ addFace([P(0,0,0),P(0,0,1),P(0,1,1),P(0,1,0)],col,ctr,tag);
+ addFace([P(1,0,0),P(1,0,1),P(1,1,1),P(1,1,0)],col,ctr,tag);}
+function tree(x,z,s){s=s||1;box(x,z,0.32*s,1.2*s,0.32*s,COL.trunk,0,"tree");const b=1.15*s,y0=0.9*s,h=3.3*s,ap={x,y:y0+h,z};const q=[{x:x-b,y:y0,z:z-b},{x:x+b,y:y0,z:z-b},{x:x+b,y:y0,z:z+b},{x:x-b,y:y0,z:z+b}];const ctr={x,y:y0+h/3,z};for(let i=0;i<4;i++)addFace([q[i],q[(i+1)%4],ap],COL.leaf,ctr,"tree");}
+const TREES=[[-3.5,11],[5.5,14.5],[-8,18],[7,20],[-2.5,24],[10,27],[-12,26],[1.5,32],[-6,36],[13,15],[-14,10],[16,34],[-18,30],[6,40],[-9,4],[9,3],[5,-4],[-6,-3],[10,-10],[-12,-12],[0,-15],[14,2],[-15,-2],[-4,-9],[18,8]];
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+for(let i=0;i<46;i++){const x=(rnd()-0.5)*120,z=20+rnd()*80;if(Math.abs(x)<6&&z<60)continue;TREES.push([x,z,0.8+rnd()*0.6]);}
+TREES.forEach(t=>tree(t[0],t[1],t[2]));
+box(1.2,3.2,0.8,0.8,0.8,COL.crate,0,"crate");
+box(3,18,2,14,2,COL.tower,0,"tower");
+box(-12,42,7,8,6,COL.bld,0,"bld");box(14,46,8,5,5,COL.bld2,0,"bld");
+const CLOUDS=[];for(let i=0;i<14;i++){const a=i/14*TAU;CLOUDS.push({x:Math.sin(a)*230,y:38+(i%4)*7,z:Math.cos(a)*230,s:10+(i%3)*5});}
+
+/* ---------- renderer ---------- */
+const cv=document.getElementById("view"),ctx=cv.getContext("2d");
+const off=document.createElement("canvas"),octx=off.getContext("2d");
+const layerC=[0,1,2].map(()=>{const c=document.createElement("canvas");return {c,x:c.getContext("2d")};});
+let W=960,H=540,DPR=1;
+function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(window.devicePixelRatio||1,2);W=Math.max(320,Math.round(r.width));H=Math.round(W*9/16);
+ [cv,off,...layerC.map(l=>l.c)].forEach(c=>{c.width=W*DPR;c.height=H*DPR;});
+ const pr=planCv.getBoundingClientRect();planCv.width=Math.round(pr.width*DPR);planCv.height=Math.round(pr.width*DPR);}
+function xf(p,C){let dx=p.x-C.x,dy=p.y-C.y,dz=p.z-C.z;const cy=Math.cos(C.yaw),sy=Math.sin(C.yaw);let x1=dx*cy-dz*sy,z1=dx*sy+dz*cy,y1=dy;
+ const cp=Math.cos(C.pitch),sp=Math.sin(C.pitch);let y2=y1*cp-z1*sp,z2=y1*sp+z1*cp;const cr=Math.cos(C.roll),sr=Math.sin(C.roll);return {x:x1*cr+y2*sr,y:-x1*sr+y2*cr,z:z2};}
+const NEAR=0.1;
+function clip(poly){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length];const ain=a.z>NEAR,bin=b.z>NEAR;if(ain)out.push(a);if(ain!==bin){const t=(NEAR-a.z)/(b.z-a.z);out.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:NEAR});}}return out;}
+function proj(p,F){return [W/2+p.x*F/p.z,H/2-p.y*F/p.z];}
+function rgb(c,k){return "rgb("+Math.round(c[0]*k)+","+Math.round(c[1]*k)+","+Math.round(c[2]*k)+")";}
+function mix(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
+
+function render(g,C,st,env){
+ const F=(H/2)/Math.tan(C.fov*D2R/2);const light=1-0.45*env.sky;
+ const top=mix([143,180,218],[52,66,112],env.sky),bot=mix([220,232,242],[242,166,106],env.sky);
+ const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,rgb(top,1));gr.addColorStop(1,rgb(bot,1));g.fillStyle=gr;g.fillRect(0,0,W,H);
+ // sun
+ const sd={x:Math.sin(env.sunAz)*Math.cos(env.sunEl)*400,y:Math.sin(env.sunEl)*400,z:Math.cos(env.sunAz)*Math.cos(env.sunEl)*400};
+ const sp=xf({x:C.x+sd.x,y:C.y+sd.y,z:C.z+sd.z},C);
+ if(sp.z>1){const [sx,sy]=proj(sp,F);const r=Math.max(10,22*F/(H/2)*0.5);const sg=g.createRadialGradient(sx,sy,0,sx,sy,r*4);const sc=mix([255,236,180],[255,150,90],env.sky);sg.addColorStop(0,rgb(sc,1));sg.addColorStop(0.25,"rgba("+sc.map(Math.round).join(",")+",0.6)");sg.addColorStop(1,"rgba("+sc.map(Math.round).join(",")+",0)");g.fillStyle=sg;g.beginPath();g.arc(sx,sy,r*4,0,TAU);g.fill();}
+ // clouds
+ const cc=mix([250,250,252],[240,190,170],env.sky);
+ CLOUDS.forEach(cl=>{let x=cl.x+((env.cloud%500)+500)%500-250;const p=xf({x:C.x+x,y:cl.y,z:C.z+cl.z},C);if(p.z<5)return;const [px,py]=proj(p,F);const r=cl.s*F/p.z;g.fillStyle="rgba("+cc.map(Math.round).join(",")+",0.85)";g.beginPath();g.ellipse(px,py,r*1.6,r*0.45,-C.roll,0,TAU);g.ellipse(px-r*0.9,py+r*0.1,r*0.9,r*0.32,-C.roll,0,TAU);g.ellipse(px+r*0.8,py+r*0.05,r,r*0.36,-C.roll,0,TAU);g.fill();});
+ // ground
+ const gp=clip([{x:-400,y:0,z:-400},{x:400,y:0,z:-400},{x:400,y:0,z:400},{x:-400,y:0,z:400}].map(p=>xf(p,C)));
+ if(gp.length>2){g.fillStyle=rgb(COL.ground,light);g.beginPath();gp.forEach((p,i)=>{const [x,y]=proj(p,F);i?g.lineTo(x,y):g.moveTo(x,y);});g.closePath();g.fill();}
+ g.strokeStyle="rgba(255,255,255,"+(0.22*light)+")";g.lineWidth=1;g.beginPath();
+ for(let v=-80;v<=80;v+=4){seg({x:v,y:0,z:-80},{x:v,y:0,z:120});seg({x:-80,y:0,z:v+20},{x:80,y:0,z:v+20});}
+ g.stroke();
+ function seg(a,b){let A=xf(a,C),Bq=xf(b,C);if(A.z<NEAR&&Bq.z<NEAR)return;if(A.z<NEAR){const t=(NEAR-A.z)/(Bq.z-A.z);A={x:A.x+(Bq.x-A.x)*t,y:A.y+(Bq.y-A.y)*t,z:NEAR};}if(Bq.z<NEAR){const t=(NEAR-Bq.z)/(A.z-Bq.z);Bq={x:Bq.x+(A.x-Bq.x)*t,y:Bq.y+(A.y-Bq.y)*t,z:NEAR};}const [x1,y1]=proj(A,F),[x2,y2]=proj(Bq,F);g.moveTo(x1,y1);g.lineTo(x2,y2);}
+ // items
+ const items=[];
+ for(const f of faces){const v=sub(f.c,C);if(dot(f.n,v)>=0)continue;const cp=f.pts.map(p=>xf(p,C));let maxz=-1e9;cp.forEach(p=>{if(p.z>maxz)maxz=p.z;});if(maxz<NEAR)continue;const cl=clip(cp);if(cl.length<3)continue;const d=cl.reduce((s,p)=>s+p.z,0)/cl.length;if(d>220)continue;items.push({d,t:"f",pts:cl,col:f.col});}
+ const balls=[{p:st.b,a:1}];if(st.ghost){for(let k=1;k<=4;k++)balls.push({p:{x:st.b.x-0.55*k,y:st.b.y-0.3*k,z:st.b.z},a:0.45-0.09*k});}
+ balls.forEach(bl=>{const pc=xf(bl.p,C);if(pc.z<NEAR+0.3)return;items.push({d:pc.z-0.01,t:"b",pc,a:bl.a});});
+ {const sh=[];for(let i=0;i<10;i++){const a=i/10*TAU;sh.push(xf({x:st.b.x+0.5*Math.cos(a),y:0.01,z:st.b.z+0.5*Math.sin(a)},C));}const cl=clip(sh);if(cl.length>2){const sc=0.35*clamp(1-(st.b.y-0.5)/4,0.2,1);items.push({d:xf(st.b,C).z+0.02,t:"s",pts:cl,a:sc});}}
+ items.sort((a,b)=>b.d-a.d);
+ const draw=(g2,it)=>{
+  if(it.t==="f"){g2.fillStyle=rgb(it.col,light);g2.beginPath();it.pts.forEach((p,i)=>{const [x,y]=proj(p,F);i?g2.lineTo(x,y):g2.moveTo(x,y);});g2.closePath();g2.fill();}
+  else if(it.t==="s"){g2.fillStyle="rgba(20,25,35,"+it.a+")";g2.beginPath();it.pts.forEach((p,i)=>{const [x,y]=proj(p,F);i?g2.lineTo(x,y):g2.moveTo(x,y);});g2.closePath();g2.fill();}
+  else{const [x,y]=proj(it.pc,F);const r=0.5*F/it.pc.z;const bg=g2.createRadialGradient(x-r*0.35,y-r*0.35,r*0.1,x,y,r);bg.addColorStop(0,rgb([255,140,120],light));bg.addColorStop(0.5,rgb([215,56,43],light));bg.addColorStop(1,rgb([140,30,25],light));g2.globalAlpha=it.a;g2.fillStyle=bg;g2.beginPath();g2.arc(x,y,r,0,TAU);g2.fill();g2.globalAlpha=1;}
+ };
+ if(C.focus!=null&&FILTER_OK){
+  const bands=[[0,5.5],[5.5,12],[12,1e9]];const mids=[3.3,8,18];
+  for(let i=2;i>=0;i--){const L2=layerC[i];L2.x.setTransform(DPR,0,0,DPR,0,0);L2.x.clearRect(0,0,W,H);items.filter(it=>it.d>=bands[i][0]&&it.d<bands[i][1]).forEach(it=>draw(L2.x,it));
+   const bl=Math.min(9,Math.abs(mids[i]-C.focus)/C.focus*9)*W/960;g.save();g.setTransform(1,0,0,1,0,0);g.filter=bl>0.3?"blur("+(bl*DPR).toFixed(1)+"px)":"none";g.drawImage(L2.c,0,0);g.restore();}
+ } else items.forEach(it=>draw(g,it));
+ if(st.hands){const s=W/960;const bob=Math.sin(performance.now()/1000*9.4)*6*s;g.fillStyle="#D9A27F";
+  g.beginPath();g.ellipse(170*s,H+30*s+bob,95*s,120*s,0.5,0,TAU);g.fill();g.beginPath();g.ellipse(W-170*s,H+30*s-bob,95*s,120*s,-0.5,0,TAU);g.fill();
+  g.fillStyle="#3F5168";g.fillRect(40*s,H-40*s+bob,170*s,60*s);g.fillRect(W-210*s,H-40*s-bob,170*s,60*s);}
+}
+const FILTER_OK=typeof ctx.filter==="string";
+
+/* ---------- plan view ---------- */
+const planCv=document.getElementById("plan"),pctx=planCv.getContext("2d");
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function drawPlan(tech,C,st,path,bpath){
+ const S=planCv.width,g=pctx;const v=Object.assign({cx:0,cz:6,span:24},tech.view||{});const side=!!v.side;
+ const ink=cssv("--ink"),ink2=cssv("--ink2"),grid=cssv("--grid"),panel=cssv("--panel"),treeC=cssv("--tree");
+ g.setTransform(1,0,0,1,0,0);g.fillStyle=panel;g.fillRect(0,0,S,S);
+ const sc=S/v.span;
+ const P=side?(z,y)=>[(z-v.cz)*sc+S/2,S/2-(y-v.cy)*sc]:(x,z)=>[(x-v.cx)*sc+S/2,S/2-(z-v.cz)*sc];
+ g.strokeStyle=grid;g.lineWidth=1;g.beginPath();const step=v.span>40?10:2;
+ for(let u=-200;u<=200;u+=step){const [a]=P(u,0);g.moveTo(a,0);g.lineTo(a,S);const [,b]=side?P(0,u):P(0,u);g.moveTo(0,b);g.lineTo(S,b);}g.stroke();
+ if(side){const [,gy]=P(0,0);g.fillStyle=treeC;g.globalAlpha=0.25;g.fillRect(0,gy,S,S-gy);g.globalAlpha=1;g.strokeStyle=ink2;g.beginPath();g.moveTo(0,gy);g.lineTo(S,gy);g.stroke();}
+ // objects
+ g.fillStyle=treeC;
+ TREES.forEach(t=>{const s=t[2]||1;if(side){if(Math.abs(t[0]-C.x)>7)return;const [a,b]=P(t[1],0);const [,b2]=P(t[1],4.2*s);g.beginPath();g.moveTo(a,b2);g.lineTo(a-1.15*s*sc,b-0.9*s*sc);g.lineTo(a+1.15*s*sc,b-0.9*s*sc);g.fill();}else{const [a,b]=P(t[0],t[1]);g.beginPath();g.arc(a,b,Math.max(2,1.15*s*sc),0,TAU);g.fill();}});
+ g.fillStyle=ink2;
+ const rect=(x,z,w,d,h)=>{if(side){const [a,b]=P(z-d/2,h);g.fillRect(a,b,d*sc,h*sc);}else{const [a,b]=P(x-w/2,z+d/2);g.fillRect(a,b,w*sc,d*sc);}};
+ g.globalAlpha=0.55;rect(3,18,2,2,14);rect(-12,42,7,6,8);rect(14,46,8,5,5);g.globalAlpha=1;
+ g.fillStyle="#C9A46A";rect(1.2,3.2,0.8,0.8,0.8);
+ // paths
+ g.setLineDash([5*DPR,5*DPR]);g.lineWidth=1.5*DPR;
+ if(bpath){g.strokeStyle="#D7382B";g.beginPath();bpath.forEach((p,i)=>{const q=side?P(p.z,p.y):P(p.x,p.z);i?g.lineTo(q[0],q[1]):g.moveTo(q[0],q[1]);});g.stroke();}
+ g.strokeStyle=ink;g.beginPath();path.forEach((p,i)=>{const q=side?P(p.z,p.y):P(p.x,p.z);i?g.lineTo(q[0],q[1]):g.moveTo(q[0],q[1]);});g.stroke();g.setLineDash([]);
+ // ball
+ const [bx,by]=side?P(st.b.z,st.b.y):P(st.b.x,st.b.z);g.fillStyle="#D7382B";g.beginPath();g.arc(bx,by,Math.max(4*DPR,0.5*sc),0,TAU);g.fill();
+ // camera
+ const [cx,cy]=side?P(C.z,C.y):P(C.x,C.z);
+ const asp=16/9;const half=side?C.fov*D2R/2:Math.atan(Math.tan(C.fov*D2R/2)*asp);
+ const dir=side?-C.pitch:C.yaw;const Lw=Math.min(S*0.42,v.span*0.45*sc);
+ const ang=side?(a)=>[Math.cos(a),Math.sin(a)]:(a)=>[Math.sin(a),-Math.cos(a)];
+ const a1=ang(dir-half),a2=ang(dir+half);
+ g.fillStyle=ink;g.globalAlpha=0.12;g.beginPath();g.moveTo(cx,cy);g.lineTo(cx+a1[0]*Lw,cy+a1[1]*Lw);g.lineTo(cx+a2[0]*Lw,cy+a2[1]*Lw);g.closePath();g.fill();g.globalAlpha=1;
+ g.strokeStyle=ink;g.lineWidth=1.5*DPR;g.beginPath();g.moveTo(cx+a1[0]*Lw,cy+a1[1]*Lw);g.lineTo(cx,cy);g.lineTo(cx+a2[0]*Lw,cy+a2[1]*Lw);g.stroke();
+ if(C.focus!=null&&!side){const fd=C.focus*sc;const m1=ang(dir-half),m2=ang(dir+half);const k=1/Math.cos(half);g.strokeStyle="#D7382B";g.setLineDash([3*DPR,3*DPR]);g.beginPath();g.moveTo(cx+m1[0]*fd*k,cy+m1[1]*fd*k);g.lineTo(cx+m2[0]*fd*k,cy+m2[1]*fd*k);g.stroke();g.setLineDash([]);}
+ const dm=ang(dir);const r=7*DPR;g.fillStyle=ink;g.beginPath();g.moveTo(cx+dm[0]*r*1.6,cy+dm[1]*r*1.6);g.lineTo(cx-dm[1]*r-dm[0]*r,cy+dm[0]*r-dm[1]*r);g.lineTo(cx+dm[1]*r-dm[0]*r,cy-dm[0]*r-dm[1]*r);g.closePath();g.fill();
+ // roll gauge
+ if(Math.abs(C.roll)>0.02){const gx=S-34*DPR,gy=34*DPR,R=22*DPR;g.strokeStyle=ink2;g.lineWidth=1.5*DPR;g.beginPath();g.arc(gx,gy,R,0,TAU);g.stroke();g.strokeStyle="#D7382B";g.lineWidth=2.5*DPR;g.beginPath();g.moveTo(gx-R*Math.cos(C.roll),gy-R*Math.sin(C.roll));g.lineTo(gx+R*Math.cos(C.roll),gy+R*Math.sin(C.roll));g.stroke();
+  g.fillStyle=ink2;g.font=(12*DPR)+"px 'IBM Plex Sans KR',sans-serif";g.textAlign="center";g.fillText("롤 "+Math.round(C.roll/D2R)+"°",gx,gy+R+16*DPR);}
+ g.fillStyle=ink2;g.font=(12*DPR)+"px 'IBM Plex Sans KR',sans-serif";g.textAlign="left";g.fillText(side?"← 뒤   앞 →":"↑ 앞",10*DPR,S-10*DPR);
+}
+
+/* ---------- UI ---------- */
+const nav=document.getElementById("nav");const byId={};let groups={};
+T.forEach(t=>{byId[t.id]=t;(groups[t.g]=groups[t.g]||[]).push(t);});
+Object.keys(groups).forEach(gn=>{const d=document.createElement("div");d.className="group";const h=document.createElement("h2");h.textContent=gn;d.appendChild(h);
+ groups[gn].forEach(t=>{const b=document.createElement("button");b.type="button";b.className="tech";b.dataset.id=t.id;b.innerHTML="<span></span><span></span>";b.children[0].textContent=t.ko;b.children[1].textContent=t.en.split(",")[0].split(" /")[0].replace(/ (left|up|in)$/,"");b.onclick=()=>select(t.id,true);d.appendChild(b);});nav.appendChild(d);});
+const $=id=>document.getElementById(id);
+let cur=T[0],t0=performance.now(),paused=false,tPos=0,rate=1,last=performance.now(),path=[],bpath=null,prevYaw=null;
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function select(id,push){cur=byId[id]||T[0];tPos=0;prevYaw=null;
+ nav.querySelectorAll(".tech").forEach(b=>b.setAttribute("aria-current",b.dataset.id===cur.id?"true":"false"));
+ $("tName").textContent=cur.ko;$("tEn").textContent=cur.en;$("tWhat").textContent=cur.what;$("tHow").textContent=cur.how;$("tPrompt").textContent=cur.prompt;$("copy").textContent="프롬프트 복사";
+ $("hudName").textContent=cur.en.split(",")[0];$("hudSpeed").textContent=cur.speed||"";
+ $("planTitle").textContent=cur.view&&cur.view.side?"옆에서 본 촬영장":"위에서 본 촬영장";
+ const pr=$("tPair");pr.innerHTML="";if(cur.pair){const o=byId[cur.pair[0]];pr.append(cur.pair[1]+" 비교해 보세요: ");const b=document.createElement("button");b.type="button";b.textContent=o.ko;b.onclick=()=>select(o.id,true);pr.appendChild(b);}
+ $("tNote").textContent=cur.rack&&!FILTER_OK?"이 브라우저는 흐림 효과를 지원하지 않아 초점 변화가 평면도의 빨간 점선으로만 표시됩니다.":"";
+ path=[];bpath=[];let moves=false;for(let i=0;i<=80;i++){const tt=i/80;const r=cur.f(tt,tt*cur.dur);path.push({x:r.c.x,y:r.c.y,z:r.c.z});bpath.push(r.b);if(i&&(Math.abs(r.b.x-bpath[0].x)>0.05||Math.abs(r.b.y-bpath[0].y)>0.05))moves=true;}if(!moves)bpath=null;
+ if(push&&location.hash!=="#"+cur.id)location.hash=cur.id;
+ if(reduce){paused=true;$("play").textContent="재생";}
+}
+$("play").onclick=()=>{paused=!paused;$("play").textContent=paused?"재생":"일시정지";};
+$("restart").onclick=()=>{tPos=0;paused=false;$("play").textContent="일시정지";};
+$("scrub").oninput=e=>{paused=true;$("play").textContent="재생";tPos=e.target.value/1000*cur.dur;};
+$("rate").onchange=e=>{rate=parseFloat(e.target.value);};
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(cur.prompt);$("copy").textContent="복사됨";}catch(err){$("copy").textContent="복사하지 못했습니다. 직접 선택해 복사하세요";}};
+document.addEventListener("keydown",e=>{if(e.target.closest&&e.target.closest("input,select"))return;const i=T.indexOf(cur);if(e.key==="ArrowRight"){select(T[(i+1)%T.length].id,true);}if(e.key==="ArrowLeft"){select(T[(i-1+T.length)%T.length].id,true);}if(e.key===" "&&e.target===document.body){e.preventDefault();$("play").click();}});
+window.addEventListener("hashchange",()=>{const id=location.hash.slice(1);if(byId[id]&&id!==cur.id)select(id,false);});
+window.addEventListener("resize",resize);
+
+function frame(now){const dt=Math.min(0.1,(now-last)/1000);last=now;
+ if(!paused){tPos+=dt*rate;if(tPos>cur.dur+1.2)tPos=0;}
+ const t=clamp(tPos/cur.dur,0,1),s=Math.min(tPos,cur.dur);
+ if(!paused)$("scrub").value=Math.round(t*1000);
+ const r=cur.f(t,s);const C=r.c;const env=envBase(s);if(r.env)Object.assign(env,r.env);if(r.cloud!=null)env.cloud=r.cloud;
+ const st={b:r.b,ghost:r.ghost,hands:r.hands};
+ octx.setTransform(DPR,0,0,DPR,0,0);render(octx,C,st,env);
+ let alpha=1;if(cur.blur&&prevYaw!=null){const w=Math.abs(C.yaw-prevYaw)/Math.max(dt,0.001);if(w>2)alpha=clamp(0.9-w*0.06,0.18,0.9);}prevYaw=C.yaw;
+ ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=alpha;ctx.drawImage(off,0,0);ctx.globalAlpha=1;
+ $("hudLens").textContent="화각 "+Math.round(C.fov)+"°"+(C.focus!=null?"   초점 "+C.focus.toFixed(1)+"m":"");
+ $("hudHeight").textContent="높이 "+C.y.toFixed(1)+"m";
+ drawPlan(cur,C,st,path,bpath);
+ requestAnimationFrame(frame);}
+resize();
+const h0=location.hash.slice(1);select(byId[h0]?h0:T[0].id,false);
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
